@@ -92,9 +92,9 @@ local couponResults = {}
 function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
     if not isCouponSearched then
         gg.clearResults()
-        gg.toast("🔍 البحث عن خانة القسائم")
-        gg.searchNumber("65537~65542;1970225964;29::457", 4)
-        gg.refineNumber("29", 4)
+               gg.clearResults()
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
         if count == 0 then 
@@ -217,10 +217,10 @@ function Final_Emoji_Collector()
         "00003474h", "00333270h"
     }
 
-    gg.clearResults()
-    -- گەڕان بۆ کۆدی بنچینەیی
-    gg.searchNumber("65537~65542;1970225964;29::457", 4)
-    gg.refineNumber("29", 4)
+    
+gg.clearResults()
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     
     local results = gg.getResults(1)
     if #results == 0 then
@@ -317,8 +317,9 @@ function HackItems()
     if not isHackItemsSearched then
         gg.clearResults()
         gg.toast("🔍 البحث عن النقاط...")
-        gg.searchNumber("65537~65542;1970225964;29", 4)
-        gg.refineNumber("29", 4)
+       
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
         if count == 0 then 
@@ -471,10 +472,10 @@ function qalbAltuny()
     if not selected then return qalbAltuny() end
 
     if not isSearched then
+        
         gg.clearResults()
-        gg.toast("🔍 جاري البحث...")
-        gg.searchNumber("65537~65542;1970225964;29", 4)
-        gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
         isSearched = true
     end
 
@@ -576,10 +577,9 @@ function menuTools()
 
     -- لێرەدا، ئەگەر تازە چوویتە ناو بەشەکە، گەڕانی کۆن بەتەواوی پاک دەکەینەوە
     if not isNailSearched then
-        gg.clearResults() -- ئەمە کلیلی چارەسەرەکەیە
-        gg.toast("🔍 بحث جديد عن الأدوات...")
-        gg.searchNumber("65537~65542;1970225964;29", 4)
-        gg.refineNumber("29", 4)
+        gg.clearResults()
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
         if count == 0 then 
@@ -688,9 +688,8 @@ function kandi()
     -- گەڕان تەنها جارێک دەکرێت تا دوگمەی گەڕانەوە دانەنێیت
     if not isKandiSearched then
         gg.clearResults()
-        gg.toast("🌸الرجاء الانتظار🌸")
-        gg.searchNumber("65537~65542;1970225964;29", 4)
-        gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
         if count == 0 then 
@@ -803,9 +802,8 @@ function menuYaqut()
     -- گەڕان تەنها یەکجار تا کاتی گەڕانەوە
     if not isYaqutSearched then
         gg.clearResults()
-       gg.toast("🌺 بدأ البحث 🌺")
-        gg.searchNumber("65537~65542;1970225964;29", 4)
-        gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
         if count == 0 then 
@@ -912,9 +910,8 @@ function menuMshar()
     -- گەڕان تەنها یەکجار
     if not isExpansionSearched then
         gg.clearResults()
-        gg.toast("🌼 بدأ البحث 🌼")
-        gg.searchNumber("65537~65542;1970225964;29", 4)
-        gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
         if count == 0 then 
@@ -973,7 +970,7 @@ end
 
 
 function Final_Auto_Collector()
-    gg.clearResults()
+    
     -- لیستی هەموو کۆدەکان
     local all_avatars = {
         3748147, 3291442, 3553329, 3289393, 3487793, 3618865, 3551281, 3355697, 
@@ -994,8 +991,9 @@ function Final_Auto_Collector()
     }
 
     -- گەڕان بۆ خانەی ٢٩
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+    gg.clearResults()
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     
     local results = gg.getResults(1)
     if #results == 0 then return gg.alert("❌ دڵنیابەوە لە یاری بە سراوەتەوە بە جێم ") end
@@ -1098,9 +1096,8 @@ function YellowMenu()
     -- گەڕان تەنها یەکجار
     if not isYellowSearched then
         gg.clearResults()
-        gg.toast("🌹جاري البحث 🌹")
-        gg.searchNumber("65537~65542;1970225964;29", 4)
-        gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
         if count == 0 then 
@@ -1250,8 +1247,8 @@ local ice_collection = {
 function Ice_InitialSetup()
     gg.toast("🦜 البحث مستمر، يرجى الانتظار 🦜")
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local r = gg.getResults(1)
     if #r == 0 then 
         gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
@@ -1345,8 +1342,8 @@ local selectedHeartIndex = 0
 -- ٢. فەنکشنی سەرەکی بە شێوازی مینۆ و قفلکراو
 function Run_Hearts_Bears()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -1479,8 +1476,8 @@ local selectedDecoIndex = 0
 -- ٢. فەنکشنی جوانکاری بە شێوازی مینۆ و قفلکراو
 function Run_Decoration()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -1583,8 +1580,8 @@ local selectedWaterIndex = 0
 -- ٢. فەنکشنی جوانکارییەکان بە شێوازی مینۆ و قفلکراو
 function Run_Water_Decoration()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -1670,8 +1667,8 @@ local selectedFountainIndex = 0
 -- ٢. فەنکشنی نافوورەکان بە شێوازی مینۆ و قفلکراو
 function Run_Fountain()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -1771,8 +1768,8 @@ local selectedWitchIndex = 0
 -- ٢. فەنکشنی ماڵی ساحیرەکان بە شێوازی مینۆ و قفلکراو
 function Run_Witch_Houses()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -1858,8 +1855,8 @@ local selectedTreeIndex = 0
 -- ٢. فەنکشنی دارەکان بە شێوازی مێنۆ و قفلکراو
 function Run_Trees()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -1935,8 +1932,8 @@ local selectedRabbitIndex = 0
 -- ٢. فەنکشنی کەروێشکەکان بە شێوازی مێنۆ و قفلکراو
 function Run_Rabbit_Houses()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2026,8 +2023,8 @@ local selectedFenceIndex = 0
 -- ٢. فەنکشنی سیاجەکان بە شێوازی مێنۆ و قفلکراو
 function Run_Fences()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2149,8 +2146,8 @@ end
 -- ٣. فەنکشنی مریشکەکان بە مێنۆی هەڵبژاردن (Radio Style)
 function Run_Chickens()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local r = gg.getResults(1)
     
     if #r == 0 then 
@@ -2239,8 +2236,8 @@ local selectedCowIndex = 0
 -- ٢. فەنکشنی مانگاکان بە مێنۆی هەڵبژاردنی بازنەیی
 function Run_Cows()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2319,8 +2316,8 @@ local selectedSheepIndex = 0
 -- ٢. فەنکشنی مەڕەکان بە مێنۆی هەڵبژاردن
 function Run_Sheeps()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2387,8 +2384,8 @@ local selectedPigIndex = 0
 -- ٢. فەنکشنی بەرازەکان بە مێنۆی هەڵبژاردن
 function Run_Pigs()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2501,8 +2498,8 @@ end
 -- ٣. فەنکشنی شەمەندەفەرەکان
 function Run_Train_Logic()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2572,8 +2569,8 @@ local selectedStationIndex = 0
 -- ٢. فەنکشنی وێستگەی شەمەندەفەر بە مێنۆی هەڵبژاردن
 function Run_Train_Station()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2646,8 +2643,8 @@ local selectedHeliIndex = 0
 -- ٢. فەنکشنی هەلیکۆپتەر بە مێنۆی هەڵبژاردن
 function Run_Helicopter()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2721,8 +2718,8 @@ local selectedAirIndex = 0
 -- ٢. فەنکشنی تەیارەکان بە مێنۆی هەڵبژاردن
 function Run_Air_Mixed()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2798,8 +2795,8 @@ local selectedShipIndex = 0
 -- ٢. فەنکشنی پاپۆڕ و لەنگەر بە مێنۆی هەڵبژاردن
 function Run_Ship_Island_Mixed()
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", 4)
-    gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
     if #results == 0 then 
@@ -2905,9 +2902,8 @@ function StoneMenu()
     -- گەڕان تەنها بۆ یەکەم جار
     if not isStoneSearched then
         gg.clearResults()
-        gg.toast("🔍 جاري البحث عن مناجم الأحجار...")
-        gg.searchNumber("65537~65542;1970225964;29", 4)
-        gg.refineNumber("29", 4)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
         if count == 0 then 
@@ -2970,8 +2966,7 @@ function NaznawakanMenu()
     -- مەرج بۆ ئەوەی گەڕان تەنها یەکجار ئەنجام بدرێت
     if not searchDone then
         gg.clearResults()
-        gg.toast("⏳ يرجى الانتظار حتى ينتهي البحث")
-        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         searchDone = true 
     end
@@ -3105,8 +3100,8 @@ function Slemani_InitialSetup(mode)
     end
 
     gg.clearResults()
-    gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
-    gg.refineNumber("29", gg.TYPE_DWORD)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
     local res2 = gg.getResults(1)
     if #res2 == 0 then gg.alert("🚫 دڵنیابەوە یاریەکەت بەسراوەتەوە بە جێم"); return false end
     targetAddress = res2[1].address
@@ -3272,9 +3267,8 @@ end
 function Aram_Logokan()
     -- ١. پاککردنەوەی میمۆری لە کاتی چوونە ناو ئەم بەشە
     gg.clearResults()
-    gg.toast("⏳ جاري البحث، يرجى الانتظار...")
-    gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
-    gg.refineNumber("29", gg.TYPE_DWORD)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
 
     local r = gg.getResults(100)
     if #r == 0 then
@@ -4640,7 +4634,7 @@ function Koga()
 
         -- گەڕانی دووەم
         gg.clearResults()
-        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         local r2 = gg.getResults(1)
         if #r2 == 0 then gg.alert("لم يتم العثور على الكود الثاني") return end
@@ -4710,8 +4704,7 @@ function Binakan()
 
         -- گەڕان بۆ بەهای ئامانج (29)
         gg.clearResults()
-        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
-        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
 
         local r2 = gg.getResults(1)
@@ -4758,7 +4751,8 @@ function Agriculture()
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         
         -- بە هەمان شێوەی تەیارە دەگەڕێین بۆ ٢٩
-        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
 
         local results = gg.getResults(1)
@@ -4808,8 +4802,9 @@ function tayara()
 
 
     -- ١. گەڕان بۆ ٢٩ و گروپەکەی
-    gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
-    gg.refineNumber("29", gg.TYPE_DWORD)
+    
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
 
     local results = gg.getResults(1)
     if #results == 0 then
@@ -4906,8 +4901,9 @@ function MenuZyadkrdn()
         if not isZyadSearched then
             gg.clearResults()
             gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
-            gg.searchNumber("65537~65542;1970225964;29", 4)
-            gg.refineNumber("29", 4)
+            
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
             
             local count = gg.getResultCount()
             if count == 0 then 
