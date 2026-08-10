@@ -3481,7 +3481,7 @@ function HackLogic()
         return
     end
 
-    local searchValue = "1703939;0;0;0;2;0::45"
+    local searchValue = "1703939;0;0;0;2;0"
     local results = nil
     local base = nil
 
