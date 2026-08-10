@@ -3481,9 +3481,13 @@ function HackLogic()
         return
     end
 
-    local searchValue = "1703939;0;0;0;2;0"
-    local results = nil
-    local base = nil
+    gg.clearResults()
+
+gg.searchNumber("1703939;0;0;0;2;0::45", gg.TYPE_DWORD)
+
+local count = gg.getResultCount()
+
+gg.alert("ئەنجامەکانی گەڕان: " .. count)
 
     -- یەکەم C_ALLOC
     gg.clearResults()
