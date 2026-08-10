@@ -140,6 +140,7 @@ local couponResults = {}
 function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
     if not isCouponSearched then
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber('65537~65542;1970225964;29::457', gg.TYPE_DWORD)
         gg.refineNumber('29', gg.TYPE_DWORD)
         local results = gg.getResults(1)
@@ -147,7 +148,7 @@ function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
         if #results < 1 then
             gg.toast(" البحث عن الكود الثاني")
             gg.clearResults()
-
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
             gg.searchNumber('28;1952533798;29::641', gg.TYPE_DWORD)
             gg.refineNumber('29', gg.TYPE_DWORD)
             results = gg.getResults(1)
@@ -155,7 +156,7 @@ function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
             if #results < 1 then
                 gg.toast(" البحث عن الكود الثالث")
                 gg.clearResults()
-
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
                 gg.searchNumber('65537;1970225964;29:457', gg.TYPE_DWORD)
                 results = gg.getResults(1)
 
@@ -283,6 +284,7 @@ function Final_Emoji_Collector()
 
     
 gg.clearResults()
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     
@@ -381,7 +383,7 @@ function HackItems()
     if not isHackItemsSearched then
         gg.clearResults()
         gg.toast("🔍 البحث عن النقاط...")
-       
+       gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
@@ -538,6 +540,7 @@ function qalbAltuny()
     if not isSearched then
         
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         isSearched = true
@@ -642,6 +645,7 @@ function menuTools()
     -- لێرەدا، ئەگەر تازە چوویتە ناو بەشەکە، گەڕانی کۆن بەتەواوی پاک دەکەینەوە
     if not isNailSearched then
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
@@ -752,6 +756,7 @@ function kandi()
     -- گەڕان تەنها جارێک دەکرێت تا دوگمەی گەڕانەوە دانەنێیت
     if not isKandiSearched then
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
@@ -866,6 +871,7 @@ function menuYaqut()
     -- گەڕان تەنها یەکجار تا کاتی گەڕانەوە
     if not isYaqutSearched then
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
@@ -974,6 +980,7 @@ function menuMshar()
     -- گەڕان تەنها یەکجار
     if not isExpansionSearched then
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
@@ -1056,6 +1063,7 @@ function Final_Auto_Collector()
 
     -- گەڕان بۆ خانەی ٢٩
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     
@@ -1160,6 +1168,7 @@ function YellowMenu()
     -- گەڕان تەنها یەکجار
     if not isYellowSearched then
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
@@ -1311,6 +1320,7 @@ local ice_collection = {
 function Ice_InitialSetup()
     gg.toast("🦜 البحث مستمر، يرجى الانتظار 🦜")
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local r = gg.getResults(1)
@@ -1406,6 +1416,7 @@ local selectedHeartIndex = 0
 -- ٢. فەنکشنی سەرەکی بە شێوازی مینۆ و قفلکراو
 function Run_Hearts_Bears()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -1540,6 +1551,7 @@ local selectedDecoIndex = 0
 -- ٢. فەنکشنی جوانکاری بە شێوازی مینۆ و قفلکراو
 function Run_Decoration()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -1644,6 +1656,7 @@ local selectedWaterIndex = 0
 -- ٢. فەنکشنی جوانکارییەکان بە شێوازی مینۆ و قفلکراو
 function Run_Water_Decoration()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -1731,6 +1744,7 @@ local selectedFountainIndex = 0
 -- ٢. فەنکشنی نافوورەکان بە شێوازی مینۆ و قفلکراو
 function Run_Fountain()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -1832,6 +1846,7 @@ local selectedWitchIndex = 0
 -- ٢. فەنکشنی ماڵی ساحیرەکان بە شێوازی مینۆ و قفلکراو
 function Run_Witch_Houses()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -1919,6 +1934,7 @@ local selectedTreeIndex = 0
 -- ٢. فەنکشنی دارەکان بە شێوازی مێنۆ و قفلکراو
 function Run_Trees()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -1996,6 +2012,7 @@ local selectedRabbitIndex = 0
 -- ٢. فەنکشنی کەروێشکەکان بە شێوازی مێنۆ و قفلکراو
 function Run_Rabbit_Houses()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -2087,6 +2104,7 @@ local selectedFenceIndex = 0
 -- ٢. فەنکشنی سیاجەکان بە شێوازی مێنۆ و قفلکراو
 function Run_Fences()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -2210,6 +2228,7 @@ end
 -- ٣. فەنکشنی مریشکەکان بە مێنۆی هەڵبژاردن (Radio Style)
 function Run_Chickens()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local r = gg.getResults(1)
@@ -2300,6 +2319,7 @@ local selectedCowIndex = 0
 -- ٢. فەنکشنی مانگاکان بە مێنۆی هەڵبژاردنی بازنەیی
 function Run_Cows()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -2380,6 +2400,7 @@ local selectedSheepIndex = 0
 -- ٢. فەنکشنی مەڕەکان بە مێنۆی هەڵبژاردن
 function Run_Sheeps()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -2448,6 +2469,7 @@ local selectedPigIndex = 0
 -- ٢. فەنکشنی بەرازەکان بە مێنۆی هەڵبژاردن
 function Run_Pigs()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -2562,6 +2584,7 @@ end
 -- ٣. فەنکشنی شەمەندەفەرەکان
 function Run_Train_Logic()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -2633,6 +2656,7 @@ local selectedStationIndex = 0
 -- ٢. فەنکشنی وێستگەی شەمەندەفەر بە مێنۆی هەڵبژاردن
 function Run_Train_Station()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -2707,6 +2731,7 @@ local selectedHeliIndex = 0
 -- ٢. فەنکشنی هەلیکۆپتەر بە مێنۆی هەڵبژاردن
 function Run_Helicopter()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -2782,6 +2807,7 @@ local selectedAirIndex = 0
 -- ٢. فەنکشنی تەیارەکان بە مێنۆی هەڵبژاردن
 function Run_Air_Mixed()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -2859,6 +2885,7 @@ local selectedShipIndex = 0
 -- ٢. فەنکشنی پاپۆڕ و لەنگەر بە مێنۆی هەڵبژاردن
 function Run_Ship_Island_Mixed()
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
@@ -3030,6 +3057,7 @@ function NaznawakanMenu()
     -- مەرج بۆ ئەوەی گەڕان تەنها یەکجار ئەنجام بدرێت
     if not searchDone then
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         searchDone = true 
@@ -3153,6 +3181,7 @@ local SMART_PARTS = {
 function Slemani_InitialSetup(mode)
     gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
     gg.searchNumber("1599099688;1936682818;33;24", gg.TYPE_DWORD)
     gg.refineNumber("33", gg.TYPE_DWORD)
     local res1 = gg.getResults(1)
@@ -3164,6 +3193,7 @@ function Slemani_InitialSetup(mode)
     end
 
     gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local res2 = gg.getResults(1)
@@ -4099,20 +4129,36 @@ function CardsSystemAram()
     if not anySelected then return CardsSystemAram() end
 
     -- گەڕان تەنها بۆ یەکەم جار
-    if not isSearchedCards then
-        gg.clearResults()
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
-        gg.refineNumber("29", gg.TYPE_DWORD)
-        
-        local count = gg.getResultCount()
-        if count == 0 then 
-            isSearchedCards = false 
-            gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ") 
-            return CardsSystemAram()
-        end
-        cardsResults = gg.getResults(count)
-        isSearchedCards = true
+   if not isSearchedCards then
+
+    gg.clearResults()
+
+    -- هەمان Memory Region ـی Ca,O
+    gg.setRanges(
+        gg.REGION_C_ALLOC | gg.REGION_OTHER
+    )
+
+    gg.searchNumber(
+        "65537~65542;1970225964;29::457",
+        gg.TYPE_DWORD
+    )
+
+    gg.refineNumber(
+        "29",
+        gg.TYPE_DWORD
+    )
+
+    local count = gg.getResultCount()
+
+    if count == 0 then
+        isSearchedCards = false
+        gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
+        return CardsSystemAram()
     end
+
+    cardsResults = gg.getResults(count)
+    isSearchedCards = true
+end
 
     local input = gg.prompt({'اكتب الكمية المطلوبة:'}, {'0'}, {'number'})
     if input == nil then return CardsSystemAram() end
@@ -4237,21 +4283,37 @@ local saved_base2 = nil
 local saved_copied = nil
 
 function Binakan()
-    -- ١. ئەگەر پێشتر نەگەڕابووین، با بگەڕێین بۆ دۆزینەوەی ئەدرەسەکان
+    -- ١. ئەگەر پێشتر نەگەڕابووین
     if saved_copied == nil or saved_base2 == nil then
+
         gg.clearResults()
-        gg.setRanges(gg.REGION_C_ALLOC)
+
+        -- هەمان Memory Region ـی Ca,O
+        gg.setRanges(
+            gg.REGION_C_ALLOC | gg.REGION_OTHER
+        )
 
         -- گەڕان بۆ کۆدی بنچینە (24)
-        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
-        gg.searchNumber("1599099688;1936682818;33;24", gg.TYPE_DWORD)
-        gg.refineNumber("24", gg.TYPE_DWORD)
+        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+
+        gg.searchNumber(
+            "1599099688;1936682818;33;24",
+            gg.TYPE_DWORD
+        )
+
+        gg.refineNumber(
+            "24",
+            gg.TYPE_DWORD
+        )
 
         local r1 = gg.getResults(1)
+
         if #r1 == 0 then
-            gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
+            gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
             return
         end
+
+        
 
         local addr1 = r1[1].address
         saved_copied = gg.getValues({
@@ -4264,18 +4326,31 @@ function Binakan()
         })
 
         -- گەڕان بۆ بەهای ئامانج (29)
-        gg.clearResults()
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
-        gg.refineNumber("29", gg.TYPE_DWORD)
+     gg.clearResults()
 
-        local r2 = gg.getResults(1)
-        if #r2 == 0 then
-            gg.alert("لم يتم العثور على القيمة المستهدفة (29)!")
-            saved_copied = nil -- ئەگەر ئەمە نەدۆزرایەوە، با جاری داهاتوو دووبارە بگەڕێتەوە
-            return
-        end
-        saved_base2 = r2[1].address
-    end
+gg.setRanges(
+    gg.REGION_C_ALLOC | gg.REGION_OTHER
+)
+
+gg.searchNumber(
+    "65537~65542;1970225964;29::457",
+    gg.TYPE_DWORD
+)
+
+gg.refineNumber(
+    "29",
+    gg.TYPE_DWORD
+)
+
+local r2 = gg.getResults(1)
+
+if #r2 == 0 then
+    gg.alert("لم يتم العثور على القيمة المستهدفة (29)!")
+    saved_copied = nil
+    return
+end
+
+saved_base2 = r2[1].address
 
     -- ٢. داواکردنی نرخی نوێ
     local input = gg.prompt({"حدد القيمة "}, {0}, {"number"})
@@ -4306,21 +4381,36 @@ end
 
 -- فانکشنی کەمکردنەوەی کاتی کوشتوکاڵ
 function Agriculture()
+
     if saved_base2 == nil then
+
         gg.clearResults()
-        gg.setRanges(gg.REGION_C_ALLOC)
-        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
-        
-        -- بە هەمان شێوەی تەیارە دەگەڕێین بۆ ٢٩
-        
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
-        gg.refineNumber("29", gg.TYPE_DWORD)
+
+        -- هەمان Memory Region ـی Ca,O
+        gg.setRanges(
+            gg.REGION_C_ALLOC | gg.REGION_OTHER
+        )
+
+        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+
+        -- گەڕان بۆ ٢٩
+        gg.searchNumber(
+            "65537~65542;1970225964;29::457",
+            gg.TYPE_DWORD
+        )
+
+        gg.refineNumber(
+            "29",
+            gg.TYPE_DWORD
+        )
 
         local results = gg.getResults(1)
+
         if #results == 0 then
             gg.alert("لم يتم العثور على الكود المطلوب! ❌")
             return
         end
+
         saved_base2 = results[1].address
     end
 
@@ -4544,6 +4634,7 @@ end
     if menu[3] then
         gg.clearResults()
         gg.toast("🔍 جاري البحث عن الكتاب الأول...")
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("1900000x4", 4)
         local count = gg.getResultCount()
         if count > 0 then
@@ -4592,7 +4683,7 @@ function start_auto_hack()
   gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
   gg.clearResults()
   
-
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
   gg.searchNumber("65538;1952533772::89", gg.TYPE_DWORD)
   
 
@@ -4634,7 +4725,7 @@ gg.alert("👨‍🔧 يرجى الانتظار حتى يكتمل البحث �
 gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
 gg.clearResults()
 gg.setVisible(false)
-
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
 gg.searchNumber("1818848520;107;1150681088::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
 gg.refineNumber("1150681088", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
 n = gg.getResultCount()
@@ -4651,7 +4742,7 @@ end
 gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
 gg.clearResults()
 gg.setVisible(false)
-
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
 gg.searchNumber("1701995018;25697;1168687104::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
 gg.refineNumber("1168687104", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
 n = gg.getResultCount()
@@ -4807,6 +4898,7 @@ function shuunaa()
         
         -- گەڕانی یەکەم
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("1599099688;1936682818;33;24;23", gg.TYPE_DWORD)
         gg.refineNumber("23", gg.TYPE_DWORD)
         local r1 = gg.getResults(1)
@@ -4824,6 +4916,7 @@ function shuunaa()
 
         -- گەڕانی دووەم
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         local r2 = gg.getResults(1)
@@ -4857,7 +4950,7 @@ function shuunaa()
         
     end
 end
-
+end 
 
 MainMenu()
 while true do
