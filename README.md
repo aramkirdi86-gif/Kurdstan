@@ -2950,7 +2950,7 @@ local isStoneSearched = false
 local stoneResults = {}
 local stoneConfig = {
     [1] = {name="⛏️ پاچ", hex={0x00326D04, 0, 0, 0, 0, 0}},
-    [2] = {name="💣 تەقینەوە", hex={0x00336D04, 0, 0, 0, 0, 0}},
+    [2] = {name="?? تەقینەوە", hex={0x00336D04, 0, 0, 0, 0, 0}},
     [3] = {name="🛢️ بەرمیل تەقینەوە", hex={0x00316D04, 0, 0, 0, 0, 0}}
 }
 
@@ -4283,37 +4283,22 @@ local saved_base2 = nil
 local saved_copied = nil
 
 function Binakan()
-    -- ١. ئەگەر پێشتر نەگەڕابووین
+    -- ١. ئەگەر پێشتر نەگەڕابووین، با بگەڕێین بۆ دۆزینەوەی ئەدرەسەکان
     if saved_copied == nil or saved_base2 == nil then
-
         gg.clearResults()
-
-        -- هەمان Memory Region ـی Ca,O
-        gg.setRanges(
-            gg.REGION_C_ALLOC | gg.REGION_OTHER
-        )
+        
 
         -- گەڕان بۆ کۆدی بنچینە (24)
-        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
-
-        gg.searchNumber(
-            "1599099688;1936682818;33;24",
-            gg.TYPE_DWORD
-        )
-
-        gg.refineNumber(
-            "24",
-            gg.TYPE_DWORD
-        )
+        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+        gg.searchNumber("1599099688;1936682818;33;24", gg.TYPE_DWORD)
+        gg.refineNumber("24", gg.TYPE_DWORD)
 
         local r1 = gg.getResults(1)
-
         if #r1 == 0 then
-            gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
+            gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
             return
         end
-
-        
 
         local addr1 = r1[1].address
         saved_copied = gg.getValues({
@@ -4326,31 +4311,20 @@ function Binakan()
         })
 
         -- گەڕان بۆ بەهای ئامانج (29)
-     gg.clearResults()
+        gg.clearResults()
+        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
 
-gg.setRanges(
-    gg.REGION_C_ALLOC | gg.REGION_OTHER
-)
-
-gg.searchNumber(
-    "65537~65542;1970225964;29::457",
-    gg.TYPE_DWORD
-)
-
-gg.refineNumber(
-    "29",
-    gg.TYPE_DWORD
-)
-
-local r2 = gg.getResults(1)
-
-if #r2 == 0 then
-    gg.alert("لم يتم العثور على القيمة المستهدفة (29)!")
-    saved_copied = nil
-    return
-end
-
-saved_base2 = r2[1].address
+        local r2 = gg.getResults(1)
+        if #r2 == 0 then
+            gg.alert("لم يتم العثور على القيمة المستهدفة (29)!")
+            saved_copied = nil -- ئەگەر ئەمە نەدۆزرایەوە، با جاری داهاتوو دووبارە بگەڕێتەوە
+            return
+        end
+        saved_base2 = r2[1].address
+    end
 
     -- ٢. داواکردنی نرخی نوێ
     local input = gg.prompt({"حدد القيمة "}, {0}, {"number"})
@@ -4381,36 +4355,20 @@ end
 
 -- فانکشنی کەمکردنەوەی کاتی کوشتوکاڵ
 function Agriculture()
-
     if saved_base2 == nil then
-
         gg.clearResults()
-
-        -- هەمان Memory Region ـی Ca,O
-        gg.setRanges(
-            gg.REGION_C_ALLOC | gg.REGION_OTHER
-        )
-
-        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
-
-        -- گەڕان بۆ ٢٩
-        gg.searchNumber(
-            "65537~65542;1970225964;29::457",
-            gg.TYPE_DWORD
-        )
-
-        gg.refineNumber(
-            "29",
-            gg.TYPE_DWORD
-        )
+      
+        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
+        
+  gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
 
         local results = gg.getResults(1)
-
         if #results == 0 then
             gg.alert("لم يتم العثور على الكود المطلوب! ❌")
             return
         end
-
         saved_base2 = results[1].address
     end
 
@@ -4448,30 +4406,19 @@ end
 function tayara()
 
     gg.clearResults()
+    
+    gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
 
-    -- هەمان Memory Region ـی Ca,O
-    gg.setRanges(
-        gg.REGION_C_ALLOC | gg.REGION_OTHER
-    )
 
-    gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
-
-    -- گەڕان بۆ ٢٩ و گروپەکەی
-    gg.searchNumber(
-        "65537~65542;1970225964;29::457",
-        gg.TYPE_DWORD
-    )
-
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+    gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
     gg.refineNumber("29", gg.TYPE_DWORD)
 
     local results = gg.getResults(1)
-
     if #results == 0 then
         gg.alert("لم يتم العثور على كود الطيران! ❌")
-        return
+        return -- لێرە یەکسەر دەگەڕێتەوە و ئەسکریپتەکە داناخرێت
     end
-
-    -- بەردەوامی کۆدەکەت لێرەوە...
 
     local b = results[1].address
     local input = gg.prompt({"اكتب مقدار الوقت للمربع "}, {0}, {"number"})
@@ -4501,7 +4448,7 @@ function SubMenu12()
     	"╔══════════ 🦋══════════╗\nꕤ     🏘️          تصفير وقت البناء        ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🛩️          تصفير وقت الطائره     ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🌱           تصفير وقت زراعة       ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🏡    تصفير وقت الحيوانات       ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     🌱           تصفير وقت  حیوانات     ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🔄                رجــــــــــوع               ꕤ\n╚══════════════════════╝",
     
     }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
@@ -4950,7 +4897,7 @@ function shuunaa()
         
     end
 end
-end 
+
 
 MainMenu()
 while true do
