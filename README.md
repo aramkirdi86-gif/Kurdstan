@@ -1,3 +1,52 @@
+do
+    local _error = error
+    error = function() os.exit() end
+
+    local _make = gg.makeRequest
+    gg.makeRequest = function(url)
+        local ok, res = pcall(_make, url)
+        if not ok or type(res) ~= "table" or not res.content then
+            os.exit()
+        end
+        return res
+    end
+
+    local _load = load
+    load = function(...)
+        local ok, f = pcall(_load, ...)
+        if not ok then os.exit() end
+        return f
+    end
+
+    local _loadstring = loadstring
+    if _loadstring then
+        loadstring = function(...)
+            local ok, f = pcall(_loadstring, ...)
+            if not ok then os.exit() end
+            return f
+        end
+    end
+end
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+do
+    local oldRequest = gg.makeRequest
+    gg.makeRequest = function(url)
+        local ok, res = pcall(oldRequest, url)
+        if not ok or type(res) ~= "table" or not res.content then
+            os.exit()
+        end
+        return res
+    end
+end
+
+
+--نطاقات Ca
+gg.setVisible(false)
+local cachedValues = {
+    secondary = nil,
+    mainPattern = nil
+}
 
 gg.alert([[
   ⭐ ━━━━━━━━━━━━━━━━━━━━━━ ⭐
@@ -3348,12 +3397,17 @@ end
                 "╔══════════ 🦋══════════╗\nꕤ     🕰️       اكواد تصفير الوقت         ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🕹️      الكاش☜الفلوس☜إلخ     ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     👑       زيادة نقاط السباق          ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👑       لایکات                       ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     🏡            تصفير الوقت حيوانات           ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👷      ناردنی تەیارە بی تەڵەب  ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👷      زیاد کردنی سندوق تاجر   ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👷      زیاد کردنی سندوق مسنع  ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🛠️      مستلزمات داخل اللعبة   ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🚪             خــــــــــروج                 ꕤ\n╚══════════════════════╝",
 
             }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
 
-            if menu == nil then 
+            if menu == nil then       
                 gg.setVisible(false) 
             else
                 if menu[1] == true then HackGoldPass() end
@@ -3370,8 +3424,13 @@ end
                 if menu[12] then SubMenu12() end
                 if menu[13] then MenuZyadkrdn() end
                 if menu[14] then kurd() end
-                if menu[15] then PdaistakanyYari() end
-                if menu[16] == true then 
+                if menu[15] then likat() end
+                if menu[16] then hewanat() end
+                if menu[17] then tayarrrrr() end
+                if menu[18] then snduqsuq() end
+                if menu[19] then snduqmasna3() end
+                if menu[20] then PdaistakanyYari() end
+                if menu[21] == true then 
               gg.clearList()   
        gg.clearResults() 
       gg.toast("👋 في أمان الله، لا تنسانا من صالح دعائك")
@@ -3400,9 +3459,12 @@ function HackLogic()
         gg.setRanges(gg.REGION_C_ALLOC)
         
         -- گەڕان بۆ تەڵەبەکە
-        gg.searchNumber("1703939;0;0;0;2;0::45", gg.TYPE_DWORD)
-        local results = gg.getResults(1)
+        gg.searchNumber('1703939;0;0;0;2;0::45', gg.TYPE_DWORD) 
 
+n = gg.getResultCount()
+        
+        local results = gg.getResults(1)
+ 
         if #results > 0 then
             local base = results[1].address
             local modifications = {
@@ -3427,694 +3489,171 @@ else
 end
 -- [[ 🚂 بەشی قیتار لێرە دەستپێدەکات ]]
 function HackTrain()
-gg.toast("🔥 Kurd Town Is Always Leading 🔥")
-gg.setVisible(false) gg.clearResults() 
-local pointerTrains = nil 
-local monitorAddress1 = nil 
-local monitorAddress2 = nil 
-local monitorEditAddress1 = nil 
-local monitorEditAddress2 = nil 
-local lastMonitorValue1 = 0 
-local lastMonitorValue2 = 0 
-local monitoringEnabled = true 
-local monitoringFile = gg.getFile() .. ".monitoring" 
-local trainsPointerFile = gg.getFile() .. ".trains_pointer" 
 
+gg.setVisible(false)
+gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
+    gg.clearResults()
+    gg.searchNumber("50;1801519104;51;52:65", gg.TYPE_DWORD)
+    gg.refineNumber("51", gg.TYPE_DWORD)
 
-function clearMemory() 
-    gg.clearResults() 
-    gg.clearList() 
-    collectgarbage("collect") 
-end 
-
-function loadTrainsPointer() 
-    local file = io.open(trainsPointerFile, "r") 
-    if file then 
-        local content = file:read("*a") 
-        file:close() 
-        for line in content:gmatch("[^\r\n]+") do 
-            local name, value = line:match("(.+)=(.+)") 
-            if name and value and name == "pointerTrains" and value ~= "nil" then 
-                pointerTrains = value 
-                return true 
-            end 
-        end 
-    end 
-    return false 
-end 
-
-function saveTrainsPointer() 
-    local file = io.open(trainsPointerFile, "w") 
-    if file then 
-        file:write("pointerTrains=" .. (pointerTrains or "nil") .. "\n") 
-        file:close() 
-        return true 
-    end 
-    return false 
-end 
-
-function loadMonitoring() 
-    local file = io.open(monitoringFile, "r") 
-    if file then 
-        local content = file:read("*a") 
-        file:close() 
-        for line in content:gmatch("[^\r\n]+") do 
-            local name, value = line:match("(.+)=(.+)") 
-            if name and value then 
-                if name == "monitorAddress1" and value ~= "nil" then 
-                    monitorAddress1 = tonumber(value) 
-                elseif name == "monitorAddress2" and value ~= "nil" then 
-                    monitorAddress2 = tonumber(value) 
-                elseif name == "monitorEditAddress1" and value ~= "nil" then 
-                    monitorEditAddress1 = tonumber(value) 
-                elseif name == "monitorEditAddress2" and value ~= "nil" then 
-                    monitorEditAddress2 = tonumber(value) 
-                elseif name == "lastMonitorValue1" and value ~= "nil" then 
-                    lastMonitorValue1 = tonumber(value) 
-                elseif name == "lastMonitorValue2" and value ~= "nil" then 
-                    lastMonitorValue2 = tonumber(value) 
-                end 
-            end 
-        end 
-        return true 
-    end 
-    return false
-    end 
-
-function saveMonitoring() 
-    local file = io.open(monitoringFile, "w") 
-    if file then 
-        file:write("monitorAddress1=" .. (monitorAddress1 or "nil") .. "\n") 
-        file:write("monitorAddress2=" .. (monitorAddress2 or "nil") .. "\n") 
-        file:write("monitorEditAddress1=" .. (monitorEditAddress1 or "nil") .. "\n") 
-        file:write("monitorEditAddress2=" .. (monitorEditAddress2 or "nil") .. "\n") 
-        file:write("lastMonitorValue1=" .. (lastMonitorValue1 or "nil") .. "\n") 
-        file:write("lastMonitorValue2=" .. (lastMonitorValue2 or "nil") .. "\n") 
-        file:close() 
-    end 
-end 
-
-function saveMonitoringValues() 
-    clearMemory() 
-    gg.searchNumber("38048X108", gg.TYPE_DWORD) 
-    local results = gg.getResults(999) 
-    if #results == 0 then 
-        gg.toast("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ") 
-        return 
-    end 
-gg.clearResults() -- هەموو گەڕانە کۆنەکان بسڕەوە
-gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC) -- مەودای گەڕان ڕێکبخە
-gg.searchNumber("18000", gg.TYPE_DWORD) -- لێرە بە "Search" دەست پێ بکە نەک "Refine"
-results = gg.getResults(1)
-    local found = false 
-    for i, r in ipairs(results) do 
-        local cv = gg.getValues({{address = r.address, flags = gg.TYPE_DWORD}})
-        if cv[1].value == 18000 then
-            monitorAddress1 = r.address - 0x74 
-            monitorAddress2 = r.address - 0x4 
-            monitorEditAddress1 = r.address - 0x64 
-            monitorEditAddress2 = r.address + 0xC 
-            lastMonitorValue1 = gg.getValues({{address = monitorAddress1, flags = gg.TYPE_DWORD}})[1].value 
-            lastMonitorValue2 = gg.getValues({{address = monitorAddress2, flags = gg.TYPE_DWORD}})[1].value 
-            monitoringEnabled = true 
-            saveMonitoring() 
-            gg.toast("✅ تم حفظ قيم المراقبة")
-            found = true 
-            break 
-        end 
-    end 
-    if not found then 
-        gg.toast("❌ لم يتم العثور على القيمة المطلوبة")
-    end 
-    clearMemory() 
-end 
-
-function checkProductMonitoring() 
-    if not monitorAddress1 or not monitorAddress2 or not monitoringEnabled then return false end 
-    local shouldExecute = false 
-    local currentValue1 = gg.getValues({{address = monitorAddress1, flags = gg.TYPE_DWORD}})[1].value 
-    local currentValue2 = gg.getValues({{address = monitorAddress2, flags = gg.TYPE_DWORD}})[1].value 
-    if monitorEditAddress1 and lastMonitorValue1 == 0 and currentValue1 == 1 then 
-        gg.setValues({{address = monitorEditAddress1, flags = gg.TYPE_DWORD, value = 0}}) 
-        shouldExecute = true 
-    end 
-    if monitorEditAddress2 and lastMonitorValue2 == 0 and currentValue2 == 1 then 
-        gg.setValues({{address = monitorEditAddress2, flags = gg.TYPE_DWORD, value = 0}}) 
-        shouldExecute = true 
-    end 
-    lastMonitorValue1 = currentValue1 
-    lastMonitorValue2 = currentValue2 
-    saveMonitoring() 
-    if shouldExecute then executeTrainsPointem() end 
-    return shouldExecute 
-end 
-
-function executeTrainsPointem1() 
-    if not pointerTrains or pointerTrains == "" then 
-        gg.toast("❌ يرجى استخراج المؤشر (Pointer)")
-        return false 
-    end 
-    local success = pcall(function() 
-        gg.clearResults() 
-        gg.searchNumber(pointerTrains, gg.TYPE_QWORD) 
-        local results = gg.getResults(9) 
-        if #results == 0 then return end 
-        for i, v in ipairs(results) do 
-            local base = v.address 
-            local modifications = { 
-                {address = base - 0x78, flags = gg.TYPE_FLOAT, value = 1}, 
-                {address = base - 0x7C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x9C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xBC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xDC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xFC, flags = gg.TYPE_DWORD, value = 1} 
-            }
-            
-            gg.setValues(modifications) 
-        end 
-        gg.clearResults() 
-    end) 
-    if success then 
-        gg.toast("✅ تم التنفيذ (١)")
-        return true 
-    end 
-    return false 
-end 
-
-function executeTrainsPointer() 
-    if not pointerTrains or pointerTrains == "" then 
-        gg.toast("❌ يرجى استخراج المؤشر (Pointer)")
-        return false 
-    end 
-    local success = pcall(function() 
-        gg.clearResults() 
-        gg.searchNumber(pointerTrains, gg.TYPE_QWORD) 
-        local results = gg.getResults(9) 
-        if #results == 0 then return end 
-        for i, v in ipairs(results) do 
-            local base = v.address 
-            local modifications = { 
-                {address = base - 0x78, flags = gg.TYPE_FLOAT, value = 1}, 
-                {address = base - 0x7C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x9C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xBC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xDC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xFC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x708, flags = gg.TYPE_DWORD, value = 1701345034}, 
-                {address = base - 0x704, flags = gg.TYPE_DWORD, value = 1677751393}, 
-                {address = base - 0x6F0, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x6EC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x6C0, flags = gg.TYPE_DWORD, value =1}, 
-                {address = base - 0x5D8, flags = gg.TYPE_DWORD, value = 1701345034}, 
-                {address = base - 0x5D4, flags = gg.TYPE_DWORD, value = 1677751393}, 
-                {address = base - 0x5C0, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x5BC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x590, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x4A8, flags = gg.TYPE_DWORD, value = 1701345034}, 
-                {address = base - 0x4A4, flags = gg.TYPE_DWORD, value = 1677751393}, 
-                {address = base - 0x490, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x48C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x460, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x378, flags = gg.TYPE_DWORD, value = 1701345034}, 
-                {address = base - 0x374, flags = gg.TYPE_DWORD, value = 1677751393}, 
-                {address = base - 0x360, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x35C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x330, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x248, flags = gg.TYPE_DWORD, value = 1701345034}, 
-                {address = base - 0x244, flags = gg.TYPE_DWORD, value = 1677751393}, 
-                {address = base - 0x230, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x22C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x200, flags = gg.TYPE_DWORD, value = 1}, 
-            } 
-            gg.setValues(modifications) 
-        end 
-        gg.clearResults() 
-    end) 
-    if success then 
-        gg.toast("✅ تم التنفيذ (٢)")
-        return true 
-    end 
-    return false 
-end 
-
-function extractTrainsPointer() 
-    clearMemory() 
-    gg.searchNumber("-8;-1;1904;0;8::17", gg.TYPE_DWORD) 
-    local results = gg.getResults(500) 
-    if #results == 0 then 
-        gg.toast("❌ تأكد من تفعيل قسم الذاكرة البطيء")
-        gg.clearResults() 
-        return 
-    end  
-    gg.refineNumber("1904", gg.TYPE_DWORD) 
-    results = gg.getResults(3) 
-    if #results == 0 then 
-        gg.toast("❌ تأكد من تفعيل قسم الذاكرة البطيء")
-        gg.clearResults() 
-        return 
-    end 
-    local validResults = {} 
-    for i, v in ipairs(results) do 
-        local checkAddr = v.address + 0x8 
-        local checkVal = gg.getValues({{address = checkAddr, flags = gg.TYPE_DWORD}})[1].value 
-        if checkVal == 8 then 
-            table.insert(validResults, v) 
-        end 
-    end 
-    if #validResults == 0 then 
-        gg.toast("❌ تأكد من تفعيل قسم الذاكرة البطيء")
-        gg.clearResults() 
-        return 
-    end 
-    local mainAddress = validResults[1].address 
-    local searchAddr = mainAddress - 0x8 
-    gg.loadResults({{address = searchAddr, flags = gg.TYPE_QWORD}}) 
-    gg.searchPointer(0) 
-    local pointerResults = gg.getResults(10) 
-    if #pointerResults == 0 then 
-        gg.toast("❌ تأكد من تفعيل قسم الذاكرة البطيء")
-        gg.clearResults() 
-        return 
-    end 
-    local foundPointer = false 
-    for i, v in ipairs(pointerResults) do 
-        local addr = v.address 
-        local pointerAddr = addr + 0x740 
-        local pointerValue = gg.getValues({{address = pointerAddr, flags = gg.TYPE_QWORD}})[1].value 
-        if pointerValue and pointerValue ~= 0 then 
-            pointerTrains = tostring(pointerValue) 
-            saveTrainsPointer() 
-            gg.toast("✅ تم الحفظ بنجاح")
-            foundPointer = true 
-            break 
-        end 
-    end 
-    if not foundPointer then 
-        gg.toast("❌ تأكد من تفعيل قسم الذاكرة البطيء")
-        end 
-    gg.clearResults() 
-end 
-
-function executeTrainsPointem() 
-    local result1 = executeTrainsPointem1() 
-    gg.sleep(800) 
-    local result2 = executeTrainsPointer() 
-    if result1 or result2 then 
-        gg.toast("✅ تم التنفيذ بنجاح")
-        return true 
-    else 
-        gg.toast("⚠️ لم ينجح الأمر")
-   
-        return false 
-    end 
-end 
-
-
-
-
-loadTrainsPointer() 
-loadMonitoring() 
-
-while true do 
-    if gg.isVisible() then 
-        gg.setVisible(false) 
-        local menuItems = { 
-    "╔═══════ 🦋════════╗\nꕤ  [ ٣ ]          تنفيذ المهمة            ꕤ\n╚═════════════════╝",
-    "╔═══════ 🦋════════╗\nꕤ  [ ١ ]           حفظ النقطة           ꕤ\n╚═════════════════╝",
-    "╔═══════ 🦋════════╗\nꕤ  [ ٢ ]          حفظ المراقبة          ꕤ\n╚═════════════════╝",
-    "╔═══════ 🦋════════╗\nꕤ  🔄            رجــــــــــوع           ꕤ\n╚═════════════════╝",
-        } 
-        local choice = gg.choice(menuItems, nil,"╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
-        if choice == 1 then 
-            executeTrainsPointem() 
-        elseif choice == 2 then 
-            extractTrainsPointer() 
-        elseif choice == 3 then 
-            saveMonitoringValues() 
-        elseif choice == 4 then 
-            saveTrainsPointer() 
-            saveMonitoring() 
-            gg.toast("💞 يسعدني أنني مفيد لك")
-            MainMenu()
-        end 
-    end 
-    if monitoringEnabled then 
-        pcall(checkProductMonitoring) 
-    end 
-    gg.sleep(500) 
-end
-end
- -- ==========================================
--- قیتاری زیادکردنی مستوا لێرەوە دەست پێ دەکات
--- ==========================================
-function Hacklivl()
-gg.setVisible(false) 
-gg.clearResults() 
-
-local pointerTrains = nil 
-local monitorAddress1 = nil 
-local monitorAddress2 = nil 
-local monitorEditAddress1 = nil 
-local monitorEditAddress2 = nil 
-local lastMonitorValue1 = 0 
-local lastMonitorValue2 = 0 
-local monitoringEnabled = true 
-local monitoringFile = gg.getFile() .. ".monitoring" 
-local trainsPointerFile = gg.getFile() .. ".trains_pointer" 
-
-function clearMemory() 
-    gg.clearResults() 
-    gg.clearList() 
-    collectgarbage("collect") 
-end 
-
-function loadTrainsPointer() 
-    local file = io.open(trainsPointerFile, "r") 
-    if file then 
-        local content = file:read("*a") 
-        file:close() 
-        for line in content:gmatch("[^\r\n]+") do 
-            local name, value = line:match("(.+)=(.+)") 
-            if name and value and name == "pointerTrains" and value ~= "nil" then 
-                pointerTrains = value 
-                return true 
-            end 
-        end 
-    end 
-    return false 
-end 
-
-function saveTrainsPointer() 
-    local file = io.open(trainsPointerFile, "w") 
-    if file then 
-        file:write("pointerTrains=" .. (pointerTrains or "nil") .. "\n") 
-        file:close() 
-        return true 
-    end 
-    return false 
-end 
-
-function loadMonitoring() 
-    local file = io.open(monitoringFile, "r") 
-    if file then 
-        local content = file:read("*a") 
-        file:close() 
-        for line in content:gmatch("[^\r\n]+") do 
-            local name, value = line:match("(.+)=(.+)") 
-            if name and value then 
-                if name == "monitorAddress1" and value ~= "nil" then 
-                    monitorAddress1 = tonumber(value) 
-                elseif name == "monitorAddress2" and value ~= "nil" then 
-                    monitorAddress2 = tonumber(value) 
-                elseif name == "monitorEditAddress1" and value ~= "nil" then 
-                    monitorEditAddress1 = tonumber(value) 
-                elseif name == "monitorEditAddress2" and value ~= "nil" then 
-                    monitorEditAddress2 = tonumber(value) 
-                elseif name == "lastMonitorValue1" and value ~= "nil" then 
-                    lastMonitorValue1 = tonumber(value) 
-                elseif name == "lastMonitorValue2" and value ~= "nil" then 
-                    lastMonitorValue2 = tonumber(value) 
-                end 
-            end 
-        end 
-        return true 
-    end 
-    return false
-    end
-    function saveMonitoring() 
-    local file = io.open(monitoringFile, "w") 
-    if file then 
-        file:write("monitorAddress1=" .. (monitorAddress1 or "nil") .. "\n") 
-        file:write("monitorAddress2=" .. (monitorAddress2 or "nil") .. "\n") 
-        file:write("monitorEditAddress1=" .. (monitorEditAddress1 or "nil") .. "\n") 
-        file:write("monitorEditAddress2=" .. (monitorEditAddress2 or "nil") .. "\n") 
-        file:write("lastMonitorValue1=" .. (lastMonitorValue1 or "nil") .. "\n") 
-        file:write("lastMonitorValue2=" .. (lastMonitorValue2 or "nil") .. "\n") 
-        file:close() 
-    end 
-end 
-
-function saveMonitoringValues()
-    clearMemory()
-    -- هەوڵ دەدەین بە گروپ بگەڕێین بۆ ئەوەی ئەنجامی وردتر بدات
-    gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
-    
-    -- گەڕان بۆ دوو نرخ کە نێوانیان کەمە (Group Search)
-    gg.searchNumber("18000;1::100", gg.TYPE_DWORD)
-    
-    local results = gg.getResults(500)
-    if #results == 0 then
-        -- ئەگەر گەڕانی یەکەم شکستی هێنا، تەنها بۆ 18000 دەگەڕێین
-        gg.clearResults()
-        gg.searchNumber("18000", gg.TYPE_DWORD)
-        results = gg.getResults(500)
-    end
+    local results = gg.getResults(3)
 
     if #results == 0 then
         gg.toast("❌ لم يتم العثور على المؤش")
         return
     end
 
-    local found = false
-    for i, r in ipairs(results) do
-        -- لێرەدا پشکنین دەکەین ئایا ئەمە ئەو ناونیشانەیە کە ئێمە دەمانەوێت؟
-        local vals = gg.getValues({{address = r.address, flags = gg.TYPE_DWORD}})
-        if vals[1] and vals[1].value == 18000 then
-            -- ئەگەر نرخەکە 18000 بوو، ئۆفسێتەکان جێگیر دەکەین
-            monitorAddress1 = r.address
-            monitorAddress2 = r.address + 0x4
-            
-            monitoringEnabled = true
-            saveMonitoring()
-            gg.toast("✅ تم الحفظ بنجاح")
-            found = true
-            break
+    local freezeList = {}
+
+    for i, v in ipairs(results) do
+
+    local modifications = {
+    {address = v.address + 52, flags = gg.TYPE_FLOAT, value = 1, freeze = true},
+
+    
+    {address = v.address - 388, flags = gg.TYPE_QWORD, value = 1, freeze = true},
+    {address = v.address - 340, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+    {address = v.address - 408, flags = gg.TYPE_DWORD, value = 1677751393, freeze = true},
+    {address = v.address - 412, flags = gg.TYPE_DWORD, value = 1701345034, freeze = true},
+
+    {address = v.address - 644, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+    
+    {address = v.address - 692, flags = gg.TYPE_QWORD, value = 1, freeze = true},
+    {address = v.address - 712, flags = gg.TYPE_DWORD, value = 1677751393, freeze = true},
+    {address = v.address - 716, flags = gg.TYPE_DWORD, value = 1701345034, freeze = true},
+
+    {address = v.address - 948, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+    
+    {address = v.address - 996, flags = gg.TYPE_QWORD, value = 1, freeze = true},
+    {address = v.address - 1016, flags = gg.TYPE_DWORD, value = 1677751393, freeze = true},
+    {address = v.address - 1020, flags = gg.TYPE_DWORD, value = 1701345034, freeze = true},
+
+    {address = v.address - 1252, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+
+    {address = v.address - 1300, flags = gg.TYPE_QWORD, value = 1, freeze = true},
+    {address = v.address - 1320, flags = gg.TYPE_DWORD, value = 1677751393, freeze = true},
+    {address = v.address - 1324, flags = gg.TYPE_DWORD, value = 1701345034, freeze = true},
+
+    {address = v.address - 1556, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+    
+    {address = v.address - 1604, flags = gg.TYPE_QWORD, value = 1, freeze = true},
+    {address = v.address - 1624, flags = gg.TYPE_DWORD, value = 1677751393, freeze = true},
+    {address = v.address - 1628, flags = gg.TYPE_DWORD, value = 1701345034, freeze = true},
+}
+
+        gg.setValues(modifications)
+
+        for _, mod in ipairs(modifications) do
+            if mod.freeze then
+                table.insert(freezeList, {
+                    address = mod.address,
+                    flags = mod.flags,
+                    value = mod.value,
+                    freeze = true
+                })
+            end
         end
     end
 
-    if not found then
-        gg.toast("❌ تأكد من تفعيل قسم الذاكرة البطيء")
+    if #freezeList > 0 then
+        gg.addListItems(freezeList)
+        gg.alert("👸 مبروك طلب القيتار تم بنجاح 👸")
+    else
+        gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
     end
-    clearMemory()
 end
 
-function checkProductMonitoring() 
-    if not monitorAddress1 or not monitorAddress2 or not monitoringEnabled then return false end 
-    local shouldExecute = false 
-    local currentValue1 = gg.getValues({{address = monitorAddress1, flags = gg.TYPE_DWORD}})[1].value 
-    local currentValue2 = gg.getValues({{address = monitorAddress2, flags = gg.TYPE_DWORD}})[1].value 
-    if monitorEditAddress1 and lastMonitorValue1 == 0 and currentValue1 == 1 then 
-        gg.setValues({{address = monitorEditAddress1, flags = gg.TYPE_DWORD, value = 0}}) 
-        shouldExecute = true 
-    end 
-    if monitorEditAddress2 and lastMonitorValue2 == 0 and currentValue2 == 1 then 
-        gg.setValues({{address = monitorEditAddress2, flags = gg.TYPE_DWORD, value = 0}}) 
-        shouldExecute = true 
-    end 
-    lastMonitorValue1 = currentValue1 
-    lastMonitorValue2 = currentValue2 
-    saveMonitoring() 
-    if shouldExecute then executeTrainsPointem() end 
-    return shouldExecute 
-end 
 
-function executeTrainsPointem1() 
-    if not pointerTrains or pointerTrains == "" then 
-        gg.toast("❌ الرجاء إخراج المؤشر")
-        return false 
-    end 
-    local success = pcall(function() 
-        gg.clearResults() 
-        gg.searchNumber(pointerTrains, gg.TYPE_QWORD) 
-        local results = gg.getResults(9) 
-        if #results == 0 then return end 
-        for i, v in ipairs(results) do 
-            local base = v.address 
-            local modifications = { 
-                {address = base - 0x78, flags = gg.TYPE_FLOAT, value = 1}, 
-                {address = base - 0x7C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x9C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xBC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xDC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xFC, flags = gg.TYPE_DWORD, value = 1} 
-            }
-            gg.setValues(modifications) 
-        end 
-        gg.clearResults() 
-    end) 
-    if success then 
-        gg.toast("✅ تم التنفيذ (2)")
-        return true 
-    end 
-    return false 
-end 
 
-function executeTrainsPointer() 
-    if not pointerTrains or pointerTrains == "" then 
-        gg.toast("❌ الرجاء إخراج المؤشر")
-        return false 
-    end 
-    local success = pcall(function() 
-        gg.clearResults() 
-        gg.searchNumber(pointerTrains, gg.TYPE_QWORD) 
-        local results = gg.getResults(9) 
-        if #results == 0 then return end 
-        for i, v in ipairs(results) do 
-            local base = v.address 
-            local modifications = { 
-     {address = base - 0x78, flags = gg.TYPE_FLOAT, value = 1}, 
-                {address = base - 0x7C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x9C, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xBC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xDC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0xFC, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x708, flags = gg.TYPE_DWORD, value = 1852404232}, 
-                {address = base - 0x704, flags = gg.TYPE_DWORD, value = 103}, 
-                {address = base - 0x6F0, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x6EC, flags = gg.TYPE_DWORD, value = 500}, 
-                {address = base - 0x6C0, flags = gg.TYPE_DWORD, value =1}, 
-                {address = base - 0x5D8, flags = gg.TYPE_DWORD, value = 1852404232}, 
-                {address = base - 0x5D4, flags = gg.TYPE_DWORD, value = 103}, 
-                {address = base - 0x5C0, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x5BC, flags = gg.TYPE_DWORD, value = 500}, 
-                {address = base - 0x590, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x4A8, flags = gg.TYPE_DWORD, value = 1852404232}, 
-                {address = base - 0x4A4, flags = gg.TYPE_DWORD, value = 103}, 
-                {address = base - 0x490, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x48C, flags = gg.TYPE_DWORD, value = 500}, 
-                {address = base - 0x460, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x378, flags = gg.TYPE_DWORD, value = 1852404232}, 
-                {address = base - 0x374, flags = gg.TYPE_DWORD, value = 103}, 
-                {address = base - 0x360, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x35C, flags = gg.TYPE_DWORD, value = 500}, 
-                {address = base - 0x330, flags = gg.TYPE_DWORD, value = 1}, 
-                {address = base - 0x248, flags = gg.TYPE_DWORD, value = 1852404232}, 
-                {address = base - 0x244, flags = gg.TYPE_DWORD, value = 103}, 
-                {address = base - 0x230, flags = gg.TYPE_DWORD, value = 0}, 
-                {address = base - 0x22C, flags = gg.TYPE_DWORD, value = 500}, 
-                {address = base - 0x200, flags = gg.TYPE_DWORD, value = 1}, 
-            } 
-            gg.setValues(modifications) 
-        end 
-        gg.clearResults() 
-    end) 
-    if success then 
-        gg.toast("✅ تم التنفيذ (2)")
-        return true 
-    end 
-    return false 
-end 
+ -- ==========================================
+-- قیتاری زیادکردنی مستوا لێرەوە دەست پێ دەکات
+-- ==========================================
+function Hacklivl()
 
-function extractTrainsPointer() 
-    clearMemory() 
-    gg.searchNumber("-8;-1;1904;0;8::17", gg.TYPE_DWORD) 
-    local results = gg.getResults(500) 
-    if #results == 0 then 
-        gg.toast("❌ تأكد من تفعيل قسم الذاكرة البطيء")
-        gg.clearResults() 
-        return 
-    end  
-    gg.refineNumber("1904", gg.TYPE_DWORD) 
-    results = gg.getResults(3) 
-    if #results == 0 then 
-        gg.toast("❌ تأكد من تفعيل قسم الذاكرة البطيء")
-        gg.clearResults() 
-        return 
-    end 
-    local validResults = {} 
-    for i, v in ipairs(results) do 
-        local checkAddr = v.address + 0x8 
-        local checkVal = gg.getValues({{address = checkAddr, flags = gg.TYPE_DWORD}})[1].value 
-        if checkVal == 8 then 
-            table.insert(validResults, v) 
-        end 
-    end 
-    if #validResults == 0 then 
-        gg.toast("❌ تأكد من تفعيل قسم الذاكرة البطيء")
-        gg.clearResults() 
-        return 
-    end 
-    local mainAddress = validResults[1].address 
-    local searchAddr = mainAddress - 0x8 
-    gg.loadResults({{address = searchAddr, flags = gg.TYPE_QWORD}}) 
-    gg.searchPointer(0) 
-    local pointerResults = gg.getResults(10) 
-    if #pointerResults == 0 then 
-        gg.toast("❌ لم يتم العثور على المؤشر")
-        gg.clearResults() 
-        return 
-    end
-    local foundPointer = false 
-    for i, v in ipairs(pointerResults) do 
-        local addr = v.address 
-        local pointerAddr = addr + 0x740 
-        local pointerValue = gg.getValues({{address = pointerAddr, flags = gg.TYPE_QWORD}})[1].value 
-        if pointerValue and pointerValue ~= 0 then 
-            pointerTrains = tostring(pointerValue) 
-            saveTrainsPointer() 
-            gg.toast("✅ تم الحفظ بنجاح") 
-            foundPointer = true 
-            break 
-        end 
-    end 
-    if not foundPointer then 
-        gg.toast("❌ لم يتم العثور على المؤشر")
-        end 
-    gg.clearResults() 
-end 
 
-function executeTrainsPointem() 
-    local result1 = executeTrainsPointem1() 
-    gg.sleep(800) 
-    local result2 = executeTrainsPointer() 
-    if result1 or result2 then 
-        gg.toast("✅ تم التنفيذ")
-        return true 
-    else 
-        gg.toast("⚠️ لم ينجح الأمر")
-        return false 
-    end 
-end 
-
-loadTrainsPointer() 
-loadMonitoring() 
-
-while true do 
-    if gg.isVisible() then 
-        gg.setVisible(false) 
-        local menuItems = { 
-    "╔═══════ 🦋════════╗\nꕤ  [ ٣ ]          تنفيذ المهمة             ꕤ\n╚═════════════════╝",
-    "╔═══════ 🦋════════╗\nꕤ  [ ١ ]           حفظ النقطة            ꕤ\n╚═════════════════╝",
-    "╔═══════ 🦋════════╗\nꕤ  [ ٢ ]          حفظ المراقبة           ꕤ\n╚═════════════════╝",
-    "╔═══════ 🦋════════╗\nꕤ  🔄             خــــــــــروج           ꕤ\n╚═════════════════╝",
-        } 
-        local choice = gg.choice(menuItems, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
-        if choice == 1 then 
-            executeTrainsPointem() 
-        elseif choice == 2 then 
-            extractTrainsPointer() 
-        elseif choice == 3 then 
-            saveMonitoringValues() 
-        elseif choice == 4 then 
-            saveTrainsPointer() 
-            saveMonitoring() 
-            gg.toast("💞 يسعدني أنني مفيد لك")
-            MainMenu()
-        end 
-    end 
-    if monitoringEnabled then 
-        pcall(checkProductMonitoring) 
-    end 
-    gg.sleep(500) 
-end
-    gg.setVisible(false)
+gg.setVisible(false)
+gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
     gg.clearResults()
+    gg.searchNumber("50;1801519104;51;52:65", gg.TYPE_DWORD)
+    gg.refineNumber("51", gg.TYPE_DWORD)
+
+    local results = gg.getResults(3)
+
+    if #results == 0 then
+        gg.toast("❌ لم يتم العثور على المؤش")
+        return
+    end
+
+    local freezeList = {}
+
+    for i, v in ipairs(results) do
+
+    local modifications = {
+    {address = v.address + 52, flags = gg.TYPE_FLOAT, value = 1, freeze = true},
+
     
-    local pointerTrains = nil
-    local monitorAddress1 = nil
+    {address = v.address - 388, flags = gg.TYPE_QWORD, value = 500, freeze = true},
+    {address = v.address - 340, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+    {address = v.address - 408, flags = gg.TYPE_DWORD, value = 103, freeze = true},
+    {address = v.address - 412, flags = gg.TYPE_DWORD, value = 1852404232, freeze = true},
+
+    {address = v.address - 644, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
     
-    gg.toast("✅ تم تفعيل هاك المستوى")
+    {address = v.address - 692, flags = gg.TYPE_QWORD, value = 500, freeze = true},
+    {address = v.address - 712, flags = gg.TYPE_DWORD, value = 103, freeze = true},
+    {address = v.address - 716, flags = gg.TYPE_DWORD, value = 1852404232, freeze = true},
+
+    {address = v.address - 948, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+    
+    {address = v.address - 996, flags = gg.TYPE_QWORD, value = 500, freeze = true},
+    {address = v.address - 1016, flags = gg.TYPE_DWORD, value = 103, freeze = true},
+    {address = v.address - 1020, flags = gg.TYPE_DWORD, value = 1852404232, freeze = true},
+
+    {address = v.address - 1252, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+
+    {address = v.address - 1300, flags = gg.TYPE_QWORD, value = 500, freeze = true},
+    {address = v.address - 1320, flags = gg.TYPE_DWORD, value = 103, freeze = true},
+    {address = v.address - 1324, flags = gg.TYPE_DWORD, value = 1852404232, freeze = true},
+
+    {address = v.address - 1556, flags = gg.TYPE_DWORD, value = 1, freeze = true},
+
+    
+    {address = v.address - 1604, flags = gg.TYPE_QWORD, value = 500, freeze = true},
+    {address = v.address - 1624, flags = gg.TYPE_DWORD, value = 103, freeze = true},
+    {address = v.address - 1628, flags = gg.TYPE_DWORD, value = 1852404232, freeze = true},
+}
+
+        gg.setValues(modifications)
+
+        for _, mod in ipairs(modifications) do
+            if mod.freeze then
+                table.insert(freezeList, {
+                    address = mod.address,
+                    flags = mod.flags,
+                    value = mod.value,
+                    freeze = true
+                })
+            end
+        end
+    end
+
+    if #freezeList > 0 then
+        gg.addListItems(freezeList)
+        gg.alert("👸 مبروك طلب القيتار تم بنجاح 👸")
+    else
+        gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
+    end
 end
+
 -- ==========================================
 function HackGoldPass()
 
@@ -4176,8 +3715,8 @@ gg.clearList()
 ---------------------------------------------------------
 
 function WheatLevelXP()
-    gg.alert("⚠️ ملحوظه لا تضع عدد كبير حتي لا يرتفع المستوى بشكل كبير⚠️")
-gg.toast("❤️لا تنسى الصلاة على النبي❤️")
+   
+gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
 gg.clearResults()
 gg.setVisible(false)
 
@@ -4185,7 +3724,7 @@ gg.searchNumber('1701147414;2002744164;1123024896', gg.TYPE_DWORD)
 gg.refineNumber('1123024896', gg.TYPE_DWORD)
 n = gg.getResultCount()
 if n == 0 then
-gg.alert("❌ كود زياده المستوى من الزراعة لا يعمل ❌\n\n📸 تحدث مع مطور الاسكربت وأرسل صوره📸 ")
+gg.alert("❌ لم يتم العثور على المؤشم")
 gg.clearResults()
 return
 end
@@ -4193,7 +3732,7 @@ gg.toast(n)
 jz = gg.getResults(n)
 local messageShown = false 
 local toastShown = false 
-local M12 = gg.prompt({" 🇪🇬Edited by MAHMOUDHERO🇪🇬".."\n🇪🇬 Egypt mother of the world 🇪??\n"},{[1]="\n🙋اكتب الرقم الذي تريده🙋\n"},nil,{'number'})
+local M12 = gg.prompt({"💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮"},{[1]="\n  0 \n"},nil,{'number'})
 if M12 == nil then
 else
 end
@@ -4205,8 +3744,8 @@ gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze
 gg.addListItems({[1] = {address = jz[i].address + 16,flags = gg.TYPE_QWORD,freeze = true,value = M12[1],gg.TYPE_QWORD}})
 if not messageShown then
 if not toastShown then
-gg.alert("🤡كل ما تفعله ازرع القمح واحصده🤡")
-gg.toast("🏴‍☠️🔥𝙈𝘼𝙃𝙈𝙊𝙐𝘿𝙃𝙀𝙍𝙊🔥🏴‍☠️")
+
+gg.toast(" 🌾 ازراع قمحا واحصده الزيادة مستوا مدينتك 🌾")
 toastShown = true
 messageShown = true 
 end 
@@ -4214,7 +3753,7 @@ end
 end
 gg.clearList()
 gg.clearResults()
-end -- 👹تم الانتهاء👹
+end 
 
 ---------------------------------------------------------
 -- 🔚 کۆتایی بەشی هاکی گەنم ?? --
@@ -4279,7 +3818,7 @@ function Nardni_Kart()
     end
 
     -- ارسال الكروت 
-    gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
+    gg.toast("💮 ??🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
     gg.searchNumber("86400;50;1;1;1::17", gg.TYPE_DWORD)
     gg.refineNumber("86400", gg.TYPE_DWORD)
 
@@ -4561,7 +4100,7 @@ function CardsSystemAram()
     end
     return CardsSystemAram()
     else
-        gg.alert("❌ لم يتم إجراء أي تغيير!")
+        gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
         return CardsSystemAram() 
     end
 end
@@ -4573,93 +4112,72 @@ end
 
 function OpenYellowHats()
     gg.alert("الرجاء التأكد من فتح نافذة القبعات الصفراء")
-    gg.clearResults()
-    gg.searchNumber("1768846701;31092;2", gg.TYPE_DWORD)
     
-    local count = gg.getResultCount()
-    if count > 0 then
-        gg.refineNumber("2", gg.TYPE_DWORD)
-        local finalCount = gg.getResultCount()
-        local results = gg.getResults(finalCount)
-        
-        for i, v in ipairs(results) do
-            results[i].value = "5"
-            results[i].freeze = false
-        end
-        gg.setValues(results)
-        gg.alert("✅ تمت العملية بنجاح\nلكي يتم فتح القبعات، الرجاء الخروج من اللعبة والعودة.")
-        gg.clearResults()
-    else
-        gg.alert("❌ خطأ: لم يتم العثور على الكود! تأكد من أنك في المكان الصحيح.")
-    end
+gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎️")
+gg.clearResults()
+gg.setVisible(false)
+gg.searchNumber('256;1836016402::81', gg.TYPE_DWORD)
+gg.refineNumber("256", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+if n == 0 then
+gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
+gg.clearResults()
+return
 end
-
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 24, flags = gg.TYPE_DWORD, freeze = true, value = 4}})
+gg.addListItems({[1] = {address = jz[i].address + 32, flags = gg.TYPE_QWORD, freeze = true, value = 0}})
+gg.addListItems({[1] = {address = jz[i].address + 40, flags = gg.TYPE_QWORD, freeze = true, value = 0}})
+gg.addListItems({[1] = {address = jz[i].address + 48, flags = gg.TYPE_QWORD, freeze = true, value = 0}})
+end
+gg.alert("🏠 اذهب الآن إلى جميع المباني المجتمعية وقم بفتحها.")
+gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+gg.clearResults()
+end
 --------------------------------------------------
 -- 👷 کۆتایی کۆدی کڵاوە زەردەکان 👷 --
 --------------------------------------------------
-local saved_base2 = nil
-local saved_copied = nil
-local current_menu = "main" -- ئەمە دیاری دەکات ئێستا لە کام مینۆیەیت
 
 function Koga()
-    -- ١. دڵنیابوونەوە لە هەبوونی ناونیشانەکان
-    if saved_copied == nil or saved_base2 == nil then
-        gg.clearResults()
-        gg.setRanges(gg.REGION_C_ALLOC)
-        
-        -- گەڕانی یەکەم
-        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
-        gg.searchNumber("1599099688;1936682818;33;24;23", gg.TYPE_DWORD)
-        gg.refineNumber("23", gg.TYPE_DWORD)
-        local r1 = gg.getResults(1)
-        if #r1 == 0 then gg.alert("لم يتم العثور على الكود الأول") return end
-        
-        local addr1 = r1[1].address
-        saved_copied = gg.getValues({
-            {address = addr1 - 8, flags = gg.TYPE_DWORD}, 
-            {address = addr1 - 4, flags = gg.TYPE_DWORD}, 
-            {address = addr1,     flags = gg.TYPE_DWORD}, 
-            {address = addr1 + 4, flags = gg.TYPE_DWORD}, 
-            {address = addr1 + 8, flags = gg.TYPE_DWORD}, 
-            {address = addr1 + 12, flags = gg.TYPE_DWORD} 
-        })
-
-        -- گەڕانی دووەم
-        gg.clearResults()
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
-        gg.refineNumber("29", gg.TYPE_DWORD)
-        local r2 = gg.getResults(1)
-        if #r2 == 0 then gg.alert("لم يتم العثور على الكود الثاني") return end
-        saved_base2 = r2[1].address
-    end
-
-    -- ٢. داواکردنی نرخی نوێ لە بەکارهێنەر
-    local input = gg.prompt({"أدخل رقم المخزن 📊"}, {0}, {"number"})
+gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎️")
+    gg.clearResults()
+    gg.setVisible(false)
     
-    if input then
-        -- لێرە هەموو لیستە کۆنەکان لادەبەین (Unfreeze) بۆ ئەوەی ڕێگەی گۆڕانکاری نوێ بدات
-        gg.clearList() 
-        
-        local p = {}
-        local b = saved_base2
-        
-p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
-        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = true}
-        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = true}
-        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = saved_copied[3].value, freeze = true}
-        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = saved_copied[4].value, freeze = true}
-        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = saved_copied[5].value, freeze = true}
-        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = saved_copied[6].value, freeze = true}
-        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
-        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
+    gg.searchNumber("50;1;70;2;90;3;110;4::113", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+    gg.refineNumber("50", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
 
-        -- جێبەجێکردنی کۆدی نوێ و بەستنەوەی دووبارە
-        gg.addListItems(p)
-        gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
-        
+    local n = gg.getResultCount()
+
+    
+    if n == 0 then
+        gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
+        gg.clearResults()
+        return
     end
-end
 
+    local startOffset = gg.getResults(1)[1].address
+    local endOffset = startOffset + 0xC60
+    
+    
+    local modifications = {}
+    for offset = 0, 0xC60, 4 do
+        table.insert(modifications, {
+            address = startOffset + offset,
+            flags = gg.TYPE_DWORD,
+            value = 0
+        })
+    end
+
+    gg.setValues(modifications)
+
+    gg.alert("🌾✨ الآن يمكنك توسيع الشونة حسب حاجتك لتجنّب الحظر! 🚜📦🔄 تظهر التغييرات بعد إغلاق المدينة وفتحها من جديد. 🔓🏡")
+    
+    gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
+
+    gg.clearResults()
+    gg.clearList()
+end
 -- Township Universal Time Reset
 -- Created for: Aram
 
@@ -4867,7 +4385,7 @@ function MenuZyadkrdn()
         "╔══════════ 🦋══════════╗\nꕤ     🔄               رجـــــــــوع                ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🚪              خـــــــــــروج               ꕤ\n╚══════════════════════╝",
         
-    }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
+    }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎??︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
 
     if menu == nil then return MenuZyadkrdn() end
     
@@ -5035,8 +4553,171 @@ function start_auto_hack()
   kurd()
 end
 
+function hewanat()
+gg.alert("👨‍🔧 يرجى الانتظار حتى يكتمل البحث 👨‍🔧")
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+
+gg.searchNumber("1818848520;107;1150681088::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("1150681088", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_FLOAT,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 160,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 320,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 480,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 640,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 800,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
+end
+
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+
+gg.searchNumber("1701995018;25697;1168687104::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("1168687104", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 384,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+end
+
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+
+gg.searchNumber("1734829318;1182605312::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("1182605312", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 512,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.alert("⚡ تم بنجاح! وقت جميع الحيوانات الآن صفر ⚡")
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearList() 
+gg.clearResults()
+end
+end
 
 
+function tayarrrrr()
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+gg.searchNumber("16842752;1053609165::13", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("16842752", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+local messageShown = false 
+local toastShown = false 
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address - 4 ,flags = 4,freeze = true,value = 0}})
+gg.addListItems({[1] = {address = jz[i].address - 8 ,flags = 4,freeze = true,value = 0}})
+gg.addListItems({[1] = {address = jz[i].address + 0 ,flags = 4,freeze = true,value = 0}})
+gg.addListItems({[1] = {address = jz[i].address + 4 ,flags = 4,freeze = true,value = 0}})
+gg.addListItems({[1] = {address = jz[i].address + 8 ,flags = 4,freeze = true,value = 0}})
+gg.addListItems({[1] = {address = jz[i].address + 12 ,flags = 4,freeze = true,value = 0}})
+gg.addListItems({[1] = {address = jz[i].address + 16 ,flags = 4,freeze = true,value = 0}})
+ if not messageShown then
+ if not toastShown then
+gg.alert(" 🚁 اذهب إلى طائرة الهليكوبتر، أرسل طلبًا أو احذفه، وبعدها سيعمل معك بنجاح.  ")
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+toastShown = true
+messageShown = true 
+end 
+gg.clearResults()
+gg.clearList() 
+end
+end
+end
+
+function snduqsuq()
+gg.alert("🕵️ يرجى الانتظار حتى يكتمل البحث 🕵️")
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+gg.searchNumber('1953063702;1185464320::73', gg.TYPE_DWORD)
+gg.refineNumber('1953063702', gg.TYPE_DWORD)
+n = gg.getResultCount()
+if n == 0 then
+gg.alert("❌ لم يتم العثور على المؤشم")
+gg.clearResults()
+return
+end
+gg.toast(n)
+jz = gg.getResults(n)
+local M12 = gg.prompt({"💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮"},{[1]="\n  0 \n"},nil,{'number'})
+if M12 == nil or M12[1] == nil then
+gg.clearResults()
+return
+end
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address - 60, flags = gg.TYPE_DWORD, freeze = true, value = 0} })
+gg.addListItems({[1] = {address = jz[i].address - 52, flags = gg.TYPE_DWORD, freeze = true, value = 0}})
+gg.addListItems({[1] = {address = jz[i].address - 56, flags = gg.TYPE_DWORD, freeze = true, value = M12[1]}})
+end
+gg.alert(" 🎅 مبروك! الآن تمت زيادة صناديق التاجر 🎅")
+gg.clearResults()
+gg.clearList()
+end
+
+function snduqmasna3()
+gg.alert("✨ قبل البحث، افتح أحد المصانع. ✨")
+gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
+gg.clearResults()
+gg.setVisible(false)
+gg.searchNumber("3407873;256:41", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("256", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.processResume()
+n = gg.getResultCount()
+if n == 0 then
+gg.alert("❌ لم يتم العثور على المؤشم")
+gg.clearResults()
+return
+end
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({
+[1] = {address = jz[i].address + 256, flags = gg.TYPE_DWORD, freeze = true, value = 0} })
+end
+gg.alert("💁‍♂️ افتح الآن جميع الصناديق دون أن ينقص منك أي کاش 💁‍♂️")
+gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
+gg.clearResults()
+end
+
+function likat()
+gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
+gg.setVisible(false)
+gg.clearResults()
+gg.setRanges(gg.REGION_OTHER)
+gg.searchNumber("1918978076;6647145:13", gg.TYPE_DWORD)
+gg.refineNumber("1918978076", gg.TYPE_DWORD)
+
+local n = gg.getResultCount()
+if n == 0 then
+    gg.alert("❌ لم يتم العثور على المؤشم")
+    return
+end
+
+local jz = gg.getResults(n)
+for i = 1, n do
+    gg.addListItems({
+        {address = jz[i].address - 64, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+        {address = jz[i].address - 60, flags = gg.TYPE_DWORD, value = 0, freeze = true},
+        {address = jz[i].address - 58, flags = gg.TYPE_DWORD, value = 0, freeze = true}
+    })
+end
+
+gg.clearResults()
+gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
+gg.alert("👸 الآن يمكنك زيادة الإعجابات لأصدقائك 👸")
+end
 
 MainMenu()
 while true do
@@ -5046,3 +4727,4 @@ while true do
     end
     gg.sleep(100)
 end
+
