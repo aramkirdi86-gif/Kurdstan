@@ -145,7 +145,7 @@ function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
         local results = gg.getResults(1)
 
         if #results < 1 then
-            gg.toast("لم يتم العثور على الكود الأول جاري البحث عن الكود الثاني")
+            gg.toast(" البحث عن الكود الثاني")
             gg.clearResults()
 
             gg.searchNumber('28;1952533798;29::641', gg.TYPE_DWORD)
@@ -153,14 +153,14 @@ function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
             results = gg.getResults(1)
 
             if #results < 1 then
-                gg.toast("لم يتم العثور على الكود الثاني جاري البحث عن الكود الثالث")
+                gg.toast(" البحث عن الكود الثالث")
                 gg.clearResults()
 
                 gg.searchNumber('65537;1970225964;29:457', gg.TYPE_DWORD)
                 results = gg.getResults(1)
 
                 if #results < 1 then
-                    gg.alert("❌ كود استبدال الهديه رقم 29 لا يعمل  ❌\n\n📸 تحدث مع مطور الاسكربت وأرسل صوره📸 ") 
+                    gg.alert(" ❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ") 
                     gg.clearResults()
                     return false
                 end
@@ -3408,15 +3408,16 @@ end
                 "╔══════════ 🦋══════════╗\nꕤ   🚂   طلب مساعده في القطار     ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ🚉 طلب رفع المستوي في القطار ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🏜️          توسيع الاراضي            ꕤ\n╚══════════════════════╝",
-                "╔══════════ 🦋══════════╗\nꕤ     🏡            توسيع الشونه           ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     🏡            توسيع الشونه ثابت    ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     🏜️          توسيع الشونە مؤقت          ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🕰️       اكواد تصفير الوقت         ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🕹️      الكاش☜الفلوس☜إلخ     ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     👑       زيادة نقاط السباق          ꕤ\n╚══════════════════════╝",
-                "╔══════════ 🦋══════════╗\nꕤ     👑       لایکات                       ꕤ\n╚══════════════════════╝",
-                "╔══════════ 🦋══════════╗\nꕤ     🏡            تصفير الوقت حيوانات           ꕤ\n╚══════════════════════╝",
-                "╔══════════ 🦋══════════╗\nꕤ     👷      ناردنی تەیارە بی تەڵەب  ꕤ\n╚══════════════════════╝",
-                "╔══════════ 🦋══════════╗\nꕤ     👷      زیاد کردنی سندوق تاجر   ꕤ\n╚══════════════════════╝",
-                "╔══════════ 🦋══════════╗\nꕤ     👷      زیاد کردنی سندوق مسنع  ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👑       زيادة عدد الإعجابات        ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     🏡    تصفير وقت الحيوانات         ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👷      إرسال الهيلو بدون طلب  ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👷      زیادة عدد صناديق السوق  ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👷      زیادة عدد صناديق المعمل  ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🛠️      مستلزمات داخل اللعبة   ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🚪             خــــــــــروج                 ꕤ\n╚══════════════════════╝",
 
@@ -3436,16 +3437,17 @@ end
                 if menu[9] == true then gg.setVisible(true) Hacklivl() end
                 if menu[10] == true then OpenAllLands() end
                 if menu[11] == true then Koga() end
-                if menu[12] then SubMenu12() end
-                if menu[13] then MenuZyadkrdn() end
-                if menu[14] then kurd() end
-                if menu[15] then likat() end
-                if menu[16] then hewanat() end
-                if menu[17] then tayarrrrr() end
-                if menu[18] then snduqsuq() end
-                if menu[19] then snduqmasna3() end
-                if menu[20] then PdaistakanyYari() end
-                if menu[21] == true then 
+                if menu[12] == true then shuunaa() end
+                if menu[13] then SubMenu12() end
+                if menu[14] then MenuZyadkrdn() end
+                if menu[15] then kurd() end
+                if menu[16] then likat() end
+                if menu[17] then hewanat() end
+                if menu[18] then tayarrrrr() end
+                if menu[19] then snduqsuq() end
+                if menu[20] then snduqmasna3() end
+                if menu[21] then PdaistakanyYari() end
+                if menu[22] == true then 
               gg.clearList()   
        gg.clearResults() 
       gg.toast("👋 في أمان الله، لا تنسانا من صالح دعائك")
@@ -3458,49 +3460,61 @@ end
 
 
 function HackLogic()
-    -- لافیتەی ئاگادارکردنەوە پێش دەستپێکردن
+
     gg.alert("🚁 أهلاً بك\n\n⚠️ تأكد من فتح خانة الطلب (٢) قبل الاستمرار.")
 
-
     local input = gg.prompt({
-"💰 كمية الذهب (900000):",
-"💵 كمية الكاش (850000):",
-"⭐ كمية المستوى (30000000):",
+        "💰 كمية الذهب:",
+        "💵 كمية الكاش:",
+        "⭐ كمية المستوى:"
+    }, {
+        900000,
+        850000,
+        30000000
+    }, {
+        "number",
+        "number",
+        "number"
+    })
 
-    }, {900000, 850000, 30000000}, {"number", "number", "number"})
+    if input == nil then
+        return
+    end
 
-    if input ~= nil then
+    gg.clearResults()
+    gg.setRanges(gg.REGION_C_ALLOC)
+
+    gg.toast("🔎 جاري البحث...")
+
+    gg.searchNumber("1703939;0;0;0;2;0::45", gg.TYPE_DWORD)
+
+    local count = gg.getResultCount()
+
+    if count == 0 then
+        gg.alert("❌ لم يتم العثور على النتائج!")
         gg.clearResults()
-        gg.setRanges(gg.REGION_C_ALLOC)
-        
-        -- گەڕان بۆ تەڵەبەکە
-        gg.searchNumber('1703939;0;0;0;2;0::45', gg.TYPE_DWORD) 
+        MainMenu()
+        return
+    end
 
-n = gg.getResultCount()
-        
-        local results = gg.getResults(1)
- 
-        if #results > 0 then
-            local base = results[1].address
-            local modifications = {
-                -- گۆڕینی نرخەکان
-                {address = base + 0x30, value = 0, flags = gg.TYPE_DWORD},
-                {address = base + 0x34, value = input[1], flags = gg.TYPE_DWORD},
-                {address = base + 0x38, value = 0, flags = gg.TYPE_DWORD},
-                {address = base + 0x3C, value = input[2], flags = gg.TYPE_DWORD},
-                {address = base + 0x50, value = 0, flags = gg.TYPE_DWORD},
-                {address = base + 0x54, value = input[3], flags = gg.TYPE_DWORD}
-            }
+    local results = gg.getResults(1)
+    local base = results[1].address
 
-            gg.setValues(modifications)
-    gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
+    local modifications = {
+        {address = base + 0x30, value = 0,          flags = gg.TYPE_DWORD},
+        {address = base + 0x34, value = input[1],   flags = gg.TYPE_DWORD},
+        {address = base + 0x38, value = 0,          flags = gg.TYPE_DWORD},
+        {address = base + 0x3C, value = input[2],   flags = gg.TYPE_DWORD},
+        {address = base + 0x50, value = 0,          flags = gg.TYPE_DWORD},
+        {address = base + 0x54, value = input[3],   flags = gg.TYPE_DWORD}
+    }
+
+    gg.setValues(modifications)
+
+    gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱 💮")
+
     gg.clearResults()
     MainMenu()
-else
-    gg.alert("❌ لم يتم العثور عليه! تأكد من أن خانة الطلب (٢) مفتوحة.")
-    MainMenu()
-       end
-    end
 end
 -- [[ 🚂 بەشی قیتار لێرە دەستپێدەکات ]]
 function HackTrain()
@@ -4733,6 +4747,70 @@ gg.clearResults()
 gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
 gg.alert("👸 الآن يمكنك زيادة الإعجابات لأصدقائك 👸")
 end
+
+local saved_base2 = nil
+local saved_copied = nil
+local current_menu = "main" -- ئەمە دیاری دەکات ئێستا لە کام مینۆیەیت
+
+function shuunaa()
+    -- ١. دڵنیابوونەوە لە هەبوونی ناونیشانەکان
+    if saved_copied == nil or saved_base2 == nil then
+        gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC)
+        
+        -- گەڕانی یەکەم
+        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+        gg.searchNumber("1599099688;1936682818;33;24;23", gg.TYPE_DWORD)
+        gg.refineNumber("23", gg.TYPE_DWORD)
+        local r1 = gg.getResults(1)
+        if #r1 == 0 then gg.alert("لم يتم العثور على الكود الأول") return end
+        
+        local addr1 = r1[1].address
+        saved_copied = gg.getValues({
+            {address = addr1 - 8, flags = gg.TYPE_DWORD}, 
+            {address = addr1 - 4, flags = gg.TYPE_DWORD}, 
+            {address = addr1,     flags = gg.TYPE_DWORD}, 
+            {address = addr1 + 4, flags = gg.TYPE_DWORD}, 
+            {address = addr1 + 8, flags = gg.TYPE_DWORD}, 
+            {address = addr1 + 12, flags = gg.TYPE_DWORD} 
+        })
+
+        -- گەڕانی دووەم
+        gg.clearResults()
+        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
+        local r2 = gg.getResults(1)
+        if #r2 == 0 then gg.alert("لم يتم العثور على الكود الثاني") return end
+        saved_base2 = r2[1].address
+    end
+
+    -- ٢. داواکردنی نرخی نوێ لە بەکارهێنەر
+    local input = gg.prompt({"أدخل رقم المخزن 📊"}, {0}, {"number"})
+    
+    if input then
+        -- لێرە هەموو لیستە کۆنەکان لادەبەین (Unfreeze) بۆ ئەوەی ڕێگەی گۆڕانکاری نوێ بدات
+        gg.clearList() 
+        
+        local p = {}
+        local b = saved_base2
+        
+        p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
+        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = true}
+        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = true}
+        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = saved_copied[3].value, freeze = true}
+        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = saved_copied[4].value, freeze = true}
+        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = saved_copied[5].value, freeze = true}
+        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = saved_copied[6].value, freeze = true}
+        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
+        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
+
+        -- جێبەجێکردنی کۆدی نوێ و بەستنەوەی دووبارە
+        gg.addListItems(p)
+        gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
+        
+    end
+end
+
 
 MainMenu()
 while true do
