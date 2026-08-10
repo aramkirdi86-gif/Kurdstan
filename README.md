@@ -4470,23 +4470,36 @@ function MenuZyadkrdn()
     end
 
     -- بەشی کاش و پارەی زەرد
-    if menu[1] or menu[2] then
-        if not isZyadSearched then
-            gg.clearResults()
-            gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
-            
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+if menu[1] or menu[2] then
+    if not isZyadSearched then
+
+        gg.clearResults()
+
+        gg.setRanges(
+            gg.REGION_C_ALLOC | gg.REGION_OTHER
+        )
+
+        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+
+        gg.searchNumber(
+            "65537~65542;1970225964;29::457",
+            gg.TYPE_DWORD
+        )
+
         gg.refineNumber("29", gg.TYPE_DWORD)
-            
-            local count = gg.getResultCount()
-            if count == 0 then 
-                isZyadSearched = false 
-                gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ") 
-                return MenuZyadkrdn()
-            end
-            zyadResults = gg.getResults(count)
-            isZyadSearched = true
+
+        local count = gg.getResultCount()
+
+        if count == 0 then
+            isZyadSearched = false
+            gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
+            return MenuZyadkrdn()
         end
+
+        zyadResults = gg.getResults(count)
+        isZyadSearched = true
+    end
+end
 
         gg.alert("⚠️ تحذير لتجنب الباند:\n\n💵 الكاش (الجديد): ٨٥٠,٠٠٠\n🪙 الليرة الصفراء: الحد الأقصى ٩٥٠,٠٠٠", "فهمت")
 
