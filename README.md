@@ -3481,24 +3481,46 @@ function HackLogic()
         return
     end
 
+    local searchValue = "1703939;0;0;0;2;0::45"
+    local results = nil
+    local base = nil
+
+    -- یەکەم C_ALLOC
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC)
-
-    gg.toast("🔎 جاري البحث...")
-
-    gg.searchNumber("1703939;0;0;0;2;0::45", gg.TYPE_DWORD)
+    gg.searchNumber(searchValue, gg.TYPE_DWORD)
 
     local count = gg.getResultCount()
 
+    -- ئەگەر لە C_ALLOC نەدۆزرایەوە، ANONYMOUS تاقی بکەرەوە
     if count == 0 then
-        gg.alert("❌ لم يتم العثور على النتائج!")
+        gg.clearResults()
+        gg.setRanges(gg.REGION_ANONYMOUS)
+        gg.searchNumber(searchValue, gg.TYPE_DWORD)
+
+        count = gg.getResultCount()
+    end
+
+    if count == 0 then
+        gg.alert(
+            "❌ لم يتم العثور عليه!\n\n" ..
+            "تأكد من أن خانة الطلب (٢) مفتوحة."
+        )
         gg.clearResults()
         MainMenu()
         return
     end
 
-    local results = gg.getResults(1)
-    local base = results[1].address
+    results = gg.getResults(1)
+
+    if results == nil or #results == 0 then
+        gg.alert("❌ تم العثور على نتيجة ولكن تعذر قراءتها.")
+        gg.clearResults()
+        MainMenu()
+        return
+    end
+
+    base = results[1].address
 
     local modifications = {
         {address = base + 0x30, value = 0,          flags = gg.TYPE_DWORD},
@@ -4527,7 +4549,7 @@ end
 
 function kurd()
    local menu = gg.multiChoice({
-   	"╔══════════ 🦋══════════╗\nꕤ     🚀          زیادة نقاط السباق        ꕤ\n╚══════════════════════╝",
+   	"╔══════════ ??══════════╗\nꕤ     🚀          زیادة نقاط السباق        ꕤ\n╚══════════════════════╝",
        "╔══════════ 🦋══════════╗\nꕤ     🚪               خـــــــــروج                ꕤ\n╚══════════════════════╝",
     
   }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
