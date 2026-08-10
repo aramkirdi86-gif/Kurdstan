@@ -4499,7 +4499,7 @@ if menu[1] or menu[2] then
         zyadResults = gg.getResults(count)
         isZyadSearched = true
     end
-end
+ 
 
         gg.alert("⚠️ تحذير لتجنب الباند:\n\n💵 الكاش (الجديد): ٨٥٠,٠٠٠\n🪙 الليرة الصفراء: الحد الأقصى ٩٥٠,٠٠٠", "فهمت")
 
