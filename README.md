@@ -137,20 +137,36 @@ end
 local isCouponSearched = false
 local couponResults = {}
 
-
 function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
     if not isCouponSearched then
         gg.clearResults()
-               gg.clearResults()
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
-        gg.refineNumber("29", gg.TYPE_DWORD)
-        
-        local count = gg.getResultCount()
-        if count == 0 then 
-            isCouponSearched = false 
-            return gg.alert("❌ تأكد من أن اللعبة مرتبطة بـ جيم جاردن") 
+        gg.searchNumber('65537~65542;1970225964;29::457', gg.TYPE_DWORD)
+        gg.refineNumber('29', gg.TYPE_DWORD)
+        local results = gg.getResults(1)
+
+        if #results < 1 then
+            gg.toast("لم يتم العثور على الكود الأول جاري البحث عن الكود الثاني")
+            gg.clearResults()
+
+            gg.searchNumber('28;1952533798;29::641', gg.TYPE_DWORD)
+            gg.refineNumber('29', gg.TYPE_DWORD)
+            results = gg.getResults(1)
+
+            if #results < 1 then
+                gg.toast("لم يتم العثور على الكود الثاني جاري البحث عن الكود الثالث")
+                gg.clearResults()
+
+                gg.searchNumber('65537;1970225964;29:457', gg.TYPE_DWORD)
+                results = gg.getResults(1)
+
+                if #results < 1 then
+                    gg.alert("❌ كود استبدال الهديه رقم 29 لا يعمل  ❌\n\n📸 تحدث مع مطور الاسكربت وأرسل صوره📸 ") 
+                    gg.clearResults()
+                    return false
+                end
+            end
         end
-        couponResults = gg.getResults(count)
+        couponResults = gg.getResults(1)
         isCouponSearched = true
     end
 
@@ -164,12 +180,10 @@ function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
 
     table.insert(list, {address = r.address + 12, flags = 4, value = 2, freeze = true})
     
-
     for i = 1, 6 do
         table.insert(list, {address = r.address + 12 + (i * 4), flags = 4, value = hex_values[i] or 0})
     end
     
-
     table.insert(list, {address = r.address + 40, flags = 4, value = 0})
     table.insert(list, {address = r.address + 44, flags = 4, value = tonumber(input[1])})
     
@@ -177,6 +191,7 @@ function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
     gg.addListItems(list)
     gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
 end
+
 
 function KobonMenu()
     gg.setVisible(false)
