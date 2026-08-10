@@ -3461,12 +3461,13 @@ end
 
 function HackLogic()
 
+    -- لافیتەی ئاگادارکردنەوە
     gg.alert("🚁 أهلاً بك\n\n⚠️ تأكد من فتح خانة الطلب (٢) قبل الاستمرار.")
 
     local input = gg.prompt({
-        "💰 كمية الذهب:",
-        "💵 كمية الكاش:",
-        "⭐ كمية المستوى:"
+        "💰 كمية الذهب (900000):",
+        "💵 كمية الكاش (850000):",
+        "⭐ كمية المستوى (30000000):"
     }, {
         900000,
         850000,
@@ -3483,54 +3484,51 @@ function HackLogic()
 
     gg.clearResults()
 
-gg.searchNumber("1703939;0;0;0;2;0::45", gg.TYPE_DWORD)
+    -- هەمان Memory Region ـەی وێنەکەت: Ca + O
+    gg.setRanges(
+        gg.REGION_C_ALLOC | gg.REGION_OTHER
+    )
 
-local count = gg.getResultCount()
+    -- گەڕان بۆ تەڵەبەکە
+    gg.searchNumber(
+        "1703939;0;0;0;2;0::45",
+        gg.TYPE_DWORD
+    )
 
-gg.alert("ئەنجامەکانی گەڕان: " .. count)
+    local n = gg.getResultCount()
 
-    -- یەکەم C_ALLOC
-    gg.clearResults()
-    gg.setRanges(gg.REGION_C_ALLOC)
-    gg.searchNumber(searchValue, gg.TYPE_DWORD)
+    if n == 0 then
 
-    local count = gg.getResultCount()
-
-    -- ئەگەر لە C_ALLOC نەدۆزرایەوە، ANONYMOUS تاقی بکەرەوە
-    if count == 0 then
-        gg.clearResults()
-        gg.setRanges(gg.REGION_ANONYMOUS)
-        gg.searchNumber(searchValue, gg.TYPE_DWORD)
-
-        count = gg.getResultCount()
-    end
-
-    if count == 0 then
         gg.alert(
             "❌ لم يتم العثور عليه!\n\n" ..
             "تأكد من أن خانة الطلب (٢) مفتوحة."
         )
+
         gg.clearResults()
         MainMenu()
         return
     end
 
-    results = gg.getResults(1)
+    local results = gg.getResults(1)
 
     if results == nil or #results == 0 then
-        gg.alert("❌ تم العثور على نتيجة ولكن تعذر قراءتها.")
+        gg.alert("❌ تعذر الحصول على النتيجة.")
         gg.clearResults()
         MainMenu()
         return
     end
 
-    base = results[1].address
+    local base = results[1].address
 
     local modifications = {
+
+        -- گۆڕینی نرخەکان
         {address = base + 0x30, value = 0,          flags = gg.TYPE_DWORD},
         {address = base + 0x34, value = input[1],   flags = gg.TYPE_DWORD},
+
         {address = base + 0x38, value = 0,          flags = gg.TYPE_DWORD},
         {address = base + 0x3C, value = input[2],   flags = gg.TYPE_DWORD},
+
         {address = base + 0x50, value = 0,          flags = gg.TYPE_DWORD},
         {address = base + 0x54, value = input[3],   flags = gg.TYPE_DWORD}
     }
