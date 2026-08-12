@@ -3434,6 +3434,7 @@ end
                 "╔══════════ 🦋══════════╗\nꕤ     🕣   ارسل الكروت بدون وقت     ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     📚          زياده الكروت                ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🧰     اكواد الأكياس للكروت      ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ🚉      طلب قمح من التعاون          ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     👷      فتح المباني المجتمعه   ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ   🚂   طلب مساعده في القطار     ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ🚉 طلب رفع المستوي في القطار ꕤ\n╚══════════════════════╝",
@@ -3447,6 +3448,7 @@ end
                 "╔══════════ 🦋══════════╗\nꕤ     👷    إرسال الهيلو بدون طلب    ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     👷   زیادة عدد صناديق السوق  ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     👷زیادة عدد صناديق المعمل  ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👷زیادة ليقل  ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🛠️      مستلزمات داخل اللعبة   ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🚪             خــــــــــروج                 ꕤ\n╚══════════════════════╝",
 
@@ -3461,21 +3463,23 @@ end
                 if menu[4] == true then Nardni_Kart() end
                 if menu[5] == true then CardHack() end
                 if menu[6] == true then CardsSystemAram() end
-                if menu[7] == true then OpenYellowHats() end
-                if menu[8] == true then HackTrain() end
-                if menu[9] == true then gg.setVisible(true) Hacklivl() end
-                if menu[10] == true then OpenAllLands() end
-                if menu[11] == true then Koga() end
-                if menu[12] == true then shuunaa() end
-                if menu[13] then SubMenu12() end
-                if menu[14] then MenuZyadkrdn() end
-                if menu[15] then kurd() end
-                if menu[16] then likat() end
-                if menu[17] then tayarrrrr() end
-                if menu[18] then snduqsuq() end
-                if menu[19] then snduqmasna3() end
-                if menu[20] then PdaistakanyYari() end
-                if menu[21] == true then 
+                if menu[7] then talbganm() end
+                if menu[8] == true then OpenYellowHats() end
+                if menu[9] == true then HackTrain() end
+                if menu[10] == true then gg.setVisible(true) Hacklivl() end
+                if menu[11] == true then OpenAllLands() end
+                if menu[12] == true then Koga() end
+                if menu[13] == true then shuunaa() end
+                if menu[14] then SubMenu12() end
+                if menu[15] then MenuZyadkrdn() end
+                if menu[16] then kurd() end
+                if menu[17] then likat() end
+                if menu[18] then tayarrrrr() end
+                if menu[19] then snduqsuq() end
+                if menu[20] then snduqmasna3() end
+                if menu[21] then jalalhh() end
+                if menu[22] then PdaistakanyYari() end
+                if menu[23] == true then 
               gg.clearList()   
        gg.clearResults() 
       gg.toast("👋 في أمان الله، لا تنسانا من صالح دعائك")
@@ -4898,8 +4902,96 @@ function shuunaa()
     end
 end
 
+function jalalhh()
+    gg.clearResults()
+    gg.setRanges( gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC | gg.REGION_OTHER )
+    
+    -- گەڕانی سەرەتایی
+    gg.searchNumber( "1886938386;1113878113;31093;4::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1 )
+    gg.refineNumber( "1886938386", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1 )
+    
+    local count = gg.getResultsCount()
+    if count == 0 then
+        gg.alert("هیچ ئەنجامێک نەماوە")
+        return
+    end
+    
+    local results = gg.getResults(count)
+    
+    --------------------------------------------------
+    -- بەشی یەکەم: +384 و زیادکردن بۆ Saved List
+    --------------------------------------------------
+    local saved = {}
+    for i, v in ipairs(results) do
+        saved[#saved + 1] = { address = v.address + 384, flags = gg.TYPE_DWORD }
+    end
+    
+    gg.addListItems(saved)
+    gg.toast( "سیڤ کرا: " .. #saved .. " ئەنجام" )
+    
+    gg.loadResults(saved)
+    local current = gg.getResults(#saved)
+    if #current == 0 then
+        gg.alert("ئەنجامەکانی +384 نەدۆزرایەوە")
+        return
+    end
+    
+    local input = gg.prompt( {"Value x Byte"}, {"100000x4"}, {"text"} )
+    if input == nil then return end
+    local text = input[1]
+    
+    local value, bytes = text:match( "^%s*(-?[%d%.]+)%s*[xX]%s*(%d+)%s*$" )
+    if not value or not bytes then
+        gg.alert( "فۆرمات هەڵەیە!\n\nنموونە:\n100000x4" )
+        return
+    end
+    
+    bytes = tonumber(bytes)
+    if bytes ~= 4 then
+        gg.alert("تەنها x4 ڕێگەپێدراوە.")
+        return
+    end
+    
+    gg.editAll( text, gg.TYPE_DWORD )
+    gg.toast( "تەواو کرا\nئەنجام: " .. #current .. "\nValue: " .. text .. "\nType: DWORD (x4)" )
+
+    --------------------------------------------------
+    -- بەشی دووەم: وەرگرتن لە Saved List و گۆڕینی عنوان بۆ -16
+    --------------------------------------------------
+    local saved_items = gg.getListItems()
+    if #saved_items == 0 then
+        gg.alert("هیچ شتێک لە Saved List نییە")
+        return
+    end
+
+    local minus16 = {}
+    for i, v in ipairs(saved_items) do
+        minus16[#minus16 + 1] = { address = v.address - 16, flags = gg.TYPE_DWORD }
+    end
+    
+    gg.removeListItems(saved_items)
+    gg.addListItems(minus16)
+    
+    -- بارکردنی بۆ Current Results بۆ ئەوەی ببنە ئەنجامی کارا
+    gg.loadResults(minus16)
+    local current16 = gg.getResults(#minus16)
+    if #current16 == 0 then
+        gg.alert("ئەنجامەکانی -16 نەدۆزرایەوە")
+        return
+    end
+
+    --------------------------------------------------
+    -- بەشی سێیەم: گۆڕینی هەموو ئەنجامەکانی ناو لیستی سیڤ بۆ 6
+    --------------------------------------------------
+    gg.editAll("6", gg.TYPE_DWORD)
+    
+    gg.toast("-16 کرا و هەمووی بە سەرکەوتوویی بوون بە 6")
+end
+
+
 
 MainMenu()
+
 while true do
     if gg.isVisible(true) then
         gg.setVisible(false)
@@ -4907,4 +4999,3 @@ while true do
     end
     gg.sleep(100)
 end
-
