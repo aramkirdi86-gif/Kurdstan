@@ -48,6 +48,113 @@ local cachedValues = {
     mainPattern = nil
 }
 
+
+-- ================================================================
+-- PURPLE GLASS UI (visual layer only)
+-- Keeps the original menu data/logic unchanged.
+-- Requires a GG build exposing gg.newAlert + luajava.loadlayout.
+-- Falls back to the original gg.multiChoice on older builds.
+-- ================================================================
+do
+    local _nativeMultiChoice = gg.multiChoice
+    local okNewAlert = (type(gg.newAlert) == 'function')
+    local okLoadLayout = (type(luajava) == 'table' and type(luajava.loadlayout) == 'function' and type(luajava.getContext) == 'function')
+
+    if okNewAlert and okLoadLayout then
+        local Color = luajava.bindClass('android.graphics.Color')
+        local GradientDrawable = luajava.bindClass('android.graphics.drawable.GradientDrawable')
+        local Context = luajava.getContext()
+        local LinearLayout = luajava.bindClass('android.widget.LinearLayout')
+        local TextView = luajava.bindClass('android.widget.TextView')
+        local CheckBox = luajava.bindClass('android.widget.CheckBox')
+        local View = luajava.bindClass('android.view.View')
+
+        local function bg(color, stroke, radius)
+            local d = GradientDrawable()
+            d:setColor(color)
+            d:setCornerRadius(radius or 24)
+            if stroke then d:setStroke(2, stroke) end
+            return d
+        end
+
+        local function styledMultiChoice(items, selected, title)
+            selected = selected or {}
+            local state = {}
+            local rows = {}
+
+            local root = luajava.loadlayout({ LinearLayout,
+                orientation = 'vertical',
+                padding = '22dp',
+                background = bg(0xDD14051F, 0xFFE05BFF, 28),
+            })
+
+            local urlBox = luajava.loadlayout({ LinearLayout,
+                orientation = 'vertical',
+                gravity = 'center',
+                padding = '6dp',
+                background = bg(0xCC0B0315, 0xFF7C35B8, 18),
+                { TextView, text = 'http://gameguardian.net/download', textSize = '13sp',
+                  textColor = 0xFFEBD7FF, gravity = 'center', padding = '5dp' },
+            })
+            root:addView(urlBox, LinearLayout.LayoutParams(-1, 48))
+
+            local titleView = luajava.loadlayout({ TextView, text = title or 'النصي', textSize = '22sp',
+                textColor = 0xFFFFFFFF, gravity = 'right|center_vertical', padding = '8dp' })
+            root:addView(titleView, LinearLayout.LayoutParams(-1, 60))
+
+            local head = luajava.loadlayout({ LinearLayout,
+                orientation = 'vertical',
+                padding = '10dp',
+                background = bg(0xB3180829, 0xFF9D4DFF, 22),
+                { TextView, text = '🦋  D I D A R   W A H A B  🦋', textSize = '18sp',
+                  textColor = 0xFFFFFFFF, gravity = 'center', padding = '8dp' },
+            })
+            root:addView(head)
+
+            local gap = View(Context)
+            root:addView(gap, LinearLayout.LayoutParams(-1, 12))
+
+            for i, label in ipairs(items) do
+                local checked = selected[i] == true
+                state[i] = checked
+                local clean = tostring(label)
+                local middle = clean:match('ꕤ(.-)ꕤ')
+                if middle then clean = middle end
+                clean = clean:gsub('╔.-╗', ''):gsub('╚.-╝', '')
+                clean = clean:gsub('\n', ' '):gsub('%s+', ' ')
+                clean = clean:gsub('^%s+', ''):gsub('%s+$', '')
+                local cb = CheckBox(Context)
+                cb:setText(clean)
+                cb:setTextColor(0xFFFFFFFF)
+                cb:setTextSize(17)
+                                cb:setPadding(14, 8, 14, 8)
+                cb:setBackground(bg(0xA018082D, 0xFFB84DFF, 20))
+                cb:setChecked(checked)
+                cb:setOnCheckedChangeListener(luajava.createProxy('android.widget.CompoundButton$OnCheckedChangeListener', {
+                    onCheckedChanged = function(_, value) state[i] = value end
+                }))
+                root:addView(cb, LinearLayout.LayoutParams(-1, 62))
+                local sp = View(Context)
+                root:addView(sp, LinearLayout.LayoutParams(-1, 9))
+                rows[i] = cb
+            end
+
+            local alert = gg.newAlert(nil, nil)
+            alert:setView(root)
+            local ret = gg.showAlert(alert, 'حسنا', 'الغاء')
+            if ret ~= 1 then return nil end
+            local result = {}
+            for i = 1, #items do
+                if state[i] then result[i] = true end
+            end
+            return result
+        end
+
+        gg.multiChoice = styledMultiChoice
+    end
+end
+-- ================================================================
+
 gg.alert([[
   ⭐ ━━━━━━━━━━━━━━━━━━━━━━ ⭐
  ✨   🇹🇯  🇩 🇮 🇩 🇦 🇷  🇼 🇦 🇭 🇦 🇧   🇹🇯  ✨
@@ -3429,6 +3536,7 @@ end
             
             local menu = gg.multiChoice({
             	"╔══════════ 🦋══════════╗\nꕤ     🎫     فتح التذكره الذهبيه         ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ  رفع المستوى مع فتح الأراضي   ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🌾  زياده المستوي من الزراعة  ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🚁 زياده المستوي من الطائرة  ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🕣   ارسل الكروت بدون وقت     ꕤ\n╚══════════════════════╝",
@@ -3448,7 +3556,6 @@ end
                 "╔══════════ 🦋══════════╗\nꕤ     👷    إرسال الهيلو بدون طلب    ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     👷   زیادة عدد صناديق السوق  ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     👷زیادة عدد صناديق المعمل  ꕤ\n╚══════════════════════╝",
-                "╔══════════ 🦋══════════╗\nꕤ     👷زیادة ليقل  ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🛠️      مستلزمات داخل اللعبة   ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🚪             خــــــــــروج                 ꕤ\n╚══════════════════════╝",
 
@@ -3458,26 +3565,26 @@ end
                 gg.setVisible(false) 
             else
                 if menu[1] == true then HackGoldPass() end
-                if menu[2] == true then WheatLevelXP() end
-                if menu[3] == true then HackLogic() end
-                if menu[4] == true then Nardni_Kart() end
-                if menu[5] == true then CardHack() end
-                if menu[6] == true then CardsSystemAram() end
-                if menu[7] then talbganm() end
-                if menu[8] == true then OpenYellowHats() end
-                if menu[9] == true then HackTrain() end
-                if menu[10] == true then gg.setVisible(true) Hacklivl() end
-                if menu[11] == true then OpenAllLands() end
-                if menu[12] == true then Koga() end
-                if menu[13] == true then shuunaa() end
-                if menu[14] then SubMenu12() end
-                if menu[15] then MenuZyadkrdn() end
-                if menu[16] then kurd() end
-                if menu[17] then likat() end
-                if menu[18] then tayarrrrr() end
-                if menu[19] then snduqsuq() end
-                if menu[20] then snduqmasna3() end
-                if menu[21] then jalalhh() end
+                if menu[2] then jalalhh() end
+                if menu[3] == true then WheatLevelXP() end
+                if menu[4] == true then HackLogic() end
+                if menu[5] == true then Nardni_Kart() end
+                if menu[6] == true then CardHack() end
+                if menu[7] == true then CardsSystemAram() end
+                if menu[8] then talbganm() end
+                if menu[9] == true then OpenYellowHats() end
+                if menu[10] == true then HackTrain() end
+                if menu[11] == true then gg.setVisible(true) Hacklivl() end
+                if menu[12] == true then OpenAllLands() end
+                if menu[13] == true then Koga() end
+                if menu[14] == true then shuunaa() end
+                if menu[15] then SubMenu12() end
+                if menu[16] then MenuZyadkrdn() end
+                if menu[17] then kurd() end
+                if menu[18] then likat() end
+                if menu[19] then tayarrrrr() end
+                if menu[20] then snduqsuq() end
+                if menu[21] then snduqmasna3() end
                 if menu[22] then PdaistakanyYari() end
                 if menu[23] == true then 
               gg.clearList()   
@@ -3868,7 +3975,7 @@ function Nardni_Kart()
         end
         gg.setValues(r_new)
         gg.addListItems(r_new)
-        gg.toast("✅ سەرکەوتوو بوو: کرایە سفر و تجمید کرا")
+        gg.toast("💮 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱💮")
         gg.clearResults()
     end
 
@@ -3933,7 +4040,7 @@ function Nardni_Kart()
     gg.setValues(edits)
     gg.addListItems(edits)
 
-    gg.alert("ئیستا دەتوانی کارتەکان بنێرێت ")
+    gg.alert("🔥 الان يمكنك ارسال الكروت 🔥")
     gg.clearResults()
 end
 ---------------------------------------------------------
@@ -4282,17 +4389,17 @@ end
 -- Township Universal Time Reset
 -- Created for: Aram
 
--- لێرە ناونیشانەکان پاشەکەوت دەکەین بۆ ئەوەی جاری دووەم پێویست بە گەڕان نەکات
+
 local saved_base2 = nil
 local saved_copied = nil
 
 function Binakan()
-    -- ١. ئەگەر پێشتر نەگەڕابووین، با بگەڕێین بۆ دۆزینەوەی ئەدرەسەکان
+
     if saved_copied == nil or saved_base2 == nil then
         gg.clearResults()
         
 
-        -- گەڕان بۆ کۆدی بنچینە (24)
+
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("1599099688;1936682818;33;24", gg.TYPE_DWORD)
@@ -4324,23 +4431,23 @@ function Binakan()
         local r2 = gg.getResults(1)
         if #r2 == 0 then
             gg.alert("لم يتم العثور على القيمة المستهدفة (29)!")
-            saved_copied = nil -- ئەگەر ئەمە نەدۆزرایەوە، با جاری داهاتوو دووبارە بگەڕێتەوە
+            saved_copied = nil 
             return
         end
         saved_base2 = r2[1].address
     end
 
-    -- ٢. داواکردنی نرخی نوێ
+
     local input = gg.prompt({"حدد القيمة "}, {0}, {"number"})
     
     if input then
-        -- پاککردنەوەی لیستی کۆن (Unfreeze کۆنەکان) بۆ ئەوەی ڕێگەی گۆڕانکاری نوێ بدات
+
         gg.clearList()
         
         local p = {}
         local b = saved_base2
         
-        -- لێرە بەهاکان بە Freeze دادەنێین بۆ ئەوەی یارییەکە نەتوانێت بیگۆڕێتەوە
+
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
         p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = true}
         p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = true}
@@ -4357,7 +4464,7 @@ function Binakan()
     end
 end
 
--- فانکشنی کەمکردنەوەی کاتی کوشتوکاڵ
+
 function Agriculture()
     if saved_base2 == nil then
         gg.clearResults()
@@ -4383,10 +4490,10 @@ function Agriculture()
         local p = {}
         local b = saved_base2
         
-        -- خانەی ٣ دەبێتە ٢ و تجمید
+
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
         
-        -- خانەی ٤ تا ٩: ئەو کۆدە Hex-انەی کە بۆ کوشتوکاڵ ناردووتە
+
         p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = 0x5F50532C} -- خانەی ٤
         p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = 0x736F6F42} -- خانەی ٥
         p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 0x65705374} -- خانەی ٦
@@ -4394,10 +4501,10 @@ function Agriculture()
         p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = 0x76726148} -- خانەی ٨
         p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = 0x00747365} -- خانەی ٩
         
-        -- خانەی ١٠ دەبێتە سفر
+
         p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
         
-        -- خانەی ١١ ئەوەی بەکارهێنەر دای دەنێت
+
         p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
 
         gg.setValues(p)
@@ -4421,7 +4528,7 @@ gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
     local results = gg.getResults(1)
     if #results == 0 then
         gg.alert("لم يتم العثور على كود الطيران! ❌")
-        return -- لێرە یەکسەر دەگەڕێتەوە و ئەسکریپتەکە داناخرێت
+        return 
     end
 
     local b = results[1].address
@@ -4457,18 +4564,18 @@ function SubMenu12()
     
     }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
 
-  -- گەڕانەوەی سەلامەت لە کاتی Cancel
+  
 if menu == nil then 
     return 
 end
 
--- ئەنجامدانی کردارەکان بەبێ بانگکردنەوەی مینوو
+
 if menu[1] then Binakan() end
 if menu[2] then tayara() end
 if menu[3] then Agriculture() end
 if menu[4] then hewanat() end
 
--- گەڕانەوە بۆ مینووی سەرەکی بەبێ کڕاش
+
 if menu[5] then 
     gg.toast("❤️ شكراً للاستخدام")
     return 
@@ -4616,7 +4723,7 @@ end
 
 function kurd()
    local menu = gg.multiChoice({
-   	"╔══════════ ??══════════╗\nꕤ     🚀          زیادة نقاط السباق        ꕤ\n╚══════════════════════╝",
+   	"╔══════════ 🌼══════════╗\nꕤ     🚀          زیادة نقاط السباق        ꕤ\n╚══════════════════════╝",
        "╔══════════ 🦋══════════╗\nꕤ     🚪               خـــــــــروج                ꕤ\n╚══════════════════════╝",
     
   }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
@@ -4906,61 +5013,94 @@ function jalalhh()
     gg.clearResults()
     gg.setRanges( gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC | gg.REGION_OTHER )
     
-    -- گەڕانی سەرەتایی
+    
     gg.searchNumber( "1886938386;1113878113;31093;4::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1 )
     gg.refineNumber( "1886938386", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1 )
     
     local count = gg.getResultsCount()
     if count == 0 then
-        gg.alert("هیچ ئەنجامێک نەماوە")
+        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
         return
     end
     
     local results = gg.getResults(count)
     
-    --------------------------------------------------
-    -- بەشی یەکەم: +384 و زیادکردن بۆ Saved List
-    --------------------------------------------------
-    local saved = {}
-    for i, v in ipairs(results) do
-        saved[#saved + 1] = { address = v.address + 384, flags = gg.TYPE_DWORD }
-    end
-    
-    gg.addListItems(saved)
-    gg.toast( "سیڤ کرا: " .. #saved .. " ئەنجام" )
-    
-    gg.loadResults(saved)
-    local current = gg.getResults(#saved)
-    if #current == 0 then
-        gg.alert("ئەنجامەکانی +384 نەدۆزرایەوە")
-        return
-    end
-    
-    local input = gg.prompt( {"Value x Byte"}, {"100000x4"}, {"text"} )
-    if input == nil then return end
-    local text = input[1]
-    
-    local value, bytes = text:match( "^%s*(-?[%d%.]+)%s*[xX]%s*(%d+)%s*$" )
-    if not value or not bytes then
-        gg.alert( "فۆرمات هەڵەیە!\n\nنموونە:\n100000x4" )
-        return
-    end
-    
-    bytes = tonumber(bytes)
-    if bytes ~= 4 then
-        gg.alert("تەنها x4 ڕێگەپێدراوە.")
-        return
-    end
-    
-    gg.editAll( text, gg.TYPE_DWORD )
-    gg.toast( "تەواو کرا\nئەنجام: " .. #current .. "\nValue: " .. text .. "\nType: DWORD (x4)" )
 
+    --------------------------------------------------
+
+local choice = gg.choice({
+	"╔══════════ 🦋══════════╗\nꕤ     🌺  زيادة المستوي ⇦ (119)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌹  زيادة المستوي ⇦ (156)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌻  زيادة المستوي ⇦ (328)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     💐  زیادة المستوي ⇦ (406)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🏵️  زيادة المستوي ⇦ (590)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌸  زيادة المستوي ⇦ (788)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     💮  زیادة المستوي ⇦ (875)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌼  زيادة المستوي ⇦ (957)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌷  زيادة المستوي ⇦ (981)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌲 زيادة المستوي ⇦ (1004)    ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     ↩️        رجــــــــــــــــوع                    ꕤ\n╚══════════════════════╝",
+}, nil, "🌟 قائمة ترقية المستويات 🌟")
+
+
+if choice == nil or choice == 11 then
+    return
+end
+
+local values = {
+    [1] = "100000x4",
+    [2] = "200000x4",
+    [3] = "1000000x4",
+    [4] = "1500000x4",
+    [5] = "3000000x4",
+    [6] = "5000000x4",
+    [7] = "6000000x4",
+    [8] = "7000000x4",
+    [9] = "7300000x4",
+    [10] = "7600000x4"
+}
+
+local text = values[choice]
+
+
+local saved = {}
+
+for i, v in ipairs(results) do
+    saved[#saved + 1] = {
+        address = v.address + 384,
+        flags = gg.TYPE_DWORD
+    }
+end
+
+if #saved == 0 then
+    gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+    return
+end
+
+
+gg.addListItems(saved)
+
+gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+
+gg.loadResults(saved)
+
+local current = gg.getResults(#saved)
+
+if #current == 0 then
+    gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+    return
+end
+
+
+gg.editAll(text, gg.TYPE_DWORD)
+
+gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
     --------------------------------------------------
     -- بەشی دووەم: وەرگرتن لە Saved List و گۆڕینی عنوان بۆ -16
     --------------------------------------------------
     local saved_items = gg.getListItems()
     if #saved_items == 0 then
-        gg.alert("هیچ شتێک لە Saved List نییە")
+        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
         return
     end
 
@@ -4972,11 +5112,11 @@ function jalalhh()
     gg.removeListItems(saved_items)
     gg.addListItems(minus16)
     
-    -- بارکردنی بۆ Current Results بۆ ئەوەی ببنە ئەنجامی کارا
+    
     gg.loadResults(minus16)
     local current16 = gg.getResults(#minus16)
     if #current16 == 0 then
-        gg.alert("ئەنجامەکانی -16 نەدۆزرایەوە")
+        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
         return
     end
 
@@ -4985,7 +5125,7 @@ function jalalhh()
     --------------------------------------------------
     gg.editAll("6", gg.TYPE_DWORD)
     
-    gg.toast("-16 کرا و هەمووی بە سەرکەوتوویی بوون بە 6")
+    gg.alert("💐 تم بنجاح 💐⏳ يرجى الانتظار بضع ثوانٍ حتى يتم فتح جميع الأراضي ⏳")
 end
 
 
