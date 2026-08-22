@@ -48,113 +48,6 @@ local cachedValues = {
     mainPattern = nil
 }
 
-
--- ================================================================
--- PURPLE GLASS UI (visual layer only)
--- Keeps the original menu data/logic unchanged.
--- Requires a GG build exposing gg.newAlert + luajava.loadlayout.
--- Falls back to the original gg.multiChoice on older builds.
--- ================================================================
-do
-    local _nativeMultiChoice = gg.multiChoice
-    local okNewAlert = (type(gg.newAlert) == 'function')
-    local okLoadLayout = (type(luajava) == 'table' and type(luajava.loadlayout) == 'function' and type(luajava.getContext) == 'function')
-
-    if okNewAlert and okLoadLayout then
-        local Color = luajava.bindClass('android.graphics.Color')
-        local GradientDrawable = luajava.bindClass('android.graphics.drawable.GradientDrawable')
-        local Context = luajava.getContext()
-        local LinearLayout = luajava.bindClass('android.widget.LinearLayout')
-        local TextView = luajava.bindClass('android.widget.TextView')
-        local CheckBox = luajava.bindClass('android.widget.CheckBox')
-        local View = luajava.bindClass('android.view.View')
-
-        local function bg(color, stroke, radius)
-            local d = GradientDrawable()
-            d:setColor(color)
-            d:setCornerRadius(radius or 24)
-            if stroke then d:setStroke(2, stroke) end
-            return d
-        end
-
-        local function styledMultiChoice(items, selected, title)
-            selected = selected or {}
-            local state = {}
-            local rows = {}
-
-            local root = luajava.loadlayout({ LinearLayout,
-                orientation = 'vertical',
-                padding = '22dp',
-                background = bg(0xDD14051F, 0xFFE05BFF, 28),
-            })
-
-            local urlBox = luajava.loadlayout({ LinearLayout,
-                orientation = 'vertical',
-                gravity = 'center',
-                padding = '6dp',
-                background = bg(0xCC0B0315, 0xFF7C35B8, 18),
-                { TextView, text = 'http://gameguardian.net/download', textSize = '13sp',
-                  textColor = 0xFFEBD7FF, gravity = 'center', padding = '5dp' },
-            })
-            root:addView(urlBox, LinearLayout.LayoutParams(-1, 48))
-
-            local titleView = luajava.loadlayout({ TextView, text = title or 'النصي', textSize = '22sp',
-                textColor = 0xFFFFFFFF, gravity = 'right|center_vertical', padding = '8dp' })
-            root:addView(titleView, LinearLayout.LayoutParams(-1, 60))
-
-            local head = luajava.loadlayout({ LinearLayout,
-                orientation = 'vertical',
-                padding = '10dp',
-                background = bg(0xB3180829, 0xFF9D4DFF, 22),
-                { TextView, text = '🦋  D I D A R   W A H A B  🦋', textSize = '18sp',
-                  textColor = 0xFFFFFFFF, gravity = 'center', padding = '8dp' },
-            })
-            root:addView(head)
-
-            local gap = View(Context)
-            root:addView(gap, LinearLayout.LayoutParams(-1, 12))
-
-            for i, label in ipairs(items) do
-                local checked = selected[i] == true
-                state[i] = checked
-                local clean = tostring(label)
-                local middle = clean:match('ꕤ(.-)ꕤ')
-                if middle then clean = middle end
-                clean = clean:gsub('╔.-╗', ''):gsub('╚.-╝', '')
-                clean = clean:gsub('\n', ' '):gsub('%s+', ' ')
-                clean = clean:gsub('^%s+', ''):gsub('%s+$', '')
-                local cb = CheckBox(Context)
-                cb:setText(clean)
-                cb:setTextColor(0xFFFFFFFF)
-                cb:setTextSize(17)
-                                cb:setPadding(14, 8, 14, 8)
-                cb:setBackground(bg(0xA018082D, 0xFFB84DFF, 20))
-                cb:setChecked(checked)
-                cb:setOnCheckedChangeListener(luajava.createProxy('android.widget.CompoundButton$OnCheckedChangeListener', {
-                    onCheckedChanged = function(_, value) state[i] = value end
-                }))
-                root:addView(cb, LinearLayout.LayoutParams(-1, 62))
-                local sp = View(Context)
-                root:addView(sp, LinearLayout.LayoutParams(-1, 9))
-                rows[i] = cb
-            end
-
-            local alert = gg.newAlert(nil, nil)
-            alert:setView(root)
-            local ret = gg.showAlert(alert, 'حسنا', 'الغاء')
-            if ret ~= 1 then return nil end
-            local result = {}
-            for i = 1, #items do
-                if state[i] then result[i] = true end
-            end
-            return result
-        end
-
-        gg.multiChoice = styledMultiChoice
-    end
-end
--- ================================================================
-
 gg.alert([[
   ⭐ ━━━━━━━━━━━━━━━━━━━━━━ ⭐
  ✨   🇹🇯  🇩 🇮 🇩 🇦 🇷  🇼 🇦 🇭 🇦 🇧   🇹🇯  ✨
@@ -3551,6 +3444,7 @@ end
                 "╔══════════ 🦋══════════╗\nꕤ     🏜️          توسيع الشونە مؤقت  ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🕰️       اكواد تصفير الوقت         ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     🕹️      الكاش☜الفلوس☜إلخ     ꕤ\n╚══════════════════════╝",
+                "╔══════════ 🦋══════════╗\nꕤ     👷        ضعف النقاط  هدية       ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     👑       زيادة نقاط السباق          ꕤ\n╚══════════════════════╝",
                 "╔══════════ 🦋══════════╗\nꕤ     👑       زيادة عدد الإعجابات       ꕤ\n╚══════════════════════╝",        
                 "╔══════════ 🦋══════════╗\nꕤ     👷    إرسال الهيلو بدون طلب    ꕤ\n╚══════════════════════╝",
@@ -3580,13 +3474,14 @@ end
                 if menu[14] == true then shuunaa() end
                 if menu[15] then SubMenu12() end
                 if menu[16] then MenuZyadkrdn() end
-                if menu[17] then kurd() end
-                if menu[18] then likat() end
-                if menu[19] then tayarrrrr() end
-                if menu[20] then snduqsuq() end
-                if menu[21] then snduqmasna3() end
-                if menu[22] then PdaistakanyYari() end
-                if menu[23] == true then 
+                if menu[17] then X2() end
+                if menu[18] then kurd() end
+                if menu[19] then likat() end
+                if menu[20] then tayarrrrr() end
+                if menu[21] then snduqsuq() end
+                if menu[22] then snduqmasna3() end
+                if menu[23] then PdaistakanyYari() end
+                if menu[24] == true then 
               gg.clearList()   
        gg.clearResults() 
       gg.toast("👋 في أمان الله، لا تنسانا من صالح دعائك")
@@ -4584,42 +4479,98 @@ end
 
 --[[ ➕ SEROK ARAM LUXURY - FINAL FIXED WITH WARNING ➕ ]]--
 
-local isZyadSearched = false
+local isSearchedZyad = false
 local zyadResults = {}
 
+local configZyad = {
+    [1] = {name = "الكاش",hex = {0x73616308,0x00000068,0,0,0,0}},
+    [2] = {name = "الليرة الصفراء",hex = {1768907530,29550,0,0,0,0}},
+    [3] = {name = "الكاتب الأول",hex = {1635021594,1600484724,1953067639,29285,0,0}}}
 function MenuZyadkrdn()
     gg.setVisible(false)
     local menu = gg.multiChoice({
-    	"╔══════════ 🦋══════════╗\nꕤ     💸               كود الكاش             ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🪙             كود الفلوس            ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     ??           كود الكاتب الأول         ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🔄               رجـــــــــوع                ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🚪              خـــــــــــروج               ꕤ\n╚══════════════════════╝",
-        
-    }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎??︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
 
-    if menu == nil then return MenuZyadkrdn() end
-    
-    -- گەڕانەوە و پاککردنەوەی میمۆری
-    if menu[4] then 
-        isZyadSearched = false
+        "╔══════════ 🦋══════════╗\nꕤ     💸               كود الكاش             ꕤ\n╚══════════════════════╝",
+
+        "╔══════════ 🦋══════════╗\nꕤ     🪙             كود الفلوس            ꕤ\n╚══════════════════════╝",
+
+        "╔══════════ 🦋══════════╗\nꕤ     ✍️           كود الكاتب الأول         ꕤ\n╚══════════════════════╝",
+
+        "╔══════════ 🦋══════════╗\nꕤ     🔄               رجـــــــــوع                ꕤ\n╚══════════════════════╝",
+
+        "╔══════════ 🦋══════════╗\nꕤ     🚪              خـــــــــــروج               ꕤ\n╚══════════════════════╝"
+
+    }, nil,
+
+    "╔══════════════════════╗\n" ..
+    "    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n" ..
+    "╚══════════════════════╝")
+
+
+    if menu == nil then
+        return MenuZyadkrdn()
+    end
+
+
+    -- =========================
+    -- رجوع
+    -- =========================
+
+    if menu[4] then
+
+        isSearchedZyad = false
         zyadResults = {}
+
         gg.clearResults()
         gg.clearList()
-        gg.toast("🐰🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🐰")
-        if MainMenu then return MainMenu() end 
-        return 
+
+        gg.toast("🦋 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱 🦋")
+
+        if MainMenu then
+            return MainMenu()
+        end
+
+        return
     end
 
-    if menu[5] then 
-        gg.clearList() 
-        gg.clearResults() 
-        os.exit() 
+
+    -- =========================
+    -- خروج
+    -- =========================
+
+    if menu[5] then
+
+        gg.clearList()
+        gg.clearResults()
+
+        os.exit()
     end
 
-    -- بەشی کاش و پارەی زەرد
-if menu[1] or menu[2] then
-    if not isZyadSearched then
+
+    -- =========================
+    -- دیاریکردنی هەڵبژاردن
+    -- =========================
+
+    local anySelected = false
+
+    for i = 1, 3 do
+        if menu[i] then
+            anySelected = true
+            break
+        end
+    end
+
+    if not anySelected then
+        return MenuZyadkrdn()
+    end
+
+
+    -- =========================
+    -- گەڕان تەنها یەک جار
+    -- دوای هەڵبژاردنی مینۆ
+    -- =========================
+
+    if not isSearchedZyad then
 
         gg.clearResults()
 
@@ -4627,96 +4578,146 @@ if menu[1] or menu[2] then
             gg.REGION_C_ALLOC | gg.REGION_OTHER
         )
 
-        gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+        gg.toast("🔍 جاري البحث...")
 
-        gg.searchNumber(
-            "65537~65542;1970225964;29::457",
-            gg.TYPE_DWORD
-        )
-
-        gg.refineNumber("29", gg.TYPE_DWORD)
+        gg.searchNumber( "65537~65542;1970225964;29::457", gg.TYPE_DWORD )
+ gg.refineNumber("29",gg.TYPE_DWORD)
 
         local count = gg.getResultCount()
-
         if count == 0 then
-            isZyadSearched = false
+
+            isSearchedZyad = false
+            zyadResults = {}
+
             gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
-            return MenuZyadkrdn()
+  return MenuZyadkrdn()
         end
 
         zyadResults = gg.getResults(count)
-        isZyadSearched = true
+
+        isSearchedZyad = true
     end
- 
 
-        gg.alert("⚠️ تحذير لتجنب الباند:\n\n💵 الكاش (الجديد): ٨٥٠,٠٠٠\n🪙 الليرة الصفراء: الحد الأقصى ٩٥٠,٠٠٠", "فهمت")
 
-        local input = gg.prompt({'اكتب المبلغ المطلوب:'}, {'0'}, {'number'})
-        if input then
-            local edit, freeze = {}, {}
-            local slotIdx = 1
-            
-            for i = 1, 2 do
-                if menu[i] and zyadResults[slotIdx] then
-                    local r = zyadResults[slotIdx]
-                    local currentHex = {}
-                    
-                    if i == 1 then -- کاش
-                        currentHex = {0x73616308, 0x00000068, 0, 0, 0, 0}
-                    elseif i == 2 then -- پارەی زەرد
-                        currentHex = {1768907530, 29550, 0, 0, 0, 0}
-                    end
-                    
-                    table.insert(freeze, {address=r.address+12, value=2, flags=4, freeze=true})
-                    for j, h in ipairs(currentHex) do 
-                        table.insert(edit, {address=r.address+12+(j*4), value=h, flags=4}) 
-                    end
-                    table.insert(edit, {address=r.address+40, value=0, flags=4})
-                    table.insert(edit, {address=r.address+44, value=tonumber(input[1]), flags=4})
-                    
-                    slotIdx = slotIdx + 1
-                end
-            end
-            
-       if #edit > 0 then
-    gg.setValues(edit)
-    gg.addListItems(freeze)
-    
+    -- =========================
+    -- کۆدی هەڵبژێردراو
+    -- =========================
 
-    gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
-end
+    local input = nil
+
+    -- بۆ کاش و پارەی زەرد تەنها
+    -- داواکاری بڕ
+
+    if menu[1] or menu[2] then
+
+        input = gg.prompt({"اكتب الكمية المطلوبة:"},{"0"},{"number"})
+
+        if input == nil then
+            return MenuZyadkrdn()
         end
     end
 
-    -- بەشی نیاردەرتاڵ
-    if menu[3] then
-        gg.clearResults()
-        gg.toast("🔍 جاري البحث عن الكتاب الأول...")
-        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("1900000x4", 4)
-        local count = gg.getResultCount()
-        if count > 0 then
-            local res = gg.getResults(count)
-            local yellow = res[1].address
-            gg.setValues({
-                {address = yellow, flags = 4, value = 0},
-                {address = yellow - 4, flags = 4, value = 0}
+
+    local edit = {}
+    local freeze = {}
+
+    -- =========================
+    -- ڕێگری لە تێکەڵبوونی slot
+    -- =========================
+
+    local slotIdx = 1
+
+    for i = 1, 3 do
+
+        if menu[i] and zyadResults[slotIdx] then
+
+            local v = configZyad[i]
+            local r = zyadResults[slotIdx]
+
+
+            -- =========================
+            -- +12 = Byte 2 + Freeze
+            -- =========================
+
+            table.insert(freeze, {
+                address = r.address + 12,
+                value = 2,
+                flags = gg.TYPE_BYTE,
+                freeze = true
             })
-            gg.toast("✅ الكتاب الأول جاهز")
-        else
-            gg.alert("❌ لم يتم العثور على الكتاب الأول!")
+
+
+            -- =========================
+            -- کۆدەکان
+            -- =========================
+
+            for j, h in ipairs(v.hex) do
+
+                table.insert(edit, {
+                    address = r.address + 12 + (j * 4),
+                    value = h,
+                    flags = gg.TYPE_DWORD
+                })
+
+            end
+
+
+            -- =========================
+            -- کاش / پارەی زەرد
+            -- =========================
+
+            if i == 1 or i == 2 then
+
+                table.insert(edit, {
+                    address = r.address + 40,
+                    value = 0,
+                    flags = gg.TYPE_DWORD
+                })
+
+                table.insert(edit, {
+                    address = r.address + 44,
+                    value = tonumber(input[1]),
+                    flags = gg.TYPE_DWORD
+                })
+
+            end
+
+
+            slotIdx = slotIdx + 1
         end
-    end 
+    end
 
-    -- شاردنەوە و وەستان
-    gg.setVisible(false)
-    while not gg.isVisible() do 
-        gg.sleep(200) 
-    end 
-    
-    return MenuZyadkrdn() 
+
+    -- =========================
+    -- جێبەجێکردن
+    -- =========================
+
+    if #edit > 0 then
+
+        gg.setValues(edit)
+
+        if #freeze > 0 then
+            gg.addListItems(freeze)
+        end
+
+        gg.alert("🙆🏻 تم تبديل هدية 29 بنجاح\n" .. "افتح التصريح واستلم 🙆🏻")
+
+        gg.setVisible(false)
+
+        while not gg.isVisible() do
+            gg.sleep(200)
+        end
+
+        return MenuZyadkrdn()
+
+    else
+
+        gg.alert( "❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
+
+        return MenuZyadkrdn()
+    end
+
 end
-
 
 
 
@@ -4949,12 +4950,12 @@ local saved_copied = nil
 local current_menu = "main" -- ئەمە دیاری دەکات ئێستا لە کام مینۆیەیت
 
 function shuunaa()
-    -- ١. دڵنیابوونەوە لە هەبوونی ناونیشانەکان
+
     if saved_copied == nil or saved_base2 == nil then
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC)
         
-        -- گەڕانی یەکەم
+
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("1599099688;1936682818;33;24;23", gg.TYPE_DWORD)
@@ -4972,7 +4973,7 @@ function shuunaa()
             {address = addr1 + 12, flags = gg.TYPE_DWORD} 
         })
 
-        -- گەڕانی دووەم
+
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
@@ -4982,11 +4983,11 @@ function shuunaa()
         saved_base2 = r2[1].address
     end
 
-    -- ٢. داواکردنی نرخی نوێ لە بەکارهێنەر
+
     local input = gg.prompt({"أدخل رقم المخزن 📊"}, {0}, {"number"})
     
     if input then
-        -- لێرە هەموو لیستە کۆنەکان لادەبەین (Unfreeze) بۆ ئەوەی ڕێگەی گۆڕانکاری نوێ بدات
+
         gg.clearList() 
         
         local p = {}
@@ -5002,7 +5003,6 @@ function shuunaa()
         p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
         p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
 
-        -- جێبەجێکردنی کۆدی نوێ و بەستنەوەی دووبارە
         gg.addListItems(p)
         gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
         
@@ -5126,6 +5126,80 @@ gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱�
     gg.editAll("6", gg.TYPE_DWORD)
     
     gg.alert("💐 تم بنجاح 💐⏳ يرجى الانتظار بضع ثوانٍ حتى يتم فتح جميع الأراضي ⏳")
+end
+
+
+function X2()
+
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+gg.refineNumber("29", gg.TYPE_DWORD)
+
+local results = gg.getResults(gg.getResultsCount())
+
+if #results > 0 then
+
+    local input = gg.prompt(
+        {"️‍🔥اكتب السعر لإضافة أيام X2.️‍🔥"},
+        {"5000000"}, 
+        {"number"}
+    )
+
+    if input == nil then
+        gg.toast("تم إلغاء العملية.")
+        os.exit()
+    end
+
+
+    local user_value = tonumber(input[1]) * 2
+
+    local edit_table = {}
+    local freeze_table = {}
+
+    for i, v in ipairs(results) do
+ 
+        table.insert(freeze_table, {
+            address = v.address + 12, 
+            flags = gg.TYPE_DWORD, 
+            value = 2, 
+            freeze = true
+        })
+
+        local values = {1835619372,1850041445,2037672308,1635214674,1816224882,3299436 }
+        
+        local current_offset = 16
+        for _, val in ipairs(values) do
+            table.insert(edit_table, {
+                address = v.address + current_offset, 
+                flags = gg.TYPE_DWORD, 
+                value = val
+            })
+            current_offset = current_offset + 4
+        end
+
+        
+        table.insert(edit_table, {
+            address = v.address + 40,
+            flags = gg.TYPE_DWORD,
+            value = 0
+        })
+
+
+        table.insert(edit_table, {
+            address = v.address + 44,
+            flags = gg.TYPE_DWORD,
+            value = user_value
+        })
+    end
+
+   
+    gg.setValues(edit_table)
+    gg.addListItems(freeze_table)
+    
+    gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
+else
+       gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+end
 end
 
 
