@@ -140,31 +140,47 @@ local couponResults = {}
 function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
     if not isCouponSearched then
         gg.clearResults()
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
+        gg.refineNumber('29', gg.TYPE_DWORD)
+        local results = gg.getResults(1)
+
+        if #results < 1 then
+            gg.toast(" البحث عن الكود الثاني")
+            gg.clearResults()
 gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;5;29::457", gg.TYPE_DWORD)
-        gg.refineNumber("29", gg.TYPE_DWORD)
-        
-        local count = gg.getResultCount()
-        if count == 0 then 
-            isCouponSearched = false 
-            return gg.alert("❌ دڵنیابەوە لە یاری بەسراوەتەوە بە جێم ") 
+            gg.searchNumber('28;1952533798;29::641', gg.TYPE_DWORD)
+            gg.refineNumber('29', gg.TYPE_DWORD)
+            results = gg.getResults(1)
+
+            if #results < 1 then
+                gg.toast(" البحث عن الكود الثالث")
+                gg.clearResults()
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+                gg.searchNumber('65537;1970225964;29:457', gg.TYPE_DWORD)
+                results = gg.getResults(1)
+
+                if #results < 1 then
+                    gg.alert(" ❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ") 
+                    gg.clearResults()
+                    return false
+                end
+            end
         end
-        couponResults = gg.getResults(count)
+        couponResults = gg.getResults(1)
         isCouponSearched = true
     end
 
-    -- بەکارهێنانی slotIdx بۆ ئەوەی هەر کۆبۆنێک بچێتە خانەیەکی جیاواز
     local r = couponResults[slotIdx]
     if not r then return end
 
-    local input = gg.prompt({"بڕی " .. name .. " بنووسە:"}, {"100"}, {"number"})
+    local input = gg.prompt({"الارقام" .. name .. " اکتوب:"}, {"100"}, {"number"})
     if not input then return end
 
     local list = {}
-    -- خانەی ١٢: تجمید لەسەر ٢
+
     table.insert(list, {address = r.address + 12, flags = 4, value = 2, freeze = true})
     
-    -- دانانی کۆدە هێکسەکان
     for i = 1, 6 do
         table.insert(list, {address = r.address + 12 + (i * 4), flags = 4, value = hex_values[i] or 0})
     end
@@ -269,7 +285,7 @@ function Final_Emoji_Collector()
     
 gg.clearResults()
 gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     
     local results = gg.getResults(1)
@@ -368,7 +384,7 @@ function HackItems()
         gg.clearResults()
         gg.toast("🔍 البحث عن النقاط...")
        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
@@ -525,7 +541,7 @@ function qalbAltuny()
         
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         isSearched = true
     end
@@ -630,7 +646,7 @@ function menuTools()
     if not isNailSearched then
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
@@ -741,7 +757,7 @@ function kandi()
     if not isKandiSearched then
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;5;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
@@ -856,7 +872,7 @@ function menuYaqut()
     if not isYaqutSearched then
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
@@ -965,7 +981,7 @@ function menuMshar()
     if not isExpansionSearched then
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
@@ -1048,7 +1064,7 @@ function Final_Auto_Collector()
     -- گەڕان بۆ خانەی ٢٩
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     
     local results = gg.getResults(1)
@@ -1153,7 +1169,7 @@ function YellowMenu()
     if not isYellowSearched then
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
@@ -1305,9 +1321,9 @@ function Ice_InitialSetup()
     gg.toast("🦜 البحث مستمر، يرجى الانتظار 🦜")
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
-    local r = gg.getResults(2)
+    local r = gg.getResults(1)
     if #r == 0 then 
         gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
         PdaistakanyYari()
@@ -1401,7 +1417,7 @@ local selectedHeartIndex = 0
 function Run_Hearts_Bears()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -1536,7 +1552,7 @@ local selectedDecoIndex = 0
 function Run_Decoration()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -1641,7 +1657,7 @@ local selectedWaterIndex = 0
 function Run_Water_Decoration()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -1729,7 +1745,7 @@ local selectedFountainIndex = 0
 function Run_Fountain()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -1831,7 +1847,7 @@ local selectedWitchIndex = 0
 function Run_Witch_Houses()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -1919,7 +1935,7 @@ local selectedTreeIndex = 0
 function Run_Trees()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -1997,7 +2013,7 @@ local selectedRabbitIndex = 0
 function Run_Rabbit_Houses()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2089,7 +2105,7 @@ local selectedFenceIndex = 0
 function Run_Fences()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2213,7 +2229,7 @@ end
 function Run_Chickens()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local r = gg.getResults(1)
     
@@ -2304,7 +2320,7 @@ local selectedCowIndex = 0
 function Run_Cows()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2385,7 +2401,7 @@ local selectedSheepIndex = 0
 function Run_Sheeps()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2454,7 +2470,7 @@ local selectedPigIndex = 0
 function Run_Pigs()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2569,7 +2585,7 @@ end
 function Run_Train_Logic()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2641,7 +2657,7 @@ local selectedStationIndex = 0
 function Run_Train_Station()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2716,7 +2732,7 @@ local selectedHeliIndex = 0
 function Run_Helicopter()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2792,7 +2808,7 @@ local selectedAirIndex = 0
 function Run_Air_Mixed()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2870,7 +2886,7 @@ local selectedShipIndex = 0
 function Run_Ship_Island_Mixed()
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local results = gg.getResults(1)
     
@@ -2977,7 +2993,7 @@ function StoneMenu()
     -- گەڕان تەنها بۆ یەکەم جار
     if not isStoneSearched then
         gg.clearResults()
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
@@ -3042,7 +3058,7 @@ function NaznawakanMenu()
     if not searchDone then
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         searchDone = true 
     end
@@ -3178,7 +3194,7 @@ function Slemani_InitialSetup(mode)
 
     gg.clearResults()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
     local res2 = gg.getResults(1)
     if #res2 == 0 then gg.alert("🚫 دڵنیابەوە یاریەکەت بەسراوەتەوە بە جێم"); return false end
@@ -3345,7 +3361,7 @@ end
 function Aram_Logokan()
     -- ١. پاککردنەوەی میمۆری لە کاتی چوونە ناو ئەم بەشە
     gg.clearResults()
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
 
     local r = gg.getResults(100)
@@ -3475,7 +3491,7 @@ end
         gg.sleep(100)    
     end
 
- 
+
 
 function HackLogic()
 
@@ -4128,10 +4144,7 @@ function CardsSystemAram()
         gg.REGION_C_ALLOC | gg.REGION_OTHER
     )
 
-    gg.searchNumber(
-        "65537~65542;1970225964;29::457",
-        gg.TYPE_DWORD
-    )
+    gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
 
     gg.refineNumber(
         "29",
@@ -4273,8 +4286,12 @@ local saved_base2 = nil
 local saved_copied = nil
 
 function Binakan()
+
     if saved_copied == nil or saved_base2 == nil then
         gg.clearResults()
+        
+
+
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("1599099688;1936682818;33;24", gg.TYPE_DWORD)
@@ -4296,10 +4313,11 @@ function Binakan()
             {address = addr1 + 12, flags = gg.TYPE_DWORD}
         })
 
+        -- گەڕان بۆ بەهای ئامانج (29)
         gg.clearResults()
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
 
         local r2 = gg.getResults(1)
@@ -4311,13 +4329,17 @@ function Binakan()
         saved_base2 = r2[1].address
     end
 
+
     local input = gg.prompt({"حدد القيمة "}, {0}, {"number"})
     
-    if input and input[1] then
+    if input then
+
         gg.clearList()
+        
         local p = {}
         local b = saved_base2
         
+
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
         p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = true}
         p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = true}
@@ -4338,9 +4360,11 @@ end
 function Agriculture()
     if saved_base2 == nil then
         gg.clearResults()
+      
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
-        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        
+  gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
 
         local results = gg.getResults(1)
@@ -4353,19 +4377,26 @@ function Agriculture()
 
     local input = gg.prompt({"🕐 أدخل مقدار الوقت"}, {0}, {"number"})
     
-    if input and input[1] then
+    if input then
         gg.clearList() 
         local p = {}
         local b = saved_base2
         
+
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
-        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = 0x5F50532C}
-        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = 0x736F6F42}
-        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 0x65705374}
-        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = 0x70556465}
-        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = 0x76726148}
-        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = 0x00747365}
+        
+
+        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = 0x5F50532C} -- خانەی ٤
+        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = 0x736F6F42} -- خانەی ٥
+        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 0x65705374} -- خانەی ٦
+        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = 0x70556465} -- خانەی ٧
+        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = 0x76726148} -- خانەی ٨
+        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = 0x00747365} -- خانەی ٩
+        
+
         p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
+        
+
         p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
 
         gg.setValues(p)
@@ -4375,12 +4406,15 @@ function Agriculture()
     end
 end
 
-
 function tayara()
+
     gg.clearResults()
+    
     gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
-    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-    gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+
+
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+    gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
     gg.refineNumber("29", gg.TYPE_DWORD)
 
     local results = gg.getResults(1)
@@ -4392,7 +4426,7 @@ function tayara()
     local b = results[1].address
     local input = gg.prompt({"اكتب مقدار الوقت للمربع "}, {0}, {"number"})
 
-    if input and input[1] then
+    if input then
         gg.clearList()
         local p = {}
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
@@ -4409,33 +4443,89 @@ function tayara()
         gg.addListItems(p)
         gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
         gg.clearResults()
+        end
     end
+    
+    function hewanat()
+gg.alert("👨‍🔧 يرجى الانتظار حتى يكتمل البحث 👨‍🔧")
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+gg.searchNumber("1818848520;107;1150681088::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("1150681088", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_FLOAT,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 160,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 320,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 480,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 640,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 800,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
 end
 
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+gg.searchNumber("1701995018;25697;1168687104::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("1168687104", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 384,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+end
+
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+
+gg.searchNumber("1734829318;1182605312::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("1182605312", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 512,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.alert("⚡ تم بنجاح! وقت جميع الحيوانات الآن صفر ⚡")
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearList() 
+gg.clearResults()
+end
+end
 
 function SubMenu12() 
+
     local menu = gg.multiChoice({
     	"╔══════════ 🦋══════════╗\nꕤ     🏘️          تصفير وقت البناء        ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🛩️          تصفير وقت الطائره     ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🌱           تصفير وقت زراعة       ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     🌱           تصفير وقت  حیوانات     ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🔄                رجــــــــــوع               ꕤ\n╚══════════════════════╝",
+    
     }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
 
-    if menu == nil then 
-        return 
-    end
-
-    if menu[1] then Binakan() end
-    if menu[2] then tayara() end
-    if menu[3] then Agriculture() end
-    if menu[4] then 
-        gg.toast("❤️ شكراً للاستخدام")
-        return 
-    end
+  
+if menu == nil then 
+    return 
 end
 
-SubMenu12()
 
+if menu[1] then Binakan() end
+if menu[2] then tayara() end
+if menu[3] then Agriculture() end
+if menu[4] then hewanat() end
+
+
+if menu[5] then 
+    gg.toast("❤️ شكراً للاستخدام")
+    return 
+end
+    end
 
 --[[ ➕ SEROK ARAM LUXURY - FINAL FIXED WITH WARNING ➕ ]]--
 
@@ -4443,10 +4533,9 @@ local isSearchedZyad = false
 local zyadResults = {}
 
 local configZyad = {
-    [1] = {name = "الكاش", hex = {0x73616308, 0x00000068, 0, 0, 0, 0}},
-    [2] = {name = "الليرة الصفراء", hex = {1768907530, 29550, 0, 0, 0, 0}}
-}
-
+    [1] = {name = "الكاش",hex = {0x73616308,0x00000068,0,0,0,0}},
+    [2] = {name = "الليرة الصفراء",hex = {1768907530,29550,0,0,0,0}},
+    [3] = {name = "الكاتب الأول",hex = {1635021594,1600484724,1953067639,29285,0,0}}}
 function MenuZyadkrdn()
     gg.setVisible(false)
     local menu = gg.multiChoice({
@@ -4454,6 +4543,8 @@ function MenuZyadkrdn()
         "╔══════════ 🦋══════════╗\nꕤ     💸               كود الكاش             ꕤ\n╚══════════════════════╝",
 
         "╔══════════ 🦋══════════╗\nꕤ     🪙             كود الفلوس            ꕤ\n╚══════════════════════╝",
+
+        "╔══════════ 🦋══════════╗\nꕤ     ✍️           كود الكاتب الأول         ꕤ\n╚══════════════════════╝",
 
         "╔══════════ 🦋══════════╗\nꕤ     🔄               رجـــــــــوع                ꕤ\n╚══════════════════════╝",
 
@@ -4475,7 +4566,7 @@ function MenuZyadkrdn()
     -- رجوع
     -- =========================
 
-    if menu[3] then
+    if menu[4] then
 
         isSearchedZyad = false
         zyadResults = {}
@@ -4497,7 +4588,7 @@ function MenuZyadkrdn()
     -- خروج
     -- =========================
 
-    if menu[4] then
+    if menu[5] then
 
         gg.clearList()
         gg.clearResults()
@@ -4512,7 +4603,7 @@ function MenuZyadkrdn()
 
     local anySelected = false
 
-    for i = 1, 2 do
+    for i = 1, 3 do
         if menu[i] then
             anySelected = true
             break
@@ -4539,8 +4630,8 @@ function MenuZyadkrdn()
 
         gg.toast("🔍 جاري البحث...")
 
-        gg.searchNumber( "65537~65542;1970225964;29::457", gg.TYPE_DWORD )
-        gg.refineNumber("29", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
+ gg.refineNumber("29",gg.TYPE_DWORD)
 
         local count = gg.getResultCount()
         if count == 0 then
@@ -4549,7 +4640,7 @@ function MenuZyadkrdn()
             zyadResults = {}
 
             gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
-            return MenuZyadkrdn()
+  return MenuZyadkrdn()
         end
 
         zyadResults = gg.getResults(count)
@@ -4586,7 +4677,7 @@ function MenuZyadkrdn()
 
     local slotIdx = 1
 
-    for i = 1, 2 do
+    for i = 1, 3 do
 
         if menu[i] and zyadResults[slotIdx] then
 
@@ -4739,57 +4830,7 @@ gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
 end
 
 
- function hewanat()
-gg.alert("👨‍🔧 يرجى الانتظار حتى يكتمل البحث 👨‍🔧")
-gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
-gg.clearResults()
-gg.setVisible(false)
-gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-gg.searchNumber("1818848520;107;1150681088::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-gg.refineNumber("1150681088", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-n = gg.getResultCount()
-jz = gg.getResults(n)
-for i = 1, n do
-gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_FLOAT,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 160,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 320,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 480,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 640,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 800,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
-end
 
-gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
-gg.clearResults()
-gg.setVisible(false)
-gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-gg.searchNumber("1701995018;25697;1168687104::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-gg.refineNumber("1168687104", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-n = gg.getResultCount()
-jz = gg.getResults(n)
-for i = 1, n do
-gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 384,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-end
-
-gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
-gg.clearResults()
-gg.setVisible(false)
-
-gg.searchNumber("1734829318;1182605312::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-gg.refineNumber("1182605312", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-n = gg.getResultCount()
-jz = gg.getResults(n)
-for i = 1, n do
-gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 512,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.alert("⚡ تم بنجاح! وقت جميع الحيوانات الآن صفر ⚡")
-gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
-gg.clearList() 
-gg.clearResults()
-end
-end
 
 function tayarrrrr()
 gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
@@ -4935,7 +4976,7 @@ function shuunaa()
 
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         local r2 = gg.getResults(1)
         if #r2 == 0 then gg.alert("لم يتم العثور على الكود الثاني") return end
@@ -4970,10 +5011,11 @@ end
 
 function jalalhh()
     gg.clearResults()
-    gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC | gg.REGION_OTHER)
+    gg.setRanges( gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC | gg.REGION_OTHER )
     
-    gg.searchNumber("1886938386;1113878113;31093;4::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
-    gg.refineNumber("1886938386", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+    
+    gg.searchNumber( "1886938386;1113878113;31093;4::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1 )
+    gg.refineNumber( "1886938386", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1 )
     
     local count = gg.getResultsCount()
     if count == 0 then
@@ -4982,66 +5024,77 @@ function jalalhh()
     end
     
     local results = gg.getResults(count)
+    
+
     --------------------------------------------------
 
-    local choice = gg.choice({
-        "╔══════════ 🦋══════════╗\nꕤ     🌺  زيادة المستوي ⇦ (119)      ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🌹  زيادة المستوي ⇦ (156)      ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🌻  زيادة المستوي ⇦ (328)      ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     💐  زیادة المستوي ⇦ (406)      ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🏵️  زيادة المستوي ⇦ (590)      ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🌸  زيادة المستوي ⇦ (788)      ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     💮  زیادة المستوي ⇦ (875)      ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🌼  زيادة المستوي ⇦ (957)      ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🌷  زيادة المستوي ⇦ (981)      ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🌲 زيادة المستوي ⇦ (1004)    ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     ↩️        رجــــــــــــــــوع                    ꕤ\n╚══════════════════════╝",
-    }, nil, "🌟 قائمة ترقية المستويات 🌟")
+local choice = gg.choice({
+	"╔══════════ 🦋══════════╗\nꕤ     🌺  زيادة المستوي ⇦ (119)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌹  زيادة المستوي ⇦ (156)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌻  زيادة المستوي ⇦ (328)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     💐  زیادة المستوي ⇦ (406)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🏵️  زيادة المستوي ⇦ (590)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌸  زيادة المستوي ⇦ (788)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     💮  زیادة المستوي ⇦ (875)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌼  زيادة المستوي ⇦ (957)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌷  زيادة المستوي ⇦ (981)      ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     🌲 زيادة المستوي ⇦ (1004)    ꕤ\n╚══════════════════════╝",
+	"╔══════════ 🦋══════════╗\nꕤ     ↩️        رجــــــــــــــــوع                    ꕤ\n╚══════════════════════╝",
+}, nil, "🌟 قائمة ترقية المستويات 🌟")
 
-    if choice == nil or choice == 11 then
-        return
-    end
 
-    -- لێرەدا دەتوانیت هەر شێوازێک کە پیت یان x تێدابێت بینووسیت
-    local values = {
-        [1] = "100000x4",
-        [2] = "200000x4",
-        [3] = "1000000x4",
-        [4] = "1500000x4",
-        [5] = "3000000x4",
-        [6] = "5000000x4",
-        [7] = "6000000x4",
-        [8] = "7000000x4",
-        [9] = "7300000x4",
-        [10] = "7600000x4"
+if choice == nil or choice == 11 then
+    return
+end
+
+local values = {
+    [1] = "100000x4",
+    [2] = "200000x4",
+    [3] = "1000000x4",
+    [4] = "1500000x4",
+    [5] = "3000000x4",
+    [6] = "5000000x4",
+    [7] = "6000000x4",
+    [8] = "7000000x4",
+    [9] = "7300000x4",
+    [10] = "7600000x4"
+}
+
+local text = values[choice]
+
+
+local saved = {}
+
+for i, v in ipairs(results) do
+    saved[#saved + 1] = {
+        address = v.address + 384,
+        flags = gg.TYPE_DWORD
     }
+end
 
-    local targetValue = values[choice]
-    local saved = {}
+if #saved == 0 then
+    gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+    return
+end
 
-    for i, v in ipairs(results) do
-        saved[#saved + 1] = {
-            address = v.address + 384,
-            flags = gg.TYPE_DWORD,
-            value = targetValue -- لێرەدا بەهای x دارەکە دادەنرێت
-        }
-    end
 
-    if #saved == 0 then
-        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
-        return
-    end
+gg.addListItems(saved)
 
-    gg.addListItems(saved)
-    gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🇭︎🅰︎🅱︎")
+gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
 
-    -- گۆڕینی بەهاکان یەک بە یەک بە بێ کێشەی gg.editAll
-    for i, v in ipairs(saved) do
-        gg.setValues({v})
-    end
+gg.loadResults(saved)
 
-    gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🇭︎🅰︎🅱︎")
+local current = gg.getResults(#saved)
 
+if #current == 0 then
+    gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+    return
+end
+
+
+gg.editAll(text, gg.TYPE_DWORD)
+
+gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
     --------------------------------------------------
     -- بەشی دووەم: وەرگرتن لە Saved List و گۆڕینی عنوان بۆ -16
     --------------------------------------------------
@@ -5053,30 +5106,33 @@ function jalalhh()
 
     local minus16 = {}
     for i, v in ipairs(saved_items) do
-        -- تێبینی: لێرەدا تەنها ناونیشانەکە دەگۆڕین و بەهاکەی پێشوو یان بەهای نوێ دەپارێزین
-        minus16[#minus16 + 1] = { address = v.address - 16, flags = gg.TYPE_DWORD, value = 6 }
+        minus16[#minus16 + 1] = { address = v.address - 16, flags = gg.TYPE_DWORD }
     end
     
     gg.removeListItems(saved_items)
     gg.addListItems(minus16)
     
-    -- گۆڕینی بەهای بەشی دووەم بۆ 6
-    for i, v in ipairs(minus16) do
-        gg.setValues({v})
+    
+    gg.loadResults(minus16)
+    local current16 = gg.getResults(#minus16)
+    if #current16 == 0 then
+        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+        return
     end
 
     --------------------------------------------------
-    -- بەشی سێیەم: کۆتایی
+    -- بەشی سێیەم: گۆڕینی هەموو ئەنجامەکانی ناو لیستی سیڤ بۆ 6
     --------------------------------------------------
+    gg.editAll("6", gg.TYPE_DWORD)
+    
     gg.alert("💐 تم بنجاح 💐⏳ يرجى الانتظار بضع ثوانٍ حتى يتم فتح جميع الأراضي ⏳")
 end
-
 
 
 function X2()
 
 gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+gg.searchNumber('65537~65542;1970225964;5;29::457', gg.TYPE_DWORD)
 gg.refineNumber("29", gg.TYPE_DWORD)
 
 local results = gg.getResults(gg.getResultsCount())
@@ -5157,4 +5213,3 @@ while true do
     end
     gg.sleep(100)
 end
- 
