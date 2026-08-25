@@ -4273,12 +4273,8 @@ local saved_base2 = nil
 local saved_copied = nil
 
 function Binakan()
-
     if saved_copied == nil or saved_base2 == nil then
         gg.clearResults()
-        
-
-
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("1599099688;1936682818;33;24", gg.TYPE_DWORD)
@@ -4300,7 +4296,6 @@ function Binakan()
             {address = addr1 + 12, flags = gg.TYPE_DWORD}
         })
 
-        -- گەڕان بۆ بەهای ئامانج (29)
         gg.clearResults()
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
@@ -4316,17 +4311,13 @@ function Binakan()
         saved_base2 = r2[1].address
     end
 
-
     local input = gg.prompt({"حدد القيمة "}, {0}, {"number"})
     
-    if input then
-
+    if input and input[1] then
         gg.clearList()
-        
         local p = {}
         local b = saved_base2
         
-
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
         p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = true}
         p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = true}
@@ -4347,10 +4338,8 @@ end
 function Agriculture()
     if saved_base2 == nil then
         gg.clearResults()
-      
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
-        
-  gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
 
@@ -4364,26 +4353,19 @@ function Agriculture()
 
     local input = gg.prompt({"🕐 أدخل مقدار الوقت"}, {0}, {"number"})
     
-    if input then
+    if input and input[1] then
         gg.clearList() 
         local p = {}
         local b = saved_base2
         
-
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
-        
-
-        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = 0x5F50532C} -- خانەی ٤
-        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = 0x736F6F42} -- خانەی ٥
-        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 0x65705374} -- خانەی ٦
-        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = 0x70556465} -- خانەی ٧
-        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = 0x76726148} -- خانەی ٨
-        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = 0x00747365} -- خانەی ٩
-        
-
+        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = 0x5F50532C}
+        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = 0x736F6F42}
+        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 0x65705374}
+        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = 0x70556465}
+        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = 0x76726148}
+        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = 0x00747365}
         p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
-        
-
         p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
 
         gg.setValues(p)
@@ -4393,14 +4375,11 @@ function Agriculture()
     end
 end
 
+
 function tayara()
-
     gg.clearResults()
-    
     gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
-
-
-gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
     gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
     gg.refineNumber("29", gg.TYPE_DWORD)
 
@@ -4413,7 +4392,7 @@ gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
     local b = results[1].address
     local input = gg.prompt({"اكتب مقدار الوقت للمربع "}, {0}, {"number"})
 
-    if input then
+    if input and input[1] then
         gg.clearList()
         local p = {}
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
@@ -4430,39 +4409,33 @@ gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.addListItems(p)
         gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
         gg.clearResults()
-        end
     end
-    
-   
+end
+
 
 function SubMenu12() 
-
     local menu = gg.multiChoice({
     	"╔══════════ 🦋══════════╗\nꕤ     🏘️          تصفير وقت البناء        ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🛩️          تصفير وقت الطائره     ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🌱           تصفير وقت زراعة       ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🌱           تصفير وقت  حیوانات     ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🔄                رجــــــــــوع               ꕤ\n╚══════════════════════╝",
-    
     }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
 
-  
-if menu == nil then 
-    return 
-end
-
-
-if menu[1] then Binakan() end
-if menu[2] then tayara() end
-if menu[3] then Agriculture() end
-if menu[4] then hewanat() end
-
-
-if menu[5] then 
-    gg.toast("❤️ شكراً للاستخدام")
-    return 
-end
+    if menu == nil then 
+        return 
     end
+
+    if menu[1] then Binakan() end
+    if menu[2] then tayara() end
+    if menu[3] then Agriculture() end
+    if menu[4] then 
+        gg.toast("❤️ شكراً للاستخدام")
+        return 
+    end
+end
+
+SubMenu12()
+
 
 --[[ ➕ SEROK ARAM LUXURY - FINAL FIXED WITH WARNING ➕ ]]--
 
