@@ -1307,7 +1307,7 @@ function Ice_InitialSetup()
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
-    local r = gg.getResults(1)
+    local r = gg.getResults(2)
     if #r == 0 then 
         gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
         PdaistakanyYari()
