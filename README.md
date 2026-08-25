@@ -4277,6 +4277,8 @@ function Binakan()
     if saved_copied == nil or saved_base2 == nil then
         gg.clearResults()
         
+
+
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("1599099688;1936682818;33;24", gg.TYPE_DWORD)
@@ -4314,31 +4316,28 @@ function Binakan()
         saved_base2 = r2[1].address
     end
 
+
     local input = gg.prompt({"حدد القيمة "}, {0}, {"number"})
     
     if input then
+
         gg.clearList()
         
         local p = {}
         local b = saved_base2
         
-        -- تەنها ئەم خانەیە تەمجید کرا
-        p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
-        
-        -- خانەکانی تر بێ تەمجید
-        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value}
-        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value}
-        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = saved_copied[3].value}
-        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = saved_copied[4].value}
-        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = saved_copied[5].value}
-        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = saved_copied[6].value}
-        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0}
-        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1]}
 
-        gg.setValues(p)
-        -- تەنها ئەو دانەی کە تەمجیدی پێویستە دەچێتە لیستی تەمجیدەوە
-        gg.addListItems({p[1]})
-        
+        p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
+        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = true}
+        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = true}
+        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = saved_copied[3].value, freeze = true}
+        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = saved_copied[4].value, freeze = true}
+        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = saved_copied[5].value, freeze = true}
+        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = saved_copied[6].value, freeze = true}
+        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
+        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
+
+        gg.addListItems(p)
         gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
         gg.clearResults()
     end
@@ -4351,7 +4350,7 @@ function Agriculture()
       
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         
-        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+  gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
 
@@ -4370,30 +4369,38 @@ function Agriculture()
         local p = {}
         local b = saved_base2
         
-        -- تەنها ئەم خانەیە تەمجید کرا
+
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
         
-        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = 0x5F50532C} 
-        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = 0x736F6F42} 
-        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 0x65705374} 
-        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = 0x70556465} 
-        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = 0x76726148} 
-        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = 0x00747365} 
-        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0} 
-        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1]}
+
+        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = 0x5F50532C} -- خانەی ٤
+        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = 0x736F6F42} -- خانەی ٥
+        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 0x65705374} -- خانەی ٦
+        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = 0x70556465} -- خانەی ٧
+        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = 0x76726148} -- خانەی ٨
+        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = 0x00747365} -- خانەی ٩
+        
+
+        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
+        
+
+        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
 
         gg.setValues(p)
-        gg.addListItems({p[1]})
+        gg.addListItems(p)
         gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
         gg.clearResults()
     end
 end
 
 function tayara()
+
     gg.clearResults()
+    
     gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
 
-    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
     gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
     gg.refineNumber("29", gg.TYPE_DWORD)
 
@@ -4409,51 +4416,53 @@ function tayara()
     if input then
         gg.clearList()
         local p = {}
-        
-        -- تەنها ئەم خانەیە تەمجید کرا
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
-        
         p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = 0x5F505324}
         p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = 0x736F6F42}
         p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 0x65705374}
         p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = 0x70556465}
         p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = 0x00726941}
         p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = 0x00000000}
-        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0}
-        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1]}
+        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
+        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
 
         gg.setValues(p)
-        gg.addListItems({p[1]})
+        gg.addListItems(p)
         gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
         gg.clearResults()
+        end
     end
-end
     
+   
+
 function SubMenu12() 
+
     local menu = gg.multiChoice({
     	"╔══════════ 🦋══════════╗\nꕤ     🏘️          تصفير وقت البناء        ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🛩️          تصفير وقت الطائره     ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🌱           تصفير وقت زراعة       ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🌱           تصفير وقت  حیوانات     ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🔄                رجــــــــــوع               ꕤ\n╚══════════════════════╝",
+    
     }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
 
   
-    if menu == nil then 
-        return 
-    end
-
-    if menu[1] then Binakan() end
-    if menu[2] then tayara() end
-    if menu[3] then Agriculture() end
-    if menu[4] then hewanat() end
-
-    if menu[5] then 
-        gg.toast("❤️ شكراً للاستخدام")
-        return 
-    end
+if menu == nil then 
+    return 
 end
 
+
+if menu[1] then Binakan() end
+if menu[2] then tayara() end
+if menu[3] then Agriculture() end
+if menu[4] then hewanat() end
+
+
+if menu[5] then 
+    gg.toast("❤️ شكراً للاستخدام")
+    return 
+end
+    end
 
 --[[ ➕ SEROK ARAM LUXURY - FINAL FIXED WITH WARNING ➕ ]]--
 
