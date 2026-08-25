@@ -140,47 +140,31 @@ local couponResults = {}
 function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
     if not isCouponSearched then
         gg.clearResults()
-        gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber('65537~65542;1970225964;29::457', gg.TYPE_DWORD)
-        gg.refineNumber('29', gg.TYPE_DWORD)
-        local results = gg.getResults(1)
-
-        if #results < 1 then
-            gg.toast(" البحث عن الكود الثاني")
-            gg.clearResults()
 gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-            gg.searchNumber('28;1952533798;29::641', gg.TYPE_DWORD)
-            gg.refineNumber('29', gg.TYPE_DWORD)
-            results = gg.getResults(1)
-
-            if #results < 1 then
-                gg.toast(" البحث عن الكود الثالث")
-                gg.clearResults()
-gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-                gg.searchNumber('65537;1970225964;29:457', gg.TYPE_DWORD)
-                results = gg.getResults(1)
-
-                if #results < 1 then
-                    gg.alert(" ❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ") 
-                    gg.clearResults()
-                    return false
-                end
-            end
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
+        
+        local count = gg.getResultCount()
+        if count == 0 then 
+            isCouponSearched = false 
+            return gg.alert("❌ دڵنیابەوە لە یاری بەسراوەتەوە بە جێم ") 
         end
-        couponResults = gg.getResults(1)
+        couponResults = gg.getResults(count)
         isCouponSearched = true
     end
 
+    -- بەکارهێنانی slotIdx بۆ ئەوەی هەر کۆبۆنێک بچێتە خانەیەکی جیاواز
     local r = couponResults[slotIdx]
     if not r then return end
 
-    local input = gg.prompt({"الارقام" .. name .. " اکتوب:"}, {"100"}, {"number"})
+    local input = gg.prompt({"بڕی " .. name .. " بنووسە:"}, {"100"}, {"number"})
     if not input then return end
 
     local list = {}
-
+    -- خانەی ١٢: تجمید لەسەر ٢
     table.insert(list, {address = r.address + 12, flags = 4, value = 2, freeze = true})
     
+    -- دانانی کۆدە هێکسەکان
     for i = 1, 6 do
         table.insert(list, {address = r.address + 12 + (i * 4), flags = 4, value = hex_values[i] or 0})
     end
