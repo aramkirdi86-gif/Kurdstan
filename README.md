@@ -4449,57 +4449,7 @@ gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
         end
     end
     
-    function hewanat()
-gg.alert("👨‍🔧 يرجى الانتظار حتى يكتمل البحث 👨‍🔧")
-gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
-gg.clearResults()
-gg.setVisible(false)
-gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-gg.searchNumber("1818848520;107;1150681088::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-gg.refineNumber("1150681088", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-n = gg.getResultCount()
-jz = gg.getResults(n)
-for i = 1, n do
-gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_FLOAT,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 160,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 320,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 480,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 640,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 800,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
-end
-
-gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
-gg.clearResults()
-gg.setVisible(false)
-gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-gg.searchNumber("1701995018;25697;1168687104::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-gg.refineNumber("1168687104", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-n = gg.getResultCount()
-jz = gg.getResults(n)
-for i = 1, n do
-gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 384,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-end
-
-gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
-gg.clearResults()
-gg.setVisible(false)
-
-gg.searchNumber("1734829318;1182605312::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-gg.refineNumber("1182605312", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
-n = gg.getResultCount()
-jz = gg.getResults(n)
-for i = 1, n do
-gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.addListItems({[1] = {address = jz[i].address + 512,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
-gg.alert("⚡ تم بنجاح! وقت جميع الحيوانات الآن صفر ⚡")
-gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
-gg.clearList() 
-gg.clearResults()
-end
-end
+    
 
 function SubMenu12() 
 
@@ -4831,7 +4781,57 @@ gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
   kurd()
 end
 
+function hewanat()
+gg.alert("👨‍🔧 يرجى الانتظار حتى يكتمل البحث 👨‍🔧")
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+gg.searchNumber("1818848520;107;1150681088::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("1150681088", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_FLOAT,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 160,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 320,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 480,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 640,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 800,flags = gg.TYPE_DWORD, freeze = true,value = 1}})
+end
 
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+gg.searchNumber("1701995018;25697;1168687104::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("1168687104", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 384,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+end
+
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearResults()
+gg.setVisible(false)
+
+gg.searchNumber("1734829318;1182605312::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.refineNumber("1182605312", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1, 0)
+n = gg.getResultCount()
+jz = gg.getResults(n)
+for i = 1, n do
+gg.addListItems({[1] = {address = jz[i].address + 0,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 128,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.addListItems({[1] = {address = jz[i].address + 512,flags = gg.TYPE_DWORD,freeze = true,value = 1}})
+gg.alert("⚡ تم بنجاح! وقت جميع الحيوانات الآن صفر ⚡")
+gg.toast("🦋🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱🦋")
+gg.clearList() 
+gg.clearResults()
+end
+end
 
 
 function tayarrrrr()
