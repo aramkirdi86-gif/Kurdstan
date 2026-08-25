@@ -13,7 +13,7 @@ do
 
     local _load = load
     load = function(...)
-        local ok, f = pcall(_load, ...)
+        local ok, f = pcall(_load, ...) 
         if not ok then os.exit() end
         return f
     end
