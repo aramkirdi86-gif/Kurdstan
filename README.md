@@ -741,7 +741,7 @@ function kandi()
     if not isKandiSearched then
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
+        gg.searchNumber("65537~65542;1970225964;5;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
         
         local count = gg.getResultCount()
