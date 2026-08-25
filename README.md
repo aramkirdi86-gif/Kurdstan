@@ -65,7 +65,8 @@ gg.alert([[
 ]], "البدء بقوة 🚀")
 
 
-    
+
+
 function PdaistakanyYari()
 
 gg.setVisible(false) 
@@ -143,53 +144,39 @@ function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
         gg.searchNumber('65537~65542;1970225964;29::457', gg.TYPE_DWORD)
         gg.refineNumber('29', gg.TYPE_DWORD)
         local results = gg.getResults(1)
-
-        if #results < 1 then
-            gg.toast(" البحث عن الكود الثاني")
-            gg.clearResults()
-gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-            gg.searchNumber('28;1952533798;29::641', gg.TYPE_DWORD)
-            gg.refineNumber('29', gg.TYPE_DWORD)
-            results = gg.getResults(1)
-
-            if #results < 1 then
-                gg.toast(" البحث عن الكود الثالث")
-                gg.clearResults()
-gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-                gg.searchNumber('65537;1970225964;29:457', gg.TYPE_DWORD)
-                results = gg.getResults(1)
-
-                if #results < 1 then
-                    gg.alert(" ❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ") 
-                    gg.clearResults()
-                    return false
-                end
-            end
+        
+        local count = gg.getResultCount()
+        if count == 0 then 
+            isCouponSearched = false 
+            return gg.alert("❌ دڵنیابەوە لە یاری بەسراوەتەوە بە جێم ") 
         end
-        couponResults = gg.getResults(1)
+        couponResults = gg.getResults(count)
         isCouponSearched = true
     end
 
+    -- بەکارهێنانی slotIdx بۆ ئەوەی هەر کۆبۆنێک بچێتە خانەیەکی جیاواز
     local r = couponResults[slotIdx]
     if not r then return end
 
-    local input = gg.prompt({"الارقام" .. name .. " اکتوب:"}, {"100"}, {"number"})
+    local input = gg.prompt({"بڕی " .. name .. " بنووسە:"}, {"100"}, {"number"})
     if not input then return end
 
     local list = {}
-
+    -- خانەی ١٢: تجمید لەسەر ٢
     table.insert(list, {address = r.address + 12, flags = 4, value = 2, freeze = true})
     
+    -- دانانی کۆدە هێکسەکان
     for i = 1, 6 do
         table.insert(list, {address = r.address + 12 + (i * 4), flags = 4, value = hex_values[i] or 0})
     end
     
+    -- خانەی ١٠ و ١١ (بڕ و کات)
     table.insert(list, {address = r.address + 40, flags = 4, value = 0})
     table.insert(list, {address = r.address + 44, flags = 4, value = tonumber(input[1])})
     
     gg.setValues(list)
     gg.addListItems(list)
-    gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
+    gg.toast("✅ " .. name .. " جێگیر کرا")
 end
 
 
@@ -494,13 +481,12 @@ end
 
  
 local isSearched = false
-local cachedResults = {}
-
 local config = {
     [1] = {name="برونزي", hex={0x6F72421A, 0x42657A6E, 0x696C6C75, 0x00006E6F, 0x00000000, 0x00000000}},
     [2] = {name="فضي", hex={0x6C695328, 0x42726576, 0x696C6C75, 0x6F436E6F, 0x65746E75, 0x00000072}},
     [3] = {name="ذهبي", hex={0x6C694724, 0x6C754264, 0x6E6F696C, 0x6E756F43, 0x00726574, 0x00000000}},
     [4] = {name="بلاتينيوم", hex={0x616C502C, 0x756E6974, 0x6C75426D, 0x6E6F696C, 0x6E756F43, 0x00726574}}
+
 }
 
 function qalbAltuny()
@@ -512,14 +498,14 @@ function qalbAltuny()
         "╔══════════ 🦋══════════╗\nꕤ 🥈          سبيكة بلاتين                   ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ ??               رجــــــــوع                     ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ 🚪               خـــــــروج                     ꕤ\n╚══════════════════════╝",
+    
     }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
     
     if menu == nil then return qalbAltuny() end
 
-    -- گەڕانەوە و پاککردنەوەی تەواوی میمۆری
+    -- ١. گەڕانەوە و پاککردنەوەی تەواوی میمۆری
     if menu[5] then 
         isSearched = false
-        cachedResults = {}
         gg.clearResults()
         gg.clearList()
         gg.toast("🔄 تم تفريغ الذاكرة")
@@ -537,104 +523,70 @@ function qalbAltuny()
     for i=1, 4 do if menu[i] then selected = true break end end
     if not selected then return qalbAltuny() end
 
-    -- ئەگەر پێشتر گەڕان نەکراوە، یەک جار دەگەڕێت و ئەنجامەکان پاشەکەوت دەکات
     if not isSearched then
+        
         gg.clearResults()
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("65537~65542;1970225964;29", gg.TYPE_DWORD)
+        gg.searchNumber("65537~65542;1970225964;29::457", gg.TYPE_DWORD)
         gg.refineNumber("29", gg.TYPE_DWORD)
-        
-        local count = gg.getResultsCount()
-        if count > 0 then
-            cachedResults = gg.getResults(count)
-            isSearched = true
-        else
-            gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
-            return qalbAltuny()
-        end
+        isSearched = true
     end
 
-    if #cachedResults > 0 then
-        local input = gg.prompt(
-            {"️‍🔥اكتب السعر لإضافة أيام X2.️‍🔥"},
-            {"5000000"}, 
-            {"number"}
-        )
+    local count = gg.getResultCount()
+    if count == 0 then 
+        isSearched = false 
+gg.alert(" ❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
 
-        if input == nil then
-            gg.toast("تم إلغاء العملية.")
-            return qalbAltuny()
-        end
 
-        local user_value = tonumber(input[1]) * 2
-        local edit_table = {}
-        local freeze_table = {}
-
-        local slotIndex = 1
-        for i = 1, 4 do
-            if menu[i] and cachedResults[slotIndex] then
-                local v = config[i]
-                local r = cachedResults[slotIndex]
-
-                -- جێگیرکردنی خانەی +12 بە بەهای 2
-                table.insert(freeze_table, {
-                    address = r.address + 12, 
-                    flags = gg.TYPE_DWORD, 
-                    value = 2, 
-                    freeze = true
-                })
-
-                -- دانانی هێکسەکان لەسەر ئۆفستەکان
-                local current_offset = 16
-                for _, h in ipairs(v.hex) do
-                    table.insert(edit_table, {
-                        address = r.address + current_offset, 
-                        flags = gg.TYPE_DWORD, 
-                        value = h
-                    })
-                    current_offset = current_offset + 4
-                end
-
-                -- بڕی سفر لە ئۆفستی +40
-                table.insert(edit_table, {
-                    address = r.address + 40,
-                    flags = gg.TYPE_DWORD,
-                    value = 0
-                })
-
-                -- بەهای دووەم (نرخی لێکدراو لەگەڵ 2) لە ئۆفستی +44
-                table.insert(edit_table, {
-                    address = r.address + 44,
-                    flags = gg.TYPE_DWORD,
-                    value = user_value
-                })
-
-                slotIndex = slotIndex + 1
-            end
-        end
-
-        if #edit_table > 0 then
-            gg.setValues(edit_table)
-            gg.addListItems(freeze_table)
-            gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
-            
-            gg.setVisible(false)
-            while not gg.isVisible() do
-                gg.sleep(200) 
-            end
-            return qalbAltuny()
-        else
-            gg.alert("❌ لم يتم العثور على أي نتائج مطابقة للاختيار ❌")
-            return qalbAltuny()
-        end
-    else
-        isSearched = false
-        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
         return qalbAltuny()
     end
+
+    local res = gg.getResults(count)
+local input = gg.prompt({'أدخل الكمية المطلوبة:'}, {'0'}, {'number'})
+    if input == nil then return qalbAltuny() end
+
+    gg.clearList()
+    local edit = {}
+    local freeze = {}
+
+    -- ٢. ڕێگری لە تێکەڵبوونی کۆد بە بەکارهێنانی slotIndex
+    local slotIndex = 1
+    for i = 1, 4 do
+        if menu[i] and res[slotIndex] then
+            local v = config[i]
+            local r = res[slotIndex]
+            
+            -- جێگیرکردنی خانەکە
+            table.insert(freeze, {address = r.address + 12, value = 2, flags = 4, freeze = true})
+            
+            -- دانانی هێکسەکان
+            for j, h in ipairs(v.hex) do 
+                table.insert(edit, {address = r.address + 12 + (j * 4), value = h, flags = 4}) 
+            end
+            
+            -- بڕی هەدیەکە
+            table.insert(edit, {address = r.address + 40, value = 0, flags = 4})
+            table.insert(edit, {address = r.address + 44, value = input[1], flags = 4})
+            
+            slotIndex = slotIndex + 1 -- هەر جۆرە قاڵبێک یەک خانەی جیاواز دەگرێت
+        end
+    end
+    
+    if #edit > 0 then
+        gg.setValues(edit) 
+        gg.addListItems(freeze)
+        gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
+        
+        gg.setVisible(false)
+        while not gg.isVisible() do
+            gg.sleep(200) 
+        end
+        return qalbAltuny() 
+    else
+        gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
+        return qalbAltuny() 
+    end
 end
-
-
 
 -- بەکارهێنانی ناوی جیاواز بۆ ئەوەی تێکەڵی بەشەکانی تر نەبێت
 local isNailSearched = false
@@ -5046,6 +4998,108 @@ function shuunaa()
     end
 end
 
+function jalalhh()
+    gg.clearResults()
+    gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC | gg.REGION_OTHER)
+    
+    gg.searchNumber("1886938386;1113878113;31093;4::25", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+    gg.refineNumber("1886938386", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+    
+    local count = gg.getResultsCount()
+    if count == 0 then
+        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+        return
+    end
+    
+    local results = gg.getResults(count)
+    --------------------------------------------------
+
+    local choice = gg.choice({
+        "╔══════════ 🦋══════════╗\nꕤ     🌺  زيادة المستوي ⇦ (119)      ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     🌹  زيادة المستوي ⇦ (156)      ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     🌻  زيادة المستوي ⇦ (328)      ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     💐  زیادة المستوي ⇦ (406)      ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     🏵️  زيادة المستوي ⇦ (590)      ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     🌸  زيادة المستوي ⇦ (788)      ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     💮  زیادة المستوي ⇦ (875)      ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     🌼  زيادة المستوي ⇦ (957)      ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     🌷  زيادة المستوي ⇦ (981)      ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     🌲 زيادة المستوي ⇦ (1004)    ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     ↩️        رجــــــــــــــــوع                    ꕤ\n╚══════════════════════╝",
+    }, nil, "🌟 قائمة ترقية المستويات 🌟")
+
+    if choice == nil or choice == 11 then
+        return
+    end
+
+    -- لێرەدا دەتوانیت هەر شێوازێک کە پیت یان x تێدابێت بینووسیت
+    local values = {
+        [1] = "100000x4",
+        [2] = "200000x4",
+        [3] = "1000000x4",
+        [4] = "1500000x4",
+        [5] = "3000000x4",
+        [6] = "5000000x4",
+        [7] = "6000000x4",
+        [8] = "7000000x4",
+        [9] = "7300000x4",
+        [10] = "7600000x4"
+    }
+
+    local targetValue = values[choice]
+    local saved = {}
+
+    for i, v in ipairs(results) do
+        saved[#saved + 1] = {
+            address = v.address + 384,
+            flags = gg.TYPE_DWORD,
+            value = targetValue -- لێرەدا بەهای x دارەکە دادەنرێت
+        }
+    end
+
+    if #saved == 0 then
+        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+        return
+    end
+
+    gg.addListItems(saved)
+    gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🇭︎🅰︎🅱︎")
+
+    -- گۆڕینی بەهاکان یەک بە یەک بە بێ کێشەی gg.editAll
+    for i, v in ipairs(saved) do
+        gg.setValues({v})
+    end
+
+    gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🇭︎🅰︎🅱︎")
+
+    --------------------------------------------------
+    -- بەشی دووەم: وەرگرتن لە Saved List و گۆڕینی عنوان بۆ -16
+    --------------------------------------------------
+    local saved_items = gg.getListItems()
+    if #saved_items == 0 then
+        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+        return
+    end
+
+    local minus16 = {}
+    for i, v in ipairs(saved_items) do
+        -- تێبینی: لێرەدا تەنها ناونیشانەکە دەگۆڕین و بەهاکەی پێشوو یان بەهای نوێ دەپارێزین
+        minus16[#minus16 + 1] = { address = v.address - 16, flags = gg.TYPE_DWORD, value = 6 }
+    end
+    
+    gg.removeListItems(saved_items)
+    gg.addListItems(minus16)
+    
+    -- گۆڕینی بەهای بەشی دووەم بۆ 6
+    for i, v in ipairs(minus16) do
+        gg.setValues({v})
+    end
+
+    --------------------------------------------------
+    -- بەشی سێیەم: کۆتایی
+    --------------------------------------------------
+    gg.alert("💐 تم بنجاح 💐⏳ يرجى الانتظار بضع ثوانٍ حتى يتم فتح جميع الأراضي ⏳")
+end
 
 
 
