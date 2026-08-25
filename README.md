@@ -4536,9 +4536,10 @@ local isSearchedZyad = false
 local zyadResults = {}
 
 local configZyad = {
-    [1] = {name = "الكاش",hex = {0x73616308,0x00000068,0,0,0,0}},
-    [2] = {name = "الليرة الصفراء",hex = {1768907530,29550,0,0,0,0}},
-    [3] = {name = "الكاتب الأول",hex = {1635021594,1600484724,1953067639,29285,0,0}}}
+    [1] = {name = "الكاش", hex = {0x73616308, 0x00000068, 0, 0, 0, 0}},
+    [2] = {name = "الليرة الصفراء", hex = {1768907530, 29550, 0, 0, 0, 0}}
+}
+
 function MenuZyadkrdn()
     gg.setVisible(false)
     local menu = gg.multiChoice({
@@ -4546,8 +4547,6 @@ function MenuZyadkrdn()
         "╔══════════ 🦋══════════╗\nꕤ     💸               كود الكاش             ꕤ\n╚══════════════════════╝",
 
         "╔══════════ 🦋══════════╗\nꕤ     🪙             كود الفلوس            ꕤ\n╚══════════════════════╝",
-
-        "╔══════════ 🦋══════════╗\nꕤ     ✍️           كود الكاتب الأول         ꕤ\n╚══════════════════════╝",
 
         "╔══════════ 🦋══════════╗\nꕤ     🔄               رجـــــــــوع                ꕤ\n╚══════════════════════╝",
 
@@ -4569,7 +4568,7 @@ function MenuZyadkrdn()
     -- رجوع
     -- =========================
 
-    if menu[4] then
+    if menu[3] then
 
         isSearchedZyad = false
         zyadResults = {}
@@ -4591,7 +4590,7 @@ function MenuZyadkrdn()
     -- خروج
     -- =========================
 
-    if menu[5] then
+    if menu[4] then
 
         gg.clearList()
         gg.clearResults()
@@ -4606,7 +4605,7 @@ function MenuZyadkrdn()
 
     local anySelected = false
 
-    for i = 1, 3 do
+    for i = 1, 2 do
         if menu[i] then
             anySelected = true
             break
@@ -4634,7 +4633,7 @@ function MenuZyadkrdn()
         gg.toast("🔍 جاري البحث...")
 
         gg.searchNumber( "65537~65542;1970225964;29::457", gg.TYPE_DWORD )
- gg.refineNumber("29",gg.TYPE_DWORD)
+        gg.refineNumber("29", gg.TYPE_DWORD)
 
         local count = gg.getResultCount()
         if count == 0 then
@@ -4643,7 +4642,7 @@ function MenuZyadkrdn()
             zyadResults = {}
 
             gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
-  return MenuZyadkrdn()
+            return MenuZyadkrdn()
         end
 
         zyadResults = gg.getResults(count)
@@ -4680,7 +4679,7 @@ function MenuZyadkrdn()
 
     local slotIdx = 1
 
-    for i = 1, 3 do
+    for i = 1, 2 do
 
         if menu[i] and zyadResults[slotIdx] then
 
