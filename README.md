@@ -13,7 +13,7 @@ do
 
     local _load = load
     load = function(...)
-        local ok, f = pcall(_load, ...) 
+        local ok, f = pcall(_load, ...)
         if not ok then os.exit() end
         return f
     end
@@ -144,39 +144,53 @@ function Edit_Coupon(hex_values, name, slotIdx, totalSelected)
         gg.searchNumber('65537~65542;1970225964;29::457', gg.TYPE_DWORD)
         gg.refineNumber('29', gg.TYPE_DWORD)
         local results = gg.getResults(1)
-        
-        local count = gg.getResultCount()
-        if count == 0 then 
-            isCouponSearched = false 
-            return gg.alert("❌ دڵنیابەوە لە یاری بەسراوەتەوە بە جێم ") 
+
+        if #results < 1 then
+            gg.toast(" البحث عن الكود الثاني")
+            gg.clearResults()
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+            gg.searchNumber('28;1952533798;29::641', gg.TYPE_DWORD)
+            gg.refineNumber('29', gg.TYPE_DWORD)
+            results = gg.getResults(1)
+
+            if #results < 1 then
+                gg.toast(" البحث عن الكود الثالث")
+                gg.clearResults()
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+                gg.searchNumber('65537;1970225964;29:457', gg.TYPE_DWORD)
+                results = gg.getResults(1)
+
+                if #results < 1 then
+                    gg.alert(" ❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ") 
+                    gg.clearResults()
+                    return false
+                end
+            end
         end
-        couponResults = gg.getResults(count)
+        couponResults = gg.getResults(1)
         isCouponSearched = true
     end
 
-    -- بەکارهێنانی slotIdx بۆ ئەوەی هەر کۆبۆنێک بچێتە خانەیەکی جیاواز
     local r = couponResults[slotIdx]
     if not r then return end
 
-    local input = gg.prompt({"بڕی " .. name .. " بنووسە:"}, {"100"}, {"number"})
+    local input = gg.prompt({"الارقام" .. name .. " اکتوب:"}, {"100"}, {"number"})
     if not input then return end
 
     local list = {}
-    -- خانەی ١٢: تجمید لەسەر ٢
+
     table.insert(list, {address = r.address + 12, flags = 4, value = 2, freeze = true})
     
-    -- دانانی کۆدە هێکسەکان
     for i = 1, 6 do
         table.insert(list, {address = r.address + 12 + (i * 4), flags = 4, value = hex_values[i] or 0})
     end
     
-    -- خانەی ١٠ و ١١ (بڕ و کات)
     table.insert(list, {address = r.address + 40, flags = 4, value = 0})
     table.insert(list, {address = r.address + 44, flags = 4, value = tonumber(input[1])})
     
     gg.setValues(list)
     gg.addListItems(list)
-    gg.toast("✅ " .. name .. " جێگیر کرا")
+    gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
 end
 
 
@@ -4518,245 +4532,123 @@ end
 
 --[[ ➕ SEROK ARAM LUXURY - FINAL FIXED WITH WARNING ➕ ]]--
 
-local isSearchedZyad = false
+local isZyadSearched = false
 local zyadResults = {}
 
-local configZyad = {
-    [1] = {name = "الكاش",hex = {0x73616308,0x00000068,0,0,0,0}},
-    [2] = {name = "الليرة الصفراء",hex = {1768907530,29550,0,0,0,0}},
-    [3] = {name = "الكاتب الأول",hex = {1635021594,1600484724,1953067639,29285,0,0}}}
 function MenuZyadkrdn()
     gg.setVisible(false)
     local menu = gg.multiChoice({
+        "╔═══════ 🦋════════╗\nꕤ  💸       زیــادکردنی کاش          ꕤ\n╚═════════════════╝",
+        "╔═══════ 🦋════════╗\nꕤ  🪙      یــادکرنی پارەی زەرد      ꕤ\n╚═════════════════╝",
+        "╔═══════ 🦋════════╗\nꕤ  🧝     زیاد کردنی مرۆڤ نیاردەرتاڵ    ꕤ\n╚═════════════════╝",
+        "╔═══════ 🦋════════╗\nꕤ  🔄            گـــــــەڕانەوە           ꕤ\n╚═════════════════╝",
+        "╔═══════ 🦋════════╗\nꕤ  🚪              دەرچـــــوون          ꕤ\n╚═════════════════╝",
+    }, nil, "╔══════════════════════╗\n    🦋 🄰🅁🄰🄼 🄺🅄🅁🄳 🅃🅾🅆🄽 🦋\n╚══════════════════════╝")
 
-        "╔══════════ 🦋══════════╗\nꕤ     💸               كود الكاش             ꕤ\n╚══════════════════════╝",
-
-        "╔══════════ 🦋══════════╗\nꕤ     🪙             كود الفلوس            ꕤ\n╚══════════════════════╝",
-
-        "╔══════════ 🦋══════════╗\nꕤ     ✍️           كود الكاتب الأول         ꕤ\n╚══════════════════════╝",
-
-        "╔══════════ 🦋══════════╗\nꕤ     🔄               رجـــــــــوع                ꕤ\n╚══════════════════════╝",
-
-        "╔══════════ 🦋══════════╗\nꕤ     🚪              خـــــــــــروج               ꕤ\n╚══════════════════════╝"
-
-    }, nil,
-
-    "╔══════════════════════╗\n" ..
-    "    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n" ..
-    "╚══════════════════════╝")
-
-
-    if menu == nil then
-        return MenuZyadkrdn()
-    end
-
-
-    -- =========================
-    -- رجوع
-    -- =========================
-
-    if menu[4] then
-
-        isSearchedZyad = false
+    if menu == nil then return MenuZyadkrdn() end
+    
+    -- گەڕانەوە و پاککردنەوەی میمۆری
+    if menu[4] then 
+        isZyadSearched = false
         zyadResults = {}
-
         gg.clearResults()
         gg.clearList()
-
-        gg.toast("🦋 🄳🄸🄳🄰🅁🅆🄰🄷🄰🄱 🦋")
-
-        if MainMenu then
-            return MainMenu()
-        end
-
-        return
+        gg.toast("🐰🅰︎🆁︎🅰︎🅼︎🅺︎🆄︎🆁︎🆃︎🅾︎🆆︎🅽︎🐰")
+        if MainMenu then return MainMenu() end 
+        return 
     end
 
-
-    -- =========================
-    -- خروج
-    -- =========================
-
-    if menu[5] then
-
-        gg.clearList()
-        gg.clearResults()
-
-        os.exit()
+    -- دەرچوون
+    if menu[5] then 
+        gg.clearList() 
+        gg.clearResults() 
+        os.exit() 
     end
 
-
-    -- =========================
-    -- دیاریکردنی هەڵبژاردن
-    -- =========================
-
-    local anySelected = false
-
-    for i = 1, 3 do
-        if menu[i] then
-            anySelected = true
-            break
-        end
-    end
-
-    if not anySelected then
-        return MenuZyadkrdn()
-    end
-
-
-    -- =========================
-    -- گەڕان تەنها یەک جار
-    -- دوای هەڵبژاردنی مینۆ
-    -- =========================
-
-    if not isSearchedZyad then
-
-        gg.clearResults()
-
-        gg.setRanges(
-            gg.REGION_C_ALLOC | gg.REGION_OTHER
-        )
-
-        gg.toast("🔍 جاري البحث...")
-
-        gg.searchNumber( "65537~65542;1970225964;29::457", gg.TYPE_DWORD )
- gg.refineNumber("29",gg.TYPE_DWORD)
-
-        local count = gg.getResultCount()
-        if count == 0 then
-
-            isSearchedZyad = false
-            zyadResults = {}
-
-            gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
-  return MenuZyadkrdn()
-        end
-
-        zyadResults = gg.getResults(count)
-
-        isSearchedZyad = true
-    end
-
-
-    -- =========================
-    -- کۆدی هەڵبژێردراو
-    -- =========================
-
-    local input = nil
-
-    -- بۆ کاش و پارەی زەرد تەنها
-    -- داواکاری بڕ
-
-    if menu[1] or menu[2] then
-
-        input = gg.prompt({"اكتب الكمية المطلوبة:"},{"0"},{"number"})
-
-        if input == nil then
-            return MenuZyadkrdn()
-        end
-    end
-
-
-    local edit = {}
-    local freeze = {}
-
-    -- =========================
-    -- ڕێگری لە تێکەڵبوونی slot
-    -- =========================
-
-    local slotIdx = 1
-
-    for i = 1, 3 do
-
-        if menu[i] and zyadResults[slotIdx] then
-
-            local v = configZyad[i]
-            local r = zyadResults[slotIdx]
-
-
-            -- =========================
-            -- +12 = Byte 2 + Freeze
-            -- =========================
-
-            table.insert(freeze, {
-                address = r.address + 12,
-                value = 2,
-                flags = gg.TYPE_BYTE,
-                freeze = true
-            })
-
-
-            -- =========================
-            -- کۆدەکان
-            -- =========================
-
-            for j, h in ipairs(v.hex) do
-
-                table.insert(edit, {
-                    address = r.address + 12 + (j * 4),
-                    value = h,
-                    flags = gg.TYPE_DWORD
-                })
-
+    -- بەشی کاش، پارەی زەرد، یان مرۆڤ نیاردەرتاڵ
+    if menu[1] or menu[2] or menu[3] then
+        if not isZyadSearched then
+            gg.clearResults()
+            gg.toast("⏳ گەڕان دەستی پێکرد ")
+            gg.searchNumber("65537~65542;1970225964;29", 4)
+            gg.refineNumber("29", 4)
+            
+            local count = gg.getResultCount()
+            if count == 0 then 
+                isZyadSearched = false 
+                gg.alert("❌ دڵنیابە یاری بە سراوەتەوە بە جێم ❌") 
+                return MenuZyadkrdn()
             end
+            zyadResults = gg.getResults(count)
+            isZyadSearched = true
+        end
 
+        if menu[1] or menu[2] then
+            gg.alert("⚠️ ئاگاداری بۆ ئەوەی باند نەبیت:\n\n💵 کاش (کۆن): ٢٥,٠٠٠\n💵 کاش (تازە): ٨٥٠,٠٠٠\n🪙 لیرەی زەرد: مەکسیمۆم ٩٥٠,٠٠٠", "تێگەیشتم")
 
-            -- =========================
-            -- کاش / پارەی زەرد
-            -- =========================
-
-            if i == 1 or i == 2 then
-
-                table.insert(edit, {
-                    address = r.address + 40,
-                    value = 0,
-                    flags = gg.TYPE_DWORD
-                })
-
-                table.insert(edit, {
-                    address = r.address + 44,
-                    value = tonumber(input[1]),
-                    flags = gg.TYPE_DWORD
-                })
-
+            local input = gg.prompt({'بڕی پێویست بنوسە:'}, {'0'}, {'number'})
+            if input then
+                local edit, freeze = {}, {}
+                local slotIdx = 1
+                
+                for i = 1, 2 do
+                    if menu[i] and zyadResults[slotIdx] then
+                        local r = zyadResults[slotIdx]
+                        local currentHex = {}
+                        
+                        if i == 1 then -- کاش
+                            currentHex = {0x73616308, 0x00000068, 0, 0, 0, 0}
+                        elseif i == 2 then -- پارەی زەرد
+                            currentHex = {1768907530, 29550, 0, 0, 0, 0}
+                        end
+                        
+                        table.insert(freeze, {address=r.address+12, value=2, flags=4, freeze=true})
+                        for j, h in ipairs(currentHex) do 
+                            table.insert(edit, {address=r.address+12+(j*4), value=h, flags=4}) 
+                        end
+                        table.insert(edit, {address=r.address+40, value=0, flags=4})
+                        table.insert(edit, {address=r.address+44, value=tonumber(input[1]), flags=4})
+                        
+                        slotIdx = slotIdx + 1
+                    end
+                end
+                
+                if #edit > 0 then
+                    gg.setValues(edit)
+                    gg.addListItems(freeze)
+                    gg.toast("✅ کاش/لیرە جێگیر کرا")
+                end
             end
-
-
-            slotIdx = slotIdx + 1
+        elseif menu[3] then -- بەشی مرۆڤ نیاردەرتاڵ بە هەمان گەڕان و کۆدە نوێیەکان
+            local slotIdx = 1
+            if zyadResults[slotIdx] then
+                local r = zyadResults[slotIdx]
+                local currentHex = {1835619372, 1850041445, 2037672308, 1635214674, 1816224882, 3299436}
+                local edit = {}
+                
+                for j, h in ipairs(currentHex) do 
+                    table.insert(edit, {address=r.address+12+(j*4), value=h, flags=4}) 
+                end
+                
+                if #edit > 0 then
+                    gg.setValues(edit)
+                    gg.toast("✅ مرۆڤ نیاردەرتاڵ جێگیر کرا")
+                end
+            else
+                gg.alert("❌ خانەی پێویست نەدۆزرایەوە!")
+            end
         end
     end
 
-
-    -- =========================
-    -- جێبەجێکردن
-    -- =========================
-
-    if #edit > 0 then
-
-        gg.setValues(edit)
-
-        if #freeze > 0 then
-            gg.addListItems(freeze)
-        end
-
-        gg.alert("🙆🏻 تم تبديل هدية 29 بنجاح\n" .. "افتح التصريح واستلم 🙆🏻")
-
-        gg.setVisible(false)
-
-        while not gg.isVisible() do
-            gg.sleep(200)
-        end
-
-        return MenuZyadkrdn()
-
-    else
-
-        gg.alert( "❌ تأكد من أن اللعبة مرتبطة بجيم جاردن")
-
-        return MenuZyadkrdn()
-    end
-
+    -- شاردنەوە و وەستان
+    gg.setVisible(false)
+    while not gg.isVisible() do 
+        gg.sleep(200) 
+    end 
+    
+    return MenuZyadkrdn() 
 end
+
 
 
 
