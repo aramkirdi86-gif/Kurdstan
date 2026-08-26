@@ -4340,15 +4340,19 @@ function Binakan()
         local b = saved_base2
         
 
+           local p = {}
+        local b = saved_base2
+        
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
         p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = true}
         p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = true}
-        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 24, freeze = false}
+        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 24, freeze = true} -- تەنها لێرەدا بەهاکە کرایە 24
         p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = saved_copied[4].value, freeze = true}
         p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = saved_copied[5].value, freeze = true}
         p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = saved_copied[6].value, freeze = true}
         p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
         p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
+
 
         gg.addListItems(p)
         gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
