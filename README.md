@@ -4290,11 +4290,9 @@ function Binakan()
     if saved_copied == nil or saved_base2 == nil then
         gg.clearResults()
         
-
-
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("5F50532Ch;736F6F42h;65705374h;70556465h;76726148h;00747365h;33;24", gg.TYPE_DWORD)
+        gg.searchNumber("1768641320;1769105507;1634563187;1634882584;33;27::57", gg.TYPE_DWORD)
         gg.refineNumber("24", gg.TYPE_DWORD)
 
         local r1 = gg.getResults(1)
@@ -4329,7 +4327,6 @@ function Binakan()
         saved_base2 = r2[1].address
     end
 
-
     local input = gg.prompt({"حدد القيمة "}, {0}, {"number"})
     
     if input then
@@ -4339,16 +4336,16 @@ function Binakan()
         local p = {}
         local b = saved_base2
         
-
+        -- تەنها بەیتی 12 تجمید کراوە (freeze = true)، ئەوانی تر false کراون
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
-        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = true}
-        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = true}
-        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = saved_copied[3].value, freeze = true}
-        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = saved_copied[4].value, freeze = true}
-        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = saved_copied[5].value, freeze = true}
-        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = saved_copied[6].value, freeze = true}
-        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
-        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
+        p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = false}
+        p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = false}
+        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 24, freeze = false}
+        p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = saved_copied[4].value, freeze = false}
+        p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = saved_copied[5].value, freeze = false}
+        p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = saved_copied[6].value, freeze = false}
+        p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = false}
+        p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = false}
 
         gg.addListItems(p)
         gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
