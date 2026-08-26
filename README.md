@@ -4294,7 +4294,7 @@ function Binakan()
 
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("1599099688;1936682818;33;24", gg.TYPE_DWORD)
+        gg.searchNumber("5F50532Ch;736F6F42h;65705374h;70556465h;76726148h;00747365h;33;24", gg.TYPE_DWORD)
         gg.refineNumber("24", gg.TYPE_DWORD)
 
         local r1 = gg.getResults(1)
