@@ -4294,8 +4294,8 @@ function Binakan()
 
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("1768641320;1769105507;1634563187;1634882584;33;27", gg.TYPE_DWORD)
-        gg.refineNumber("27", gg.TYPE_DWORD)
+        gg.searchNumber("33;24;1.599.099.692;1.936.682.818;1.701.860.212;1.884.644.453;1.987.207.496;7.631.717;1.936.682.818;1.701.860.212;1.936.682.818;1.936.682.818", gg.TYPE_DWORD)
+        gg.refineNumber("24", gg.TYPE_DWORD)
 
         local r1 = gg.getResults(1)
         if #r1 == 0 then
@@ -4340,19 +4340,15 @@ function Binakan()
         local b = saved_base2
         
 
-           local p = {}
-        local b = saved_base2
-        
         p[1] = {address = b + 12, flags = gg.TYPE_DWORD, value = 2, freeze = true}
         p[2] = {address = b + 16, flags = gg.TYPE_DWORD, value = saved_copied[1].value, freeze = true}
         p[3] = {address = b + 20, flags = gg.TYPE_DWORD, value = saved_copied[2].value, freeze = true}
-        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = 24, freeze = true} -- تەنها لێرەدا بەهاکە کرایە 24
+        p[4] = {address = b + 24, flags = gg.TYPE_DWORD, value = saved_copied[3].value, freeze = true}
         p[5] = {address = b + 28, flags = gg.TYPE_DWORD, value = saved_copied[4].value, freeze = true}
         p[6] = {address = b + 32, flags = gg.TYPE_DWORD, value = saved_copied[5].value, freeze = true}
         p[7] = {address = b + 36, flags = gg.TYPE_DWORD, value = saved_copied[6].value, freeze = true}
         p[8] = {address = b + 40, flags = gg.TYPE_DWORD, value = 0, freeze = true}
         p[9] = {address = b + 44, flags = gg.TYPE_DWORD, value = input[1], freeze = true}
-
 
         gg.addListItems(p)
         gg.alert("🙆🏻تم تبديل هدية 29 بنجاح افتح التصريح واستلم🙆🏻")
