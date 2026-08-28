@@ -486,7 +486,7 @@ if #editTable > 0 then
 else
     gg.alert("❌ هیچ ئەنجامێکی گونجاو نەدۆزرایەوە")
 end
-
+end
 
 
 
