@@ -463,7 +463,7 @@ function ezhar()
                 table.insert(editTable, {
                     address = v.address + 8, 
                     flags = gg.TYPE_DWORD,
-                    value = 20000
+                    value = 100
                 })
                 validCount = validCount + 1
             end
@@ -473,9 +473,6 @@ function ezhar()
             gg.setValues(editTable)
             gg.toast("سەرکەوتوو بوو! " .. validCount .." بەها گۆڕران بۆ 20000")
         else
-            gg.alert("❌ هیچ ئەنجامێک نەدۆزرایەوە ❌\n\nتکایە دڵنیابە لە بەستنەوەی یاری بە سکریپتەکە ✅\n\nسەیری بەشی نیطاقات الذاكره بکە و دڵنیابە لە چالاککردنی خانەی CA لەگەڵ خانەی بطيء 🔥")
-        end
-    else
         gg.alert("❌ هیچ ئەنجامێک نەدۆزرایەوە ❌\n\nتکایە دڵنیابە لە بەستنەوەی یاری بە سکریپتەکە ✅\n\nسەیری بەشی نیطاقات الذاكره بکە و دڵنیابە لە چالاککردنی خانەی CA لەگەڵ خانەی بطيء 🔥")
     end
 end
