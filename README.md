@@ -440,28 +440,55 @@ function HackItems()
 end
 
 function ezhar()
+    -- ١. دیاریکردنی مەودای یادگە بۆ ئەندرۆیدی نوێ
+    gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
+    
 
-    gg.clearResults()
+    gg.searchNumber("100;15;86400::29", gg.TYPE_DWORD, false, gg.SIGN_EQUAL)
 
-    -- تەنها بۆ تاقیکردنەوە
-    gg.setRanges(gg.REGION_ANONYMOUS)
+gg.sleep(250)
 
-    gg.searchNumber(
-        "100;15;86400::29",
-        gg.TYPE_DWORD,
-        false,
-        gg.SIGN_EQUAL,
-        0,
-        -1
-    )
+gg.searchNumber("100", gg.TYPE_DWORD, false, gg.SIGN_EQUAL)
 
-    gg.sleep(500)
+    
 
-    local count = gg.getResultCount()
+    gg.sleep(250)
+    
+    local results = gg.getResultCount()
+    
+    if results > 0 then
 
-    gg.alert("Result = " .. count)
-
+        local t = gg.getResults(results)
+        local validCount = 0
+        local editTable = {}
+        
+        for i, v in ipairs(t) do
+            if v.value == 100 then
+               
+                table.insert(editTable, {
+                    address = v.address + 8, 
+                    flags = gg.TYPE_DWORD,
+                    value = 20000
+                })
+                validCount = validCount + 1
+            end
+        end
+        
+        if validCount > 0 then
+            gg.setValues(editTable)
+            gg.toast("سەرکەوتوو بوو! " .. validCount .." بەها گۆڕران بۆ 20000")
+        else
+            gg.alert("❌ هیچ ئەنجامێک نەدۆزرایەوە ❌\n\nتکایە دڵنیابە لە بەستنەوەی یاری بە سکریپتەکە ✅\n\nسەیری بەشی نیطاقات الذاكره بکە و دڵنیابە لە چالاککردنی خانەی CA لەگەڵ خانەی بطيء 🔥")
+        end
+    else
+        gg.alert("❌ هیچ ئەنجامێک نەدۆزرایەوە ❌\n\nتکایە دڵنیابە لە بەستنەوەی یاری بە سکریپتەکە ✅\n\nسەیری بەشی نیطاقات الذاكره بکە و دڵنیابە لە چالاککردنی خانەی CA لەگەڵ خانەی بطيء 🔥")
+    end
 end
+
+
+
+
+
 
 
 
