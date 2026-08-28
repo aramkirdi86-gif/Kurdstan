@@ -449,44 +449,43 @@ gg.searchNumber("100;15;86400::29", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
 
 gg.sleep(250)
 
+local count = gg.getResultCount()
+
+if count == 0 then
+    gg.alert("❌ هیچ pattern ـێک نەدۆزرایەوە")
+    return
+end
+
 gg.refineNumber("100", gg.TYPE_DWORD)
-    
 
-    gg.sleep(250)
-    
-    local results = gg.getResultCount()
-    
-    if results > 0 then
+gg.sleep(250)
 
-        local t = gg.getResults(results)
-        local validCount = 0
-        local editTable = {}
-        
-        for i, v in ipairs(t) do
-            if v.value == 100 then
-               
-                table.insert(editTable, {
-                    address = v.address + 8, 
-                    flags = gg.TYPE_DWORD,
-                    value = 20000
-                })
-                validCount = validCount + 1
-            end
-        end
-        
-        if validCount > 0 then
-            gg.setValues(editTable)
-            gg.toast("سەرکەوتوو بوو! " .. validCount .." بەها گۆڕران بۆ 20000")
-        else
-            gg.alert("❌ هیچ ئەنجامێک نەدۆزرایەوە ❌\n\nتکایە دڵنیابە لە بەستنەوەی یاری بە سکریپتەکە ✅\n\nسەیری بەشی نیطاقات الذاكره بکە و دڵنیابە لە چالاککردنی خانەی CA لەگەڵ خانەی بطيء 🔥")
-        end
-    else
-        gg.alert("❌ هیچ ئەنجامێک نەدۆزرایەوە ❌\n\nتکایە دڵنیابە لە بەستنەوەی یاری بە سکریپتەکە ✅\n\nسەیری بەشی نیطاقات الذاكره بکە و دڵنیابە لە چالاککردنی خانەی CA لەگەڵ خانەی بطيء 🔥")
+local results = gg.getResultCount()
+
+if results == 0 then
+    gg.alert("❌ دوای فلتەرکردن هیچ 100 ـێک نەدۆزرایەوە")
+    return
+end
+
+local t = gg.getResults(results)
+local editTable = {}
+
+for i, v in ipairs(t) do
+    if tonumber(v.value) == 100 then
+        table.insert(editTable, {
+            address = v.address + 8,
+            flags = gg.TYPE_DWORD,
+            value = 20000
+        })
     end
 end
 
-
-
+if #editTable > 0 then
+    gg.setValues(editTable)
+    gg.toast("✅ " .. #editTable .. " بەها گۆڕدرا بۆ 20000")
+else
+    gg.alert("❌ هیچ ئەنجامێکی گونجاو نەدۆزرایەوە")
+end
 
 
 
