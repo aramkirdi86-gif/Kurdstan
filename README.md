@@ -448,7 +448,8 @@ function ezhar()
 
 gg.sleep(250)
 
-gg.searchNumber("100", gg.TYPE_DWORD, false, gg.SIGN_EQUAL)
+gg.refineNumber("100", gg.TYPE_DWORD, false, gg.SIGN_EQUAL)
+
 
     
 
