@@ -441,19 +441,13 @@ end
 
 function ezhar()
     -- ١. دیاریکردنی مەودای یادگە بۆ ئەندرۆیدی نوێ
+    gg.clearResults()
+        gg.toast("🔍 البحث عن النقاط...")
+       gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+        gg.searchNumber('100;15;86400::29', gg.TYPE_DWORD)
+        gg.refineNumber("100", gg.TYPE_DWORD)
     gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
     
-
-    gg.searchNumber("100;15;86400::29", gg.TYPE_DWORD, false, gg.SIGN_EQUAL)
-
-gg.sleep(250)
-
-gg.refineNumber("100", gg.TYPE_DWORD, false, gg.SIGN_EQUAL)
-
-
-    
-
-    gg.sleep(250)
     
     local results = gg.getResultCount()
     
