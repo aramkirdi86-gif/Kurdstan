@@ -442,15 +442,14 @@ end
 function ezhar()
     -- ١. دیاریکردنی مەودای یادگە بۆ ئەندرۆیدی نوێ
     gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
-    
 
-    gg.searchNumber("100;15;86400::29", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
-    
+gg.clearResults()
 
-    gg.sleep(250)
-    
+gg.searchNumber("100;15;86400::29", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
 
-    gg.searchNumber("100", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+gg.sleep(250)
+
+gg.refineNumber("100", gg.TYPE_DWORD)
     
 
     gg.sleep(250)
