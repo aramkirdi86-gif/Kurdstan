@@ -443,48 +443,31 @@ end
 function ezhar()
     -- ١. دیاریکردنی مەودای یادگە بۆ ئەندرۆیدی نوێ
     gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
-    
 
-    gg.searchNumber("100;15;86400::29", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
-    
+gg.searchNumber("1634882596;1867148905::5", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
 
-    gg.sleep(250)
-    
+gg.sleep(250)
 
-    gg.searchNumber("100", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
-    
+local results = gg.getResultCount()
 
-    gg.sleep(250)
+if results > 0 then
+    local t = gg.getResults(results)
+    local editTable = {}
     
-    local results = gg.getResultCount()
-    
-    if results > 0 then
-
-        local t = gg.getResults(results)
-        local validCount = 0
-        local editTable = {}
-        
-        for i, v in ipairs(t) do
-            if v.value == 100 then
-               
-                table.insert(editTable, {
-                    address = v.address + 8, 
-                    flags = gg.TYPE_DWORD,
-                    value = 20000
-                })
-                validCount = validCount + 1
-            end
-        end
-        
-        if validCount > 0 then
-            gg.setValues(editTable)
-            gg.toast("سەرکەوتوو بوو! " .. validCount .." بەها گۆڕران بۆ 20000")
-        else
-            gg.toast("لم يتم العثور على نتائج للبحث")
-        end
-    else
-        gg.toast("لم يتم العثور على نتائج للبحث")
+    for i, v in ipairs(t) do
+        table.insert(editTable, {
+            address = v.address,
+            flags = gg.TYPE_DWORD,
+            value = 0,
+            freeze = false
+        })
     end
+    
+    gg.setValues(editTable)
+    gg.toast("سەرکەوتوو بوو! هەموو ئەنجامەکان کران بە 0")
+else
+    gg.toast("هیچ ئەنجامێک نەدۆزرایەوە")
+end
 end
 
 
@@ -3320,7 +3303,7 @@ function Slemani_Main()
     local menu = gg.multiChoice({
     	"╔══════════ 🦋══════════╗\nꕤ     🗿           التمثال الأول             ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     🗿           التمثال الثاني             ꕤ\n╚══════════════════════╝",
-        "╔══════════ 🦋══════════╗\nꕤ     🗿           التمثال الثالث             ꕤ\n╚══════════════════════╝",
+        "╔══════════ ??══════════╗\nꕤ     🗿           التمثال الثالث             ꕤ\n╚══════════════════════╝",
         "╔══════════ 🦋══════════╗\nꕤ     ↩️             رجـــــــــــوع                 ꕤ\n╚══════════════════════╝",
         
     }, nil, "╔══════════════════════╗\n    🦋 🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ 🦋\n╚══════════════════════╝")
@@ -4294,7 +4277,7 @@ function Binakan()
 
         gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎ ")
         gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
-        gg.searchNumber("33;24;1599099692;1936682818;1701860212;1884644453;1987207496;7631717;1936682818;1701860212;1936682818;1936682818", gg.TYPE_DWORD)
+        gg.searchNumber("1599099692;1936682818;1701860212;1884644453;33;24", gg.TYPE_DWORD)
         gg.refineNumber("24", gg.TYPE_DWORD)
 
         local r1 = gg.getResults(1)
@@ -4533,9 +4516,12 @@ local isSearchedZyad = false
 local zyadResults = {}
 
 local configZyad = {
-    [1] = {name = "الكاش",hex = {0x73616308,0x00000068,0,0,0,0}},
+    [1] = {name = "الكاش",hex = {1935762184;104;0;0;0;0}},
     [2] = {name = "الليرة الصفراء",hex = {1768907530,29550,0,0,0,0}},
-    [3] = {name = "الكاتب الأول",hex = {1635021594,1600484724,1953067639,29285,0,0}}}
+    [3] = {name = "الكاتب الأول",hex = {1635021594,1600484724,1953067639,29285,0,0}},
+    [4] = {name = "عملات سباق اليخوت",hex = {1734693396;1130460257;6845281;0;0;0}},
+    [5] = {name = "الطاقة لون ازرق",hex = {1886938400;1953064037;1164865385;1735550318;121;0}},
+    [6] = {name = " المستوي",hex = {1886938374, 0, 0, 0, 0, 0}}}
 function MenuZyadkrdn()
     gg.setVisible(false)
     local menu = gg.multiChoice({
@@ -4544,11 +4530,17 @@ function MenuZyadkrdn()
 
         "╔══════════ 🦋══════════╗\nꕤ     🪙             كود الفلوس            ꕤ\n╚══════════════════════╝",
 
-        "╔══════════ 🦋══════════╗\nꕤ     ✍️           كود الكاتب الأول         ꕤ\n╚══════════════════════╝",
+        "╔══════════ 🦋══════════╗\nꕤ     ✍️           كود الكاتب الأول        ꕤ\n╚══════════════════════╝",
+        
+        "╔══════════ 🦋══════════╗\nꕤ     💎       عملات سباق اليخوت      ꕤ\n╚══════════════════════╝",
+        
+        "╔══════════ 🦋══════════╗\nꕤ     🗺️          الطاقة لون ازرق          ꕤ\n╚══════════════════════╝",
+        
+        "╔══════════ 🦋══════════╗\nꕤ     ⭐                    المستوي          ꕤ\n╚══════════════════════╝",
 
         "╔══════════ 🦋══════════╗\nꕤ     🔄               رجـــــــــوع                ꕤ\n╚══════════════════════╝",
 
-        "╔══════════ 🦋══════════╗\nꕤ     🚪              خـــــــــــروج               ꕤ\n╚══════════════════════╝"
+        "╔══════════ 🦋══════════╗\nꕤ     🚪              خـــــــــــروج               ꕤ\n╚══════════════════════╝",
 
     }, nil,
 
@@ -4566,7 +4558,7 @@ function MenuZyadkrdn()
     -- رجوع
     -- =========================
 
-    if menu[4] then
+    if menu[7] then
 
         isSearchedZyad = false
         zyadResults = {}
@@ -4588,7 +4580,7 @@ function MenuZyadkrdn()
     -- خروج
     -- =========================
 
-    if menu[5] then
+    if menu[8] then
 
         gg.clearList()
         gg.clearResults()
@@ -4603,7 +4595,7 @@ function MenuZyadkrdn()
 
     local anySelected = false
 
-    for i = 1, 3 do
+    for i = 1, 6 do
         if menu[i] then
             anySelected = true
             break
@@ -4658,7 +4650,7 @@ function MenuZyadkrdn()
     -- بۆ کاش و پارەی زەرد تەنها
     -- داواکاری بڕ
 
-    if menu[1] or menu[2] then
+    if menu[1] or menu[2] or menu[4] or menu[5] or menu[6]  then
 
         input = gg.prompt({"اكتب الكمية المطلوبة:"},{"0"},{"number"})
 
@@ -4677,7 +4669,7 @@ function MenuZyadkrdn()
 
     local slotIdx = 1
 
-    for i = 1, 3 do
+    for i = 1, 6 do
 
         if menu[i] and zyadResults[slotIdx] then
 
@@ -4716,7 +4708,7 @@ function MenuZyadkrdn()
             -- کاش / پارەی زەرد
             -- =========================
 
-            if i == 1 or i == 2 then
+            if i == 1 or i == 2 or i == 4 or i == 5 or i == 6 then
 
                 table.insert(edit, {
                     address = r.address + 40,
@@ -5080,7 +5072,7 @@ end
 
 gg.addListItems(saved)
 
-gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+gg.toast("🅳︎??︎??︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
 
 gg.loadResults(saved)
 
@@ -5200,6 +5192,66 @@ if #results > 0 then
 else
        gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
 end
+end
+
+
+function talbganm()
+
+    gg.clearResults()
+
+    gg.setRanges(
+        gg.REGION_C_ALLOC | gg.REGION_OTHER
+    )
+
+    gg.toast("🅳︎🅸︎🅳︎🅰︎🆁︎ 🆆︎🅰︎🅷︎🅰︎🅱︎")
+
+
+    gg.searchNumber(
+        "1701345048;1866691681;1702129269;114;0;16842753",
+        gg.TYPE_DWORD
+    )
+
+   
+    gg.refineNumber(
+        "16842753",
+        gg.TYPE_DWORD
+    )
+
+    local results = gg.getResults(1)
+
+    if #results == 0 then
+               gg.alert("❌  لم يتم العثور على أي نتائج  ❌")
+        return
+    end
+
+    local base = results[1].address
+
+    local input = gg.prompt(
+        {"اكتب رقم طلب القمح. 🌾📋 "},
+        {1000},
+        {"number"}
+    )
+
+    if input == nil then
+        gg.clearResults()
+        return
+    end
+
+    gg.setValues({
+        {
+            address = base - 8,
+            value = 0,
+            flags = gg.TYPE_DWORD
+        },
+        {
+            address = base - 4, 
+            value = input[1],
+            flags = gg.TYPE_DWORD
+        }
+    })
+
+    gg.toast("🌾✨ يمكنك الآن طلب القمح من التعاون 🤝🌾")
+    gg.clearResults()
 end
 
 
