@@ -440,52 +440,41 @@ function HackItems()
 end
 
 function ezhar()
-    -- ١. دیاریکردنی مەودای یادگە بۆ ئەندرۆیدی نوێ
-    gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
 
-gg.clearResults()
+    gg.clearResults()
 
-gg.searchNumber("100;15;86400::29", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+    gg.setRanges(
+        gg.REGION_ANONYMOUS |
+        gg.REGION_C_ALLOC
+    )
 
-gg.sleep(250)
+    gg.toast("🔍 دەست بە گەڕان کرا...")
 
-local count = gg.getResultCount()
+    gg.searchNumber(
+        "100;15;86400::29",
+        gg.TYPE_DWORD,
+        false,
+        gg.SIGN_EQUAL,
+        0,
+        -1
+    )
 
-if count == 0 then
-    gg.alert("❌ هیچ pattern ـێک نەدۆزرایەوە")
-    return
-end
+    gg.sleep(500)
 
-gg.refineNumber("100", gg.TYPE_DWORD)
+    local count = gg.getResultCount()
 
-gg.sleep(250)
-
-local results = gg.getResultCount()
-
-if results == 0 then
-    gg.alert("❌ دوای فلتەرکردن هیچ 100 ـێک نەدۆزرایەوە")
-    return
-end
-
-local t = gg.getResults(results)
-local editTable = {}
-
-for i, v in ipairs(t) do
-    if tonumber(v.value) == 100 then
-        table.insert(editTable, {
-            address = v.address + 8,
-            flags = gg.TYPE_DWORD,
-            value = 20000
-        })
+    if count == 0 then
+        gg.alert(
+            "❌ هیچ ئەنجامێک نەدۆزرایەوە\n\n" ..
+            "Pattern: 100;15;86400::29\n" ..
+            "Type: DWORD\n" ..
+            "Range: ANONYMOUS + C_ALLOC"
+        )
+        return
     end
-end
 
-if #editTable > 0 then
-    gg.setValues(editTable)
-    gg.toast("✅ " .. #editTable .. " بەها گۆڕدرا بۆ 20000")
-else
-    gg.alert("❌ هیچ ئەنجامێکی گونجاو نەدۆزرایەوە")
-end
+    gg.alert("✅ گەڕان تەواو بوو\n\nژمارەی ئەنجامەکان: " .. count)
+
 end
 
 
