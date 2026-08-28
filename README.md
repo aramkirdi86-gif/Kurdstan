@@ -390,7 +390,7 @@ function HackItems()
         local count = gg.getResultCount()
         if count == 0 then 
             isHackItemsSearched = false 
-            gg.alert("⚠️ لم يتم العثور على أي نتائج!")
+            gg.alert("❌ هیچ ئەنجامێک نەدۆزرایەوە ❌\n\nتکایە دڵنیابە لە بەستنەوەی یاری بە سکریپتەکە ✅\n\nسەیری بەشی نیطاقات الذاكره بکە و دڵنیابە لە چالاککردنی خانەی CA لەگەڵ خانەی بطيء 🔥")
             return HackItems()
         end
         hackItemsResults = gg.getResults(count)
@@ -443,32 +443,50 @@ end
 function ezhar()
     -- ١. دیاریکردنی مەودای یادگە بۆ ئەندرۆیدی نوێ
     gg.setRanges(gg.REGION_ANONYMOUS | gg.REGION_C_ALLOC)
-
-gg.searchNumber("1634882596;1867148905::5", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
-
-gg.sleep(250)
-
-local results = gg.getResultCount()
-
-if results > 0 then
-    local t = gg.getResults(results)
-    local editTable = {}
     
-    for i, v in ipairs(t) do
-        table.insert(editTable, {
-            address = v.address,
-            flags = gg.TYPE_DWORD,
-            value = 0,
-            freeze = false
-        })
+
+    gg.searchNumber("100;15;86400::29", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+    
+
+    gg.sleep(250)
+    
+
+    gg.searchNumber("100", gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+    
+
+    gg.sleep(250)
+    
+    local results = gg.getResultCount()
+    
+    if results > 0 then
+
+        local t = gg.getResults(results)
+        local validCount = 0
+        local editTable = {}
+        
+        for i, v in ipairs(t) do
+            if v.value == 100 then
+               
+                table.insert(editTable, {
+                    address = v.address + 8, 
+                    flags = gg.TYPE_DWORD,
+                    value = 20000
+                })
+                validCount = validCount + 1
+            end
+        end
+        
+        if validCount > 0 then
+            gg.setValues(editTable)
+            gg.toast("سەرکەوتوو بوو! " .. validCount .." بەها گۆڕران بۆ 20000")
+        else
+            gg.alert(" ❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
+        end
+    else
+        gg.alert(" ❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
     end
-    
-    gg.setValues(editTable)
-    gg.toast("سەرکەوتوو بوو! هەموو ئەنجامەکان کران بە 0")
-else
-    gg.toast("هیچ ئەنجامێک نەدۆزرایەوە")
 end
-end
+
 
 
 
