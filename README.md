@@ -470,17 +470,20 @@ function ezhar()
             end
         end
         
-        if validCount > 0 then
-            gg.setValues(editTable)
-            gg.toast("إظهار حدث الأزهار نجح 🌸")
-        else
-            gg.alert("❌ لم يتم العثور على أي خانة!")
-        end
+if validCount > 0 then
+        gg.setValues(editTable)
+        gg.toast("🌸 مبروك، تم فتح حدث الأزهار والسفينة ✅")
     else
-        gg.alert("❌ لم يتم العثور على أي خانة!")
+        gg.alert("لم يتم العثور على أي خانة ❌")
     end
-end 
 
+else
+    gg.alert("لم يتم العثور على أي خانة ❌")
+end
+
+    gg.setVisible(false)
+    while not gg.isVisible() do gg.sleep(200) end
+end
 
 
 
@@ -1551,7 +1554,7 @@ function Run_Decoration()
     
     if #results == 0 then 
         gg.setVisible(true)
-        return gg.alert("❌ تکایە دڵنیابەوە یاریت بە سراوەتەوە بە جێم") 
+        return gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
     end
     
     local cell3 = results[1].address + 12
@@ -1656,7 +1659,7 @@ function Run_Water_Decoration()
     
     if #results == 0 then 
         gg.setVisible(true)
-        return gg.alert("❌ تکایە دڵنیابەوە لە بەستنەوەی یاریت بە جێم ") 
+        return gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
     end
     
     local cell3 = results[1].address + 12
@@ -1744,7 +1747,7 @@ function Run_Fountain()
     
     if #results == 0 then 
         gg.setVisible(true)
-        return gg.alert("❌ تکایە دڵنیابەوە لە یاری کەبەسراوەتەوە بە جێم") 
+        return gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
     end
     
     local cell3 = results[1].address + 12
@@ -1846,7 +1849,7 @@ function Run_Witch_Houses()
     
     if #results == 0 then 
         gg.setVisible(true)
-        return gg.alert("❌ تکایە دڵنیابەوە لە یاریت بەسراوەتەوە بە جێم") 
+        return gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
     end
     
     local cell3 = results[1].address + 12
@@ -1934,7 +1937,7 @@ function Run_Trees()
     
     if #results == 0 then 
         gg.setVisible(true)
-        return gg.alert("❌ تکایە دڵنیابەوە لە یاری بەسراوەتەوە بە جێم") 
+        return gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
     end
     
     local cell3 = results[1].address + 12
@@ -2012,7 +2015,7 @@ function Run_Rabbit_Houses()
     
     if #results == 0 then 
         gg.setVisible(true)
-        return gg.alert("❌ تکایە دڵنیابەوە لە یاری بەسراوەتەوە بە جێم ") 
+        return gg.alert("❌ تأكد من أن اللعبة مرتبطة بجيم جاردن ")
     end
     
     local cell3 = results[1].address + 12
