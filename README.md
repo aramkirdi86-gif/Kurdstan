@@ -443,12 +443,8 @@ function ezhar()
 
     gg.clearResults()
 
-    gg.setRanges(
-        gg.REGION_ANONYMOUS |
-        gg.REGION_C_ALLOC
-    )
-
-    gg.toast("🔍 دەست بە گەڕان کرا...")
+    -- تەنها بۆ تاقیکردنەوە
+    gg.setRanges(gg.REGION_ANONYMOUS)
 
     gg.searchNumber(
         "100;15;86400::29",
@@ -463,20 +459,9 @@ function ezhar()
 
     local count = gg.getResultCount()
 
-    if count == 0 then
-        gg.alert(
-            "❌ هیچ ئەنجامێک نەدۆزرایەوە\n\n" ..
-            "Pattern: 100;15;86400::29\n" ..
-            "Type: DWORD\n" ..
-            "Range: ANONYMOUS + C_ALLOC"
-        )
-        return
-    end
-
-    gg.alert("✅ گەڕان تەواو بوو\n\nژمارەی ئەنجامەکان: " .. count)
+    gg.alert("Result = " .. count)
 
 end
-
 
 
 
